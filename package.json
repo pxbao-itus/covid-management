@@ -24,11 +24,16 @@
   },
   "homepage": "https://github.com/pxbao-itus/covid-management#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.6",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-handlebars": "^6.0.2",
+    "express-handlebars-sections": "^1.0.1",
     "md5": "^2.3.0",
+    "multer": "^1.4.4",
+    "passport": "^0.5.0",
+    "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "pg": "^8.7.1"
   },
