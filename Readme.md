@@ -10,8 +10,8 @@
 
 ## Front End
 1. Module
-- Views engine __handlebars__
-
+- Views engine __express-handlebars__
+- Control __express-handlebars-sections__
 
 
 ## Back End
@@ -19,7 +19,8 @@
 - Framework __express__
 - Local technique __passport passport-local bcrypt multer__
 - Cookie management __cookie-parser__
-- Access database __pg__
+- Access database __pg, pg-promise__
+
 
 
 ## Database
