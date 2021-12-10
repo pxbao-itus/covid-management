@@ -1,13 +1,14 @@
 require('dotenv').config();
-const {Pool} = require('pg');
-
-const pool = new Pool({
+const pgp = require('pg-promise')({
+    capSQL: true,
+})
+const schema = 'public';
+require('dotenv').config();
+const cn = {
     user: process.env.USER,
     host: process.env.HOST,
     database: process.env.DATABASE,
     password: process.env.PASSWORD,
     port: process.env.PORT_DATABASE,
-})
-
-
-module.exports = pool;
+};
+const db = pgp(cn);

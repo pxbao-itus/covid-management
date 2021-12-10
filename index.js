@@ -2,7 +2,6 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
-const handlebars = require('express-handlebars');
 
 // import module
 
@@ -14,21 +13,14 @@ const port = process.env.PORT
 // config app
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
-
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
-
 app.set('view engine', '.hbs');
 
-// config handlebars
-const hbs = handlebars.create({
-    defaultLayout: 'main',
-    extname: 'hbs',
-    helpers: {
-
-    }
-});
-app.engine('.hbs', hbs.engine);
+// config for session
+require('./config/session.config')(app);
+// config for handlebars
+require('./config/handlebars.config')(app);
 
 // use middleware
 
