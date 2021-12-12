@@ -1,6 +1,7 @@
 // import system module
 require('dotenv').config();
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 
 // import module
@@ -14,6 +15,7 @@ const port = process.env.PORT
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser(process.env.SECRET_KEY));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', '.hbs');
 
@@ -30,7 +32,8 @@ app.get("/", (req, res) => {
     res.render("home");
 })
 
-
+// router for User sigin and signout
+app.use('/auth', require('./controllers/user/auth.controller'));
 
 
 
