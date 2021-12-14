@@ -3,7 +3,9 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 
 const accountModel = require('../models/account.model');
-
+const userAccountTable = 'TaiKhoanNguoiDung';
+const managerAccountTable = 'TaiKhoanNguoiQuanLy';
+const adminAccountTable = 'TaiKhoanNguoiQuanTri';
 
 module.exports = app => {
     passport.use(new LocalStrategy({
@@ -14,16 +16,20 @@ module.exports = app => {
             let account;
             var tableName;
             try {
-                if(username.indexOf('mng') >= 0) {
-                    tableName = 'TaiKhoanNguoiQuanLy';
-                } else {
-                    tableName = 'TaiKhoanNguoiDung';
-                }
-                account = await accountModel.get(tableName, username);
+                tableName = userAccountTable;
+                account = await accountModel.get(userAccountTable, username);
                 if(!account) {
-                    return done(null, false, {message: 'Incorrect username.'});
-                }
-                const challengeResult = await bcrypt.compare(password, user.Password);
+                    tableName = managerAccountTable;
+                    account = await accountModel.get(managerAccountTable, username);
+                    if(!account) {
+                        tableName = adminAccountTable;
+                        account = await accountModel.get(adminAccountTable, username);
+                        if(!account) {
+                            return done(null, false, {message: 'Incorrect username.'});
+                        }
+                    }  
+                    }
+                const challengeResult = await bcrypt.compare(password, account.Password);
                 if(!challengeResult) {
                     return done(null, false, {message: 'Incorrect password.'});
                 }
