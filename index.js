@@ -32,8 +32,11 @@ app.get("/", (req, res) => {
     res.render("home");
 })
 
-// router for User sigin and signout
+// router for User, Manager, Admin sigin and signout
 app.use('/auth', require('./controllers/user/auth.controller'));
+
+// router for initial admin account when system start at the first time
+app.use('/init', require('./controllers/initAdmin.controller'));
 
 
 

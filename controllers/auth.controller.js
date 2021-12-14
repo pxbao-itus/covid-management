@@ -27,9 +27,7 @@ authUser.get('/signin',async (req, res) =>{
                 if(user) {
                     return res.redirect('/admin');
                 } else {
-                    return res.render('signin', {
-                        msg: 'Username or password is incorrect!'
-                    })
+                    return res.render('signin');
                 }
             }
         }
@@ -61,18 +59,18 @@ authUser.post('/signin',async (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if(err) {
             return res.render('signin', {
-                msg: 'Username or password is incorrect!'
+                msg: 'Tên đăng nhập hoặc mật khẩu không chính xác!'
             });
         }
         if(!user) {
             return res.render('user/signin', {
-                msg: 'Username or password is incorrect!'
+                msg: 'Tên đăng nhập hoặc mật khẩu không chính xác!'
             });
         }
         req.logIn(user,async (err) => {
             if(err) {
                 return res.render('signin', {
-                    msg: 'Username or password is incorrect!'
+                    msg: 'Tên đăng nhập hoặc mật khẩu không chính xác!'
                 });
             }
             if(req.body.keep === 'on') {
@@ -83,7 +81,7 @@ authUser.post('/signin',async (req, res, next) => {
                 const challengeResult = await bcrypt.compare(password, account.Password);
                 if(!challengeResult) {
                     return res.render('user/signin', {
-                        msg: 'Username or password is incorrect!'
+                        msg: 'Tên đăng nhập hoặc mật khẩu không chính xác!'
                     });
                 }
                 if(account.TrangThai === '0') {
@@ -97,7 +95,7 @@ authUser.post('/signin',async (req, res, next) => {
                 const challengeResult = await bcrypt.compare(password, account.Password);
                 if(!challengeResult) {
                     return res.render('user/signin', {
-                        msg: 'Username or password is incorrect!'
+                        msg: 'Tên đăng nhập hoặc mật khẩu không chính xác!'
                     });
                 }
                 if(account.TrangThai === '0') {
@@ -114,7 +112,7 @@ authUser.post('/signin',async (req, res, next) => {
                 const challengeResult = await bcrypt.compare(password, account.Password);
                 if(!challengeResult) {
                     return res.render('user/signin', {
-                        msg: 'Username or password is incorrect!'
+                        msg: 'Tên đăng nhập hoặc mật khẩu không chính xác!'
                     });
                 }
                 return res.redirect("/admin");  
