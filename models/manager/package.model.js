@@ -1,0 +1,24 @@
+const db = require('../db');
+
+module.exports = {
+    list: async () => {
+        const res = await db.listPackage();
+        return res;
+    },
+    delete: async(value) => {
+        const res = await db.deletePackage(value);
+        return res;
+    },
+    detail: async (value) => {
+        const res = await db.detailPackage(value);
+        return res;
+    },
+    update: async (package, details, value) => {
+        const res = await db.updatePackage(package, details, value);
+        return res;
+    },
+    create: async (package, details) => {
+        const res = await db.createProduct(package, details);
+        return res;
+    }
+}

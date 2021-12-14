@@ -43,6 +43,7 @@ app.use('/init', require('./controllers/initAdmin.controller'));
 app.use('/manager/product', require('./controllers/manager/product.controller'));
 
 // router for package
+app.use('/manager/package', require('./controllers/manager/package.controller'));
 
 // router for statistic
 
