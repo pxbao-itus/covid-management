@@ -61,12 +61,23 @@ packageRouter.post('/update', async (req, res) => {
     }
 })
 packageRouter.get('/create', (req, res) => {
-    return res.render('manager/packageCreate');
+    let message = '';
+    if(req.cookies('createPackage')) {
+        message = req.cookies('create');
+    }
+    return res.render('manager/productCreate', {
+        msg: message
+    });
 })
 packageRouter.post('/create', async (req, res) => {
     const {package, details} = req.body;
     try {
         const result = await packageModel.create(package, details);
+        if(result) {
+            res.cookie('createPackage', 'Thêm gói nhu yếu phẩm thành công.');
+        } else {
+            res.cookie('createPackage', 'Thêm gói nhu yếu phẩm không thành công.');
+        }
         return res.redirect('/manager/package/create');
     } catch (error) {
         return res.redirect('/manager/package/create');

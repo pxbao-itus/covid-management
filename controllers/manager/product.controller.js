@@ -3,7 +3,10 @@ const product = require('express').Router();
 const productModel = require('../../models/manager/product.model');
 
 product.get('/list', (req, res) => {
-    return res.render('manager/products');
+    const products = await productModel.list();
+    return res.render('manager/products', {
+        products: products
+    });
 })
 product.get('/list/ajax',async (req, res) => {
     const products = await productModel.list();
