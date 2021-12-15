@@ -1,4 +1,4 @@
-const db = require('../db');
+const db = require('../product');
 
 module.exports = {
     list: async () => {

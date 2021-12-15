@@ -1,4 +1,4 @@
-const db = require('./db');
+const db = require('./account');
 const fieldName = 'Username';
 module.exports = {
     all: async (tableName) => {
