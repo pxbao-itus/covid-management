@@ -60,6 +60,12 @@ app.use('/admin/manager', require('./controllers/admin/manager.controller'));
 
 
 // ------------------ Router for user
+// router for package
+app.use('/package', require('./controllers/user/package.controller'));
+
+// router for order
+app.use('/order', require('./controllers/user/order.controller'))
+
 
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
