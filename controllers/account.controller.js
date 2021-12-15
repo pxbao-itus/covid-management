@@ -19,9 +19,13 @@ accountRouter.post('/', async (req, res) => {
     try {
         const result = await accountModel.get(userTable, username);
         if(result) {
-            const challengeResult = bcrypt.compare(req.body.newpassword, result.Username);
+            const challengeResult = bcrypt.compare(req.body.oldpassword, result.Username);
             if(challengeResult) {
                 res.cookie('change-password', 'success');
+                const entity = {
+                    Password: req.body.newpassword
+                }
+                const updatePassword = await accountModel.update(userTable, entity, result.Username);
                 return res.redirect('/change-password');
             } else {
                 res.cookie('change-password', 'incorrect old password');
@@ -33,16 +37,24 @@ accountRouter.post('/', async (req, res) => {
             const challengeResult = bcrypt.compare(req.body.newpassword, result.Username);
             if(challengeResult) {
                 res.cookie('change-password', 'success');
+                const entity = {
+                    Password: req.body.newpassword
+                }
+                const updatePassword = await accountModel.update(managerTable, entity, result.Username);
                 return res.redirect('/change-password');
             } else {
                 res.cookie('change-password', 'incorrect old password');
             }
         }
-        esult = await accountModel.get(adminTable, username);
+        result = await accountModel.get(adminTable, username);
         if(result) {
             const challengeResult = bcrypt.compare(req.body.newpassword, result.Username);
             if(challengeResult) {
                 res.cookie('change-password', 'success');
+                const entity = {
+                    Password: req.body.newpassword
+                }
+                const updatePassword = await accountModel.update(adminTable, entity, result.Username);
                 return res.redirect('/change-password');
             } else {
                 res.cookie('change-password', 'incorrect old password');
