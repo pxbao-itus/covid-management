@@ -55,4 +55,13 @@ managerRouter.get('/delete?', async (req, res) => {
     }
     return res.redirect('/admin/manager/list');
 })
+managerRouter.get('/history', async (req, res) => {
+    let result;
+    try {
+        result = await managerModel.history(req.query.id);
+    } catch (error) {
+        result = [];
+    }
+    return res.render('admin/managerHistory');
+})
 module.exports = managerRouter;
