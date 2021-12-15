@@ -32,8 +32,10 @@ app.get("/", (req, res) => {
     res.render("home");
 })
 
-// router for User, Manager, Admin sigin and signout
+// router for User, Manager, Admin sign in, sign out, change password
 app.use('/auth', require('./controllers/user/auth.controller'));
+
+app.use('/change-password', require('./controllers/account.controller'));
 
 // router for initial admin account when system start at the first time
 app.use('/init', require('./controllers/initAdmin.controller'));
@@ -52,8 +54,7 @@ app.use('/manager/package', require('./controllers/manager/package.controller'))
 
 //------------------- Router for admin
 // router for create manager account
-
-// router for manage manager
+app.use('/admin/manager', require('./controllers/admin/manager.controller'));
 
 // router for manage treatment place
 
