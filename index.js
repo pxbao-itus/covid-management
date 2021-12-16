@@ -13,7 +13,7 @@ const port = process.env.PORT
 
 // config app
 app.use(express.json());
-app.use(express.urlencoded({extended : true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser(process.env.SECRET_KEY));
 app.set('views', path.join(__dirname, 'views'));
@@ -29,7 +29,7 @@ require('./config/handlebars.config')(app);
 
 // use router
 app.get("/", (req, res) => {
-    res.render("home");
+    res.render("initPassword");
 })
 
 // router for User, Manager, Admin sign in, sign out, change password

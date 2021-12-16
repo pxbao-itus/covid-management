@@ -4,10 +4,10 @@
       Covid Management
     </h1>
     <h1 class="h3 mb-3 font-weight-normal">
-      Please sign in
+      Create Admin Account
     </h1>
     <label for="inputEmail" class="sr-only">
-      Email address
+      Username
     </label>
     <input
       id="inputEmail"
@@ -17,28 +17,27 @@
       required=""
       autofocus=""
     />
-    <label for="inputPassword" class="sr-only">
+    <div class="mb-3"></div>
+    <label for="inputPassword" class="sr-only ">
       Password
     </label>
     <input
       type="password"
       name="password"
       id="inputPassword"
-      class="form-control"
+      class="form-control "
       placeholder="Password"
       required=""
     />
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me" name="keep" />
-        Remember me
-      </label>
-    </div>
+    
+    <div class="checkbox mb-3"></div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">
-      Sign in
+      Create
     </button>
     {{#if msg}}
-        <p>{{msg}}</p>
+      <p>
+        {{msg}}
+      </p>
     {{/if}}
   </form>
 </body>
