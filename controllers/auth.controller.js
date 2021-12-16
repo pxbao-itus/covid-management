@@ -9,7 +9,8 @@ const managerAccountTable = 'TaiKhoanNguoiQuanLy';
 const adminAccountTable = 'TaiKhoanNguoiQuanTri';
 
 authUser.get('/signin',async (req, res) =>{
-    if(!await accountModel.all(adminAccountTable)) {
+    const adminExist = await accountModel.all(adminAccountTable);
+    if(!adminExist) {
         return res.redirect('/init');
     }
     if(req.keep-signin === 'true') {
@@ -69,6 +70,7 @@ authUser.post('/signin',async (req, res, next) => {
             return res.render('user/signin', {
                 msg: 'Tên đăng nhập hoặc mật khẩu không chính xác!'
             });
+            
         }
         req.logIn(user,async (err) => {
             if(err) {
@@ -83,27 +85,16 @@ authUser.post('/signin',async (req, res, next) => {
             }
             res.cookie('user', user.Username, {signed: true});
             let account = await accountModel.get(userAccountTable, user.Username);
-            if(account) {
-                const challengeResult = await bcrypt.compare(password, account.Password);
-                if(!challengeResult) {
-                    return res.render('user/signin', {
-                        msg: 'Tên đăng nhập hoặc mật khẩu không chính xác!'
-                    });
-                }
+            if(account) {               
                 if(account.TrangThai === '0') {
                     return res.redirect('/change-password');
+                   
                 }
                 res.cookie('userId', account.NguoiLienQuan, {signed: true});
                 return res.redirect("/home");  
             }
             account = await accountModel.get(managerAccountTable, user.Username);
-            if(account) {
-                const challengeResult = await bcrypt.compare(password, account.Password);
-                if(!challengeResult) {
-                    return res.render('user/signin', {
-                        msg: 'Tên đăng nhập hoặc mật khẩu không chính xác!'
-                    });
-                }
+            if(account) {                
                 if(account.TrangThai === '0') {
                     res.clearCookie('user');
                     return res.redirect('/auth/signin', {
@@ -111,16 +102,9 @@ authUser.post('/signin',async (req, res, next) => {
                     })
                 }
                 return res.redirect("/manager");  
-            }
-            
+            }            
             account = await accountModel.get(adminAccountTable, user.Username);
             if(account) {
-                const challengeResult = await bcrypt.compare(password, account.Password);
-                if(!challengeResult) {
-                    return res.render('user/signin', {
-                        msg: 'Tên đăng nhập hoặc mật khẩu không chính xác!'
-                    });
-                }
                 return res.redirect("/admin");  
             }    
         })
@@ -134,12 +118,12 @@ authUser.get('/signout', (req, res) => {
         res.clearCookie('user');
     }
     if(req.signedCookies.userId) {
-        req.clearCookie('userId');
+        res.clearCookie('userId');
     }
     if(req.account) {
         req.logOut();
     }
-    return res.redirect('/auth/signin')
+    return res.redirect('/auth/signin');
 })
 
 

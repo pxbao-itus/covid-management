@@ -21,6 +21,8 @@ app.set('view engine', '.hbs');
 
 // config for session
 require('./config/session.config')(app);
+// config for passport local
+require('./config/passport-local.config')(app);
 // config for handlebars
 require('./config/handlebars.config')(app);
 
