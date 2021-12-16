@@ -29,7 +29,7 @@ require('./config/handlebars.config')(app);
 
 // use router
 app.get("/", (req, res) => {
-    res.render("initPassword");
+    res.render("manager/relatedPeople");
 })
 
 // router for User, Manager, Admin sign in, sign out, change password
