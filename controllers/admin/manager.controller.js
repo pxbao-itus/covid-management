@@ -15,7 +15,7 @@ managerRouter.get('/list', async (req, res) => {
     })
 })
 
-managerRouter.get('/c(reate', (req, res) => {
+managerRouter.get('/create', (req, res) => {
     return res.render('admin/managerCreate');
 })
 

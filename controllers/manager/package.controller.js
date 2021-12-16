@@ -37,7 +37,7 @@ packageRouter.get('/detail', async (req, res) => {
         if(result) {
             return res.render('manager/packageDetail', {
                 package: result.package,
-                details = result.details
+                details : result.details
             })
         }
         return res.render('/manager/packageDetail');

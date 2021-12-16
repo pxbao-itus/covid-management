@@ -33,7 +33,7 @@ app.get("/", (req, res) => {
 })
 
 // router for User, Manager, Admin sign in, sign out, change password
-app.use('/auth', require('./controllers/user/auth.controller'));
+app.use('/auth', require('./controllers/auth.controller'));
 
 app.use('/change-password', require('./controllers/account.controller'));
 

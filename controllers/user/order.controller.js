@@ -2,16 +2,16 @@ const orderRouter = require('express').Router();
 const orderModel = require('../../models/user/order.model');
 
 
-orderRouter.post('/buy', async (req, res => {
+orderRouter.post('/buy', async (req, res) => {
     try {
-        const result = orderModel.create(req.body.order, req.body.orderDetail);
+        const result = await orderModel.create(req.body.order, req.body.orderDetail);
         if(result) {
             return res.status(200).json({status: true});
         } else return res.status(200).json({status: false});
     } catch (error) {
         return res.status(400).json({status: false});
     }
-}))
+})
 
 orderRouter.get('/list', async (req, res) => {
     const userid = req.cookies.userId;

@@ -1,6 +1,4 @@
 
-const pg = require('pg-promise/typescript/pg-subset');
-
 require('dotenv').config();
 const pgp = require('pg-promise')({
     capSQL: true,

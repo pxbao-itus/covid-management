@@ -1,4 +1,3 @@
-const pg = require('pg-promise/typescript/pg-subset');
 
 require('dotenv').config();
 const pgp = require('pg-promise')({
@@ -30,9 +29,9 @@ exports.createOrder = async (order, orderDetail) => {
     const qStr = pgp.helpers.insert(order, null, orderTable) + "RETURNING *";
     
     try {
-        const resultOrder = await pg.one(qStr);
+        const resultOrder = await db.one(qStr);
         const getOrder = pgp.as.format(`SELECT * FROM $1 WHERE "MaLichSuMua" = '${resultOrder.MaLichSuMua}' LIMIT 1`, orderTable);
-        const resultGetOrder = await pg.any(getOrder);
+        const resultGetOrder = await db.any(getOrder);
         for (const item of orderDetail) {
             const entity = {
                 LichSuMua: resultGetOrder.MaLichSuMua,
@@ -41,7 +40,7 @@ exports.createOrder = async (order, orderDetail) => {
                 DonGia: item.DonGia
             }
             const qStrDetail = pgp.helpers.insert(entity, null, detail) + "RETURNING *";
-            const resultDetail = await pg.one(qStrDetail);
+            const resultDetail = await db.one(qStrDetail);
         }
         return true;
     } catch (error) {
