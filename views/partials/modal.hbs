@@ -1,12 +1,5 @@
-<head>
-  
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
-</head>
+<link rel="stylesheet prefetch" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css"><script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+
 <div
   class="modal fade"
   id="exampleModal"
@@ -27,9 +20,6 @@
           data-dismiss="modal"
           aria-label="Close"
         >
-          <span aria-hidden="true">
-            ×
-          </span>
         </button>
       </div>
       <div class="modal-body">
@@ -62,7 +52,9 @@
             <label for="exampleInputPassword1">
             Ngày sinh            
             </label>
-            <input data-provide="datepicker">
+            <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy"> <input class="form-control" readonly="" type="text">
+ <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span> 
+</div>
 
           </div>
           
@@ -82,5 +74,13 @@
 <script>
   $('#myModal').on('shown.bs.modal', function () {
       $('#myInput').trigger('focus')
-})
+  });
+
+</script>
+
+
+<script type="text/javascript">
+$(function () {  
+$("#datepicker").datepicker()
+});
 </script>
