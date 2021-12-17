@@ -1,0 +1,86 @@
+<head>
+  
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+</head>
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Thêm người liên quan
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">
+            ×
+          </span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">
+              Họ và tên
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id="exampleInputEmail1"
+              name = "name"
+              placeholder="Nguyễn Văn A"
+            />
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">
+              CCCD/CMND
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id="exampleInputPassword1"
+              placeholder="212845432"
+              name="CMND"
+            />
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">
+            Ngày sinh            
+            </label>
+            <input data-provide="datepicker">
+
+          </div>
+          
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+          Hủy
+        </button>
+        <button type="submit" class="btn btn-primary">
+          Thêm
+        </button>
+      </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $('#myModal').on('shown.bs.modal', function () {
+      $('#myInput').trigger('focus')
+})
+</script>
