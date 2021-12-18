@@ -1,51 +1,9 @@
-<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
-    Covid Management
-  </a>
-  <input class="form-control form-control-dark w-100" type="text" placeholder="Tìm kiếm nhu yếu phẩm"
-    aria-label="Search">
-  <ul class="navbar-nav px-3">
-    <li class="nav-item text-nowrap">
-      <a class="nav-link" href="#">Đăng xuất</a>
-    </li>
-  </ul>
-</nav>
-
-
+{{> navbar text='Tìm kiếm gói nhu yếu phẩm ... '}}
 
 <div class="container-fluid">
   <div class="row">
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-      <div class="sidebar-sticky">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Danh sách người liên quan
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active font-weight-bold " href="#">
-              Quản lý sản phẩm nhu yếu phẩm
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Quản lý gói nhu yếu phẩm
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Thống kê thông tin
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Quản lý thanh toán
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    {{> sidebar where='package'}}
+
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="chartjs-size-monitor"
         style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">

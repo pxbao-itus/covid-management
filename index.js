@@ -30,7 +30,7 @@ require('./config/handlebars.config')(app);
 
 // use router
 app.get("/", (req, res) => {
-    res.render("manager/relatedPeople");
+    res.render("manager/relatedPeopleDetail");
 })
 
 // router for User, Manager, Admin sign in, sign out, change password
