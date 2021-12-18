@@ -1,2 +1,30 @@
-@import url('../../modal.css');
+@import url("../../modal.css");
 
+.item-img-container {
+  width: 30vw;
+  /* height: 35vw; */
+  padding: 0;
+  margin: 0;
+  margin-bottom: -16px;
+}
+
+.item-img-container img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-image: url('/img/upload.png');
+
+}
+
+.item-img-container img :hover{
+    background-image: url('/img/upload.png');
+  }
+
+.item-img-container > .row{
+    padding-bottom: 16px;
+}   
+
+.item-img-container .col-sm{
+    padding-right: 0px;
+}
+.col-img{
+}
