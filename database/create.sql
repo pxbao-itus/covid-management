@@ -22,17 +22,16 @@ DROP TABLE IF EXISTS "Huyen";
 DROP TABLE IF EXISTS "Tinh";
 DROP TABLE IF EXISTS "TaiKhoanNguoiQuanTri";
 
-
 -- ----------------------------
 -- Table structure for NguoiLienQuan
 -- ----------------------------
 CREATE TABLE "NguoiLienQuan"(
 	"MaNguoiLienQuan" SERIAL,
 	"HoTen" varchar(30),
-	"CCCD" varchar(12),
-	"NgaySinh" timestamp,
+	"CCCD" varchar(12) UNIQUE,
+	"NgaySinh" date,
 	"DiaChi" varchar(50),
-	"SoDienThoai" varchar(12),
+	"SDT" varchar(12),
 	"TrangThaiHienTai" varchar(10),
 	"NoiDieuTri" int4 NOT NULL,
 	
@@ -48,7 +47,7 @@ CREATE TABLE "NguoiLienQuan"(
 CREATE TABLE "TaiKhoanNguoiDung"(
 	"NguoiLienQuan" SERIAL,
 	"Username" varchar(12),
-	"Password" varchar(50),
+	"Password" varchar(100),
 	"TrangThai" int4,
 	
 	PRIMARY KEY ("NguoiLienQuan")
@@ -91,12 +90,14 @@ CREATE TABLE "MoiLienHe"(
 -- Table structure for LichSuThanhToan
 -- ----------------------------
 CREATE TABLE "LichSuThanhToan"(
+	"MaLSTT" SERIAL,
 	"NguoiLienQuan" int4 NOT NULL,
 	"ThoiGian" timestamp,
-	"SoTien" numeric(19,4),
-	"SoDuNo" numeric(19,4),
+	"SoTien" numeric(19,2),
+	"SoDuNo" numeric(19,2),
+	"TrangThai" int4,
 	
-	PRIMARY KEY ("NguoiLienQuan","ThoiGian")
+	PRIMARY KEY ("MaLSTT")
 	
 );
 
@@ -133,7 +134,7 @@ CREATE TABLE "LichSuMuaGoiNYP"(
 	"MaLichSuMua" SERIAL,
 	"NguoiLienQuan" int4 NOT NULL,
 	"GoiNYP" int4,
-	"SoTien" numeric(19,4),
+	"SoTien" numeric(19,2),
 	"ThoiGian" timestamp,
 	
 	PRIMARY KEY ("MaLichSuMua")
@@ -161,9 +162,9 @@ CREATE TABLE "ChiTietGoiNYP"(
 	"MaChiTietGoiNYP" SERIAL,
 	"MaGoiNYP" int4 NOT NULL,
 	"MaNYP" int4 NOT NULL,
-	"SoLuong" numeric(19,4),
-	"SoLuongToiDa" numeric(19,4),
-	"SoLuongToiThieu" numeric(19,4),
+	"SoLuong" numeric(19,2),
+	"SoLuongToiDa" numeric(19,2),
+	"SoLuongToiThieu" numeric(19,2),
 	
 	PRIMARY KEY ("MaChiTietGoiNYP")
 	
@@ -193,8 +194,7 @@ CREATE TABLE "NhuYeuPham"
 CREATE TABLE "ChiTietMuaGoiNYP"(
 	"LichSuMua" int4 NOT NULL,
 	"NhuYeuPham" int4 NOT NULL,
-	"SoLuong" numeric(19,4),
-	"DonGia" int4,
+	"SoLuong" numeric(19,2),
 	
 	PRIMARY KEY ("LichSuMua","NhuYeuPham")
 	
@@ -204,7 +204,7 @@ CREATE TABLE "ChiTietMuaGoiNYP"(
 -- Table structure for QuanLyThanhToan
 -- ----------------------------
 CREATE TABLE "QuanLyThanhToan"(
-	"MaQLTT" int4 NOT NULL,
+	"MaQLTT" SERIAL,
 	"NguoiCapNhat" int4 NOT NULL,
 	"ThoiGianCapNhat" timestamp,
 	"HanMuc" int4,
@@ -218,7 +218,7 @@ CREATE TABLE "QuanLyThanhToan"(
 -- ----------------------------	
 CREATE TABLE "TaiKhoanNguoiQuanLy"(
 	"MaTaiKhoan" SERIAL,
-	"Password" varchar(30),
+	"Password" varchar(100),
 	"Username" varchar(12),
 	"TrangThai" int4,
 	
@@ -267,7 +267,8 @@ CREATE TABLE "SoNguoiTungTrangThai"(
 CREATE TABLE "TaiKhoanNguoiDungHTTT"(
 	"MaTaiKhoan" SERIAL,
 	"Username" varchar(20),
-	"Password" varchar(50),
+	"Password" varchar(100),
+	"TrangThai" int4,
 	
 	PRIMARY KEY("MaTaiKhoan")
 );
@@ -278,7 +279,7 @@ CREATE TABLE "TaiKhoanNguoiDungHTTT"(
 
 CREATE TABLE "TaiKhoanThanhToan"(
 	"MaTaiKhoan" int4 NOT NULL,
-	"SoDu" numeric(19,4),
+	"SoDu" numeric(19,2),
 	
 	PRIMARY KEY("MaTaiKhoan")
 );
@@ -289,7 +290,7 @@ CREATE TABLE "TaiKhoanThanhToan"(
 
 
 CREATE TABLE "TaiKhoanHTTT"(
-	"SoDu" numeric(19,4)
+	"SoDu" numeric(19,2)
 );
 
 -- ----------------------------
@@ -298,7 +299,7 @@ CREATE TABLE "TaiKhoanHTTT"(
 
 CREATE TABLE "Tinh"(
 	"MaTinh" SERIAL,
-	"TenTinh" varchar(20),
+	"TenTinh" varchar(30),
 	
 	PRIMARY KEY("MaTinh")
 	
@@ -310,7 +311,7 @@ CREATE TABLE "Tinh"(
 
 CREATE TABLE "Huyen"(
 	"MaHuyen" SERIAL,
-	"TenHuyen" varchar(20),
+	"TenHuyen" varchar(30),
 	"Tinh" int4 NOt NULL,
 	
 	PRIMARY KEY("MaHuyen")
@@ -323,7 +324,7 @@ CREATE TABLE "Huyen"(
 
 CREATE TABLE "Xa"(
 	"MaXa" SERIAL,
-	"TenXa" varchar(20),
+	"TenXa" varchar(30),
 	"Huyen" int4 NOt NULL,
 	
 	PRIMARY KEY("MaXa")
@@ -336,7 +337,7 @@ CREATE TABLE "Xa"(
 
 CREATE TABLE "TaiKhoanNguoiQuanTri"(
 	"Username" varchar(20),
-	"Password" varchar(50),
+	"Password" varchar(100),
 	
 	PRIMARY KEY("Username")
 
