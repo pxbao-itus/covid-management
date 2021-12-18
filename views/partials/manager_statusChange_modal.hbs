@@ -7,7 +7,7 @@
 ></script>
 <div
   class="modal fade"
-  id="exampleModal"
+  id="manager_statusChange_modal"
   tabindex="-1"
   role="dialog"
   aria-labelledby="exampleModalLabel"
@@ -17,7 +17,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">
-          Thêm người liên quan
+          Thay đổi trạng thái người liên quan
         </h5>
         <button
           type="button"
@@ -30,41 +30,41 @@
         <form>
           <div class="form-group">
             <label for="exampleInputEmail1">
-              Họ và tên
+              Tình trạng hiện tại
             </label>
-            <input
-              type="text"
-              class="form-control"
-              id="exampleInputEmail1"
-              name="name"
-              placeholder="Nguyễn Văn A"
-            />
+            <h3>
+              F1
+            </h3>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">
-              CCCD/CMND
+              Trạng thái mới
             </label>
-            <input
-              type="text"
-              class="form-control"
-              id="exampleInputPassword1"
-              placeholder="212845432"
-              name="CMND"
-            />
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">
-              Ngày sinh
-            </label>
-            <div
-              id="datepicker"
-              class="input-group date"
-              data-date-format="dd-mm-yyyy"
-            >
-              <input class="form-control" readonly="" type="text" />
-              <span class="input-group-addon">
-                <i class="glyphicon glyphicon-calendar"></i>
-              </span>
+            <div class="br-2"></div>
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn btn-secondary dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                F1
+              </button>
+              <div class="dropdown-menu dropdown-menu-right">
+                <button class="dropdown-item" type="button">
+                  F0
+                </button>
+                <button class="dropdown-item" type="button">
+                  F1
+                </button>
+                <button class="dropdown-item" type="button">
+                  F2
+                </button>
+                <button class="dropdown-item" type="button">
+                  F3
+                </button>
+              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -72,7 +72,7 @@
               Hủy
             </button>
             <button type="submit" class="btn btn-primary">
-              Thêm
+              Lưu
             </button>
           </div>
         </form>
@@ -81,7 +81,7 @@
   </div>
 </div>
 <script>
-  $('#myModal').on('shown.bs.modal', function () {
+  $('#manager_statusChange_modal').on('shown.bs.modal', function () {
       $('#myInput').trigger('focus')
   });
 </script>
