@@ -19,7 +19,7 @@ exports.loadStatusUsers = async () => {
     const table = new pgp.helpers.TableName({ table: SoNguoiTTT, schema: schema });
     const qStr = pgp.as.format('SELECT * FROM $1', table);
     try {
-        const res = await db.any(qStr);
+        const res = await db.one(qStr);
         return res;
     } catch (error) {
         console.log(error);
