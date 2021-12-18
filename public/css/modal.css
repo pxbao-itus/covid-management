@@ -1,0 +1,4 @@
+#modal-update > .modal-dialog{
+    width: 90vw;
+    max-width: none;
+}
