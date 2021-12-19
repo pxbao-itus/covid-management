@@ -1,13 +1,16 @@
-<body class="text-center mx-auto w-25 h-100 my-auto" style="background-color: #F5F5F5;">
-  <form class="form-signin" method="post" action="/auth/signin">
+<body class="text-center mx-auto w-25 h-100 my-auto" style="background-color: #F5F5F5;;margin-top: 10% !important;
+    top: 100%;">
+    <div class="card">
+<form class="form-signin p-3" method="post" action="/auth/signin">
     <h1 class="h3 mb-3 font-weight-normal">
       Covid Management
     </h1>
     <h1 class="h3 mb-3 font-weight-normal">
-      Create Admin Account
+      Tạo tài khoản quản trị
     </h1>
+    <div class="mb-5"></div>
     <label for="inputEmail" class="sr-only">
-      Username
+      Tài khoản
     </label>
     <input
       id="inputEmail"
@@ -19,7 +22,7 @@
     />
     <div class="mb-3"></div>
     <label for="inputPassword" class="sr-only ">
-      Password
+      Mật khẩu
     </label>
     <input
       type="password"
@@ -32,7 +35,7 @@
     
     <div class="checkbox mb-3"></div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">
-      Create
+      Tạo
     </button>
     {{#if msg}}
       <p>
@@ -40,4 +43,6 @@
       </p>
     {{/if}}
   </form>
+    </div>
+  
 </body>
