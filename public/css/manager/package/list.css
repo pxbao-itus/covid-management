@@ -1,6 +1,7 @@
 @import url("../../modal.css");
+@import url("../tableList.css");
 
-#modal-update > .modal-dialog {
+#modal-insert > .modal-dialog {
   width: 95vw;
   /* height: 90vh; */
   max-width: none;

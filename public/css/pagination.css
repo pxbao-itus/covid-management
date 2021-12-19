@@ -1,4 +1,12 @@
-#pagination-nav > ul{
-    width: fit-content;
+#pagination-nav > ul {
+  width: fit-content;
 }
 
+#pagination-nav {
+  position: absolute;
+  bottom: 1rem;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}

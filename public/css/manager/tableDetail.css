@@ -1,0 +1,16 @@
+table {
+  margin-bottom: 0 !important;
+}
+
+.card-body {
+  padding: 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+#table-2 th {
+  text-align: center !important;
+}
+#table-2 td {
+  text-align: center !important;
+}
