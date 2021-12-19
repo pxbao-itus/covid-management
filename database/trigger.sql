@@ -485,3 +485,69 @@ CREATE TRIGGER trigger_CapNhatLichSuDuNo_update
 
   EXECUTE PROCEDURE f_LichSuNo_update();
   
+
+
+        -------------------------------
+  --- Trigger tinh tien khi mua goi nhu yeu pham
+  --------------------------------
+CREATE OR REPLACE FUNCTION f_TinhTienMuaGoiNYP_insert()
+
+  RETURNS trigger AS
+
+$$
+DECLARE f_DonGia "NhuYeuPham"."DonGia"%type;
+BEGIN
+	SELECT "DonGia" FROM "NhuYeuPham" INTO f_DonGia WHERE "MaNYP" = NEW."NhuYeuPham";
+	UPDATE "LichSuMuaGoiNYP" SET "SoTien" = "SoTien" + (NEW."SoLuong" * f_DonGia) WHERE "MaLichSuMua" = NEW."LichSuMua";
+	UPDATE "SoDuNo" SET "SoDuNo" = "SoDuNo" + (NEW."SoLuong" * f_DonGia) WHERE "NguoiLienQuan" = 
+	(SELECT "NguoiLienQuan" FROM "LichSuMuaGoiNYP" WHERE "MaLichSuMua" = NEW."LichSuMua");
+RETURN NEW;
+
+END;
+
+$$
+LANGUAGE 'plpgsql';
+
+
+
+DROP TRIGGER IF EXISTS trigger_TinhTienMuaGoiNYP_insert ON "ChiTietMuaGoiNYP";
+CREATE TRIGGER trigger_TinhTienMuaGoiNYP_insert
+
+  AFTER INSERT
+
+  ON "ChiTietMuaGoiNYP"
+
+  FOR EACH ROW
+
+  EXECUTE PROCEDURE f_TinhTienMuaGoiNYP_insert();
+  
+          -------------------------------
+  --- Trigger tu dong them sodu =0 cho tai khoan thanh toan cua nguoi dung moi tao	
+  --------------------------------
+CREATE OR REPLACE FUNCTION f_SoDuMacDinhTKHTTTNguoiDung_insert()
+
+  RETURNS trigger AS
+
+$$
+BEGIN
+	INSERT INTO "TaiKhoanThanhToan"("MaTaiKhoan","SoDu")
+	VALUES(NEW."MaTaiKhoan",0);
+RETURN NEW;
+
+END;
+
+$$
+LANGUAGE 'plpgsql';
+
+
+
+DROP TRIGGER IF EXISTS trigger_SoDuMacDinhHTTT_insert ON "TaiKhoanNguoiDungHTTT";
+CREATE TRIGGER trigger_SoDuMacDinhHTTT_insert
+
+  AFTER INSERT
+
+  ON "TaiKhoanNguoiDungHTTT"
+
+  FOR EACH ROW
+
+  EXECUTE PROCEDURE f_SoDuMacDinhTKHTTTNguoiDung_insert();
