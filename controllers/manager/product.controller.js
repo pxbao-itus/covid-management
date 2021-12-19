@@ -4,8 +4,9 @@ const productModel = require('../../models/manager/product.model');
 
 product.get('/list', async (req, res) => {
     const products = await productModel.list();
-    return res.render('manager/products', {
-        products: products
+    return res.render("./manager/product/list", {
+      products: products,
+      path: req.originalUrl,
     });
 })
 product.get('/list/ajax',async (req, res) => {
