@@ -19,6 +19,7 @@ app.use(cookieParser(process.env.SECRET_KEY));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', '.hbs');
 
+
 // config for session
 require('./config/session.config')(app);
 // config for passport local
@@ -30,7 +31,7 @@ require('./config/handlebars.config')(app);
 
 // use router
 app.get("/", (req, res) => {
-    res.render("home");
+    res.render("manager/relatedPeopleDetail");
 })
 
 // router for User, Manager, Admin sign in, sign out, change password

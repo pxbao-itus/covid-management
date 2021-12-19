@@ -1,0 +1,164 @@
+<body>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+  ></script>
+  <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
+      Covid Management
+    </a>
+    
+    <ul class="navbar-nav px-3">
+      <li class="nav-item text-nowrap">
+        <a class="nav-link" href="#">
+          Sign out
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div class="mb-6"></div>
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active font-weight-bold" href="#">
+                Danh sách người liên quan
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                Quản lý sản phẩm nhu yếu phẩm
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                Quản lý gói nhu yếu phẩm
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                Thống kê thông tin
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                Quản lý thanh toán
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div
+          class="chartjs-size-monitor"
+          style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"
+        >
+          <div
+            class="chartjs-size-monitor-expand"
+            style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"
+          >
+            <div
+              style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"
+            ></div>
+          </div>
+          <div
+            class="chartjs-size-monitor-shrink"
+            style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"
+          >
+            <div
+              style="position:absolute;width:200%;height:200%;left:0; top:0"
+            ></div>
+          </div>
+        </div>
+        <div
+          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+        >
+          <h1 class="h2"><button class="btn btn-primary">Back</button></h1>
+          <div class="btn-toolbar mb-2 mb-md-0">
+          <button class="btn btn-primary" data-toggle="modal" data-target="#manager_statusChange_modal">Thay đổi trạng thái</button>
+          <div class="mb-2 mr-sm-2"></div>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#manager_placeChange_modal">Thay đổi nơi điều trị</button>
+          </div>
+        </div>
+        <h2>
+          Chi tiết người liên quan
+        </h2>
+        <div class="table-responsive">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+  <thead>
+  </thead>
+  <tbody>
+      
+    <tr>
+      <th scope="row">Họ và tên:</th>
+      <td>Trà Anh Toàn</td>
+    </tr>
+    <tr>
+      <th scope="row">CMND/CCCD:</th>
+      <td>212846352</td>
+    </tr>
+    <tr>
+      <th scope="row">Năm sinh:</th>
+      <td>2000</td>
+    </tr>
+    <tr>
+      <th scope="row">Địa chỉ:</th>
+      <td>Phổ An, Đức Phổ, Quảng Ngãi</td>
+    </tr>
+    <tr>
+      <th scope="row">Trạng thái hiện tại:</th>
+      <td>F10</td>
+    </tr>
+    <tr>
+      <th scope="row">Nơi điều trị/cách li:</th>
+      <td>Bệnh viện đa khoa Đặng Thùy Trâm</td>
+    </tr>
+  </tbody>
+</table>
+                </div>
+            </div>
+<h1>Danh sách người liên quan tới bệnh nhân</h1>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+  <thead>
+  </thead>
+  <tbody>
+      
+    <tr>
+      <th>STT</th>
+      <th>Họ và tên</th>
+      <th>Tình trạng</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>Đặng Văn Hiển</td>
+        <td>F0</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Phan Xuân Bảo</td>
+        <td>F1</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Lê Nguyên Tuấn</td>
+        <td>F3</td>
+    </tr>
+    
+  </tbody>
+</table>
+                </div>
+            </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  {{> modal}}
+   {{> manager_statusChange_modal}}
+   {{> manager_placeChange_modal}}
+   
+</body>

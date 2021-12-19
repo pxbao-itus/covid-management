@@ -1,0 +1,92 @@
+<link
+  rel="stylesheet prefetch"
+  href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css"
+/>
+<script
+  src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"
+></script>
+<div
+  class="modal fade"
+  id="manager_statusChange_modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Thay đổi trạng thái người liên quan
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">
+              Tình trạng hiện tại
+            </label>
+            <h3>
+              F1
+            </h3>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">
+              Trạng thái mới
+            </label>
+            <div class="br-2"></div>
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn btn-secondary dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                F1
+              </button>
+              <div class="dropdown-menu dropdown-menu-right">
+                <button class="dropdown-item" type="button">
+                  F0
+                </button>
+                <button class="dropdown-item" type="button">
+                  F1
+                </button>
+                <button class="dropdown-item" type="button">
+                  F2
+                </button>
+                <button class="dropdown-item" type="button">
+                  F3
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+              Hủy
+            </button>
+            <button type="submit" class="btn btn-primary">
+              Lưu
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $('#manager_statusChange_modal').on('shown.bs.modal', function () {
+      $('#myInput').trigger('focus')
+  });
+</script>
+<script type="text/javascript">
+  $(function () {  
+$("#datepicker").datepicker()
+});
+</script>
