@@ -1,5 +1,4 @@
 const packageRouter = require('express').Router();
-const e = require('express');
 const packageModel = require('../../models/manager/package.model');
 
 

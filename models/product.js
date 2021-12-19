@@ -7,7 +7,7 @@ const pgp = require('pg-promise')({
 const schema = 'public';
 
 // Table
-const NYP = 'NhuyeuPham';
+const NYP = 'NhuYeuPham';
 const GoiNYP = 'GoiNhuYeuPham';
 const ChiTietGoiNYP = 'ChiTietGoiNYP';
 const TaiKhoanNguoiQuanLy = 'TaiKhoanNguoiQuanLy';

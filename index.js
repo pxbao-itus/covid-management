@@ -19,29 +19,65 @@ app.use(cookieParser(process.env.SECRET_KEY));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', '.hbs');
 
-
 // config for session
 require('./config/session.config')(app);
+// config for passport local
+require('./config/passport-local.config')(app);
 // config for handlebars
 require('./config/handlebars.config')(app);
 
 // use middleware
 
-
 // use router
-app.get("/", (req, res) => {
+app.get("/auth/signin", (req, res) => {
+    res.render("signin");
+})
+app.get("/init", (req, res) => {
+    res.render("init");
+})
+app.get("/manager/user/list", (req, res) => {
+    res.render("manager/user/list");
+})
+app.get("/manager/user/detail", (req, res) => {
     res.render("manager/user/detail");
 })
+app.get("/manager/user/update", (req, res) => {
+    res.render("home");
+})
+app.get("/manager/user/create", (req, res) => {
+    res.render("home");
+})
+app.get("/manager/product/list", (req, res) => {
+    res.render("manager/product/list");
+})
+app.get("/manager/product/detail", (req, res) => {
+    res.render("manager/product/detail");
+})
+app.get("/manager/package/list", (req, res) => {
+    res.render("manager/package/list");
+})
+app.get("/manager/package/detail", (req, res) => {
+    res.render("manager/package/detail");
+})
+// app.get("/manager/product/delete?id=10", (req, res) => {
+//     res.render("home");
+// })
+
 
 // router for User, Manager, Admin sign in, sign out, change password
 app.use('/auth', require('./controllers/auth.controller'));
+
 
 app.use('/change-password', require('./controllers/account.controller'));
 
 // router for initial admin account when system start at the first time
 app.use('/init', require('./controllers/initAdmin.controller'));
 
+
 // ------------------ Router for manager -------------------
+//router for user
+app.use('/manager/user', require('./controllers/manager/user.controller'));
+
 // router for product
 app.use('/manager/product', require('./controllers/manager/product.controller'));
 
@@ -49,9 +85,10 @@ app.use('/manager/product', require('./controllers/manager/product.controller'))
 app.use('/manager/package', require('./controllers/manager/package.controller'));
 
 // router for statistic
+app.use('/manager/statistic', require('./controllers/manager/statistic.controller'));
 
 // router for payment
-
+app.use('/manager/payment', require('./controllers/manager/payment.controller'));
 
 //------------------- Router for admin
 // router for create manager account

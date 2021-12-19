@@ -8,6 +8,7 @@ product.get('/list', async (req, res) => {
       products: products,
       path: req.originalUrl,
     });
+    
 })
 product.get('/list/ajax',async (req, res) => {
     const products = await productModel.list();
@@ -65,12 +66,12 @@ product.post('/create', async (req, res) => {
         const entity = {
             MaNYP: req.body.id,
             TenNYP: req.body.ten,
-            HinhAnh1: req.file[0].filename,
-            HinhAnh2: req.file[1].filename,
-            HinhAnh3: req.file[2].filename,
-            HinhAnh4: req.file[3].filename,
-            DonGia: req.body.id,
-            DonViDinhLuong: req.body.id,
+            HinhAnh1: req.files[0].filename,
+            HinhAnh2: req.files[1].filename,
+            HinhAnh3: req.files[2].filename,
+            HinhAnh4: req.files[3].filename,
+            DonGia: req.body.dongia,
+            DonViDinhLuong: req.body.donvi,
         }
         const result = await productModel.create(entity);
         if(result) {
