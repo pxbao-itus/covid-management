@@ -4,8 +4,9 @@ const packageModel = require('../../models/manager/package.model');
 
 packageRouter.get('/list',async (req, res) => {
     const result = await packageModel.list();
-    return res.render('manager/packages', {
-        packages: result
+    return res.render("manager/package/list", {
+      packages: result,
+      path: req.originalUrl,
     });
 })
 
