@@ -5,7 +5,6 @@ const path = require('path');
 
 module.exports = app => {
 
-    
     const hbs = exhbs.create({
       defaultLayout: "main",
       extname: "hbs",
