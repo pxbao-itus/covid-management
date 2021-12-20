@@ -1,6 +1,17 @@
-#modal-update > .modal-dialog{
-    width: 70vw;
-    /* height: 90vh; */
+#modal-insert > .modal-dialog{
     max-width: none;
     max-height: none;
+}
+
+#modal-update > .modal-dialog{
+    max-width: none;
+    max-height: none;
+}
+
+#modal-delete .modal-dialog {
+    left: 0;
+    right: 0;
+    margin-top: auto;
+    top: 50%;
+    transform: translateY(-50%);
 }

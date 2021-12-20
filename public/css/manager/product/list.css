@@ -8,6 +8,9 @@
   top: 0rem;
 }
 
+#modal-insert .modal-dialog {
+  width: 60vw;
+}
 
 .item-img-container {
   width: 30vw;
@@ -34,24 +37,6 @@
 .item-img-container .col-sm {
   padding-right: 0px;
 }
-.col-img {
-}
-
-#modal-update .modal-dialog {
-  width: 60vw;
-  /* margin: auto; */
-}
-
-.dropdown-toggle::after {
-  position: absolute;
-
-  right: 15px;
-  bottom: 15px;
-}
-
-.btn-group > button {
-  padding-right: 1.5rem;
-}
 
 .col-form .row {
   margin-bottom: 2rem;
@@ -61,10 +46,21 @@
   padding-top: 1rem;
 }
 
-#modal-delete .modal-dialog {
-    left: 0;
-    right: 0;
-    margin-top: auto;
-    top: 50%;
-    transform: translateY(-50%);
+
+.dropdown-toggle::after {
+  position: absolute;
+
+  right: 15px;
+  bottom: 15px;
 }
+
+.btn-drop  {
+  width: 100%;
+}
+
+.btn-group > button {
+  padding-right: 1.5rem;
+}
+
+
+

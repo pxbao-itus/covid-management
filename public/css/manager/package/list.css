@@ -3,14 +3,12 @@
 
 #modal-insert > .modal-dialog {
   width: 95vw;
-  /* height: 90vh; */
   max-width: none;
   max-height: none;
 }
 
 .item-img-container {
   width: 30vw;
-  /* height: 35vw; */
   padding: 0;
   margin: 0;
   margin-bottom: -16px;

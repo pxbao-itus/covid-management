@@ -14,3 +14,7 @@ table {
 #table-2 td {
   text-align: center !important;
 }
+
+.item-id {
+  display: none;
+}
