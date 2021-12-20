@@ -32,60 +32,60 @@ require('./config/handlebars.config')(app);
 app.get("/", (req, res) => {
     res.render("manager/relatedPeopleDetail.hbs", {
         path: req.originalUrl.split("?").shift(),
-      });
+    });
 })
 
 // use router
-app.get("/auth/signin", (req, res) => {
-    res.render("signin", {
-        path: req.originalUrl.split("?").shift(),
-      });
-})
-app.get("/init", (req, res) => {
-    res.render("init", {
-        path: req.originalUrl.split("?").shift(),
-      });
-})
-app.get("/manager/user/list", (req, res) => {
-    res.render("manager/user/list", {
-        path: req.originalUrl.split("?").shift(),
-      });
-})
-app.get("/manager/user/detail", (req, res) => {
-    res.render("manager/user/detail", {
-        path: req.originalUrl.split("?").shift(),
-      });
-})
-app.get("/manager/user/update", (req, res) => {
-    res.render("home", {
-        path: req.originalUrl.split("?").shift(),
-      });
-})
-app.get("/manager/user/create", (req, res) => {
-    res.render("home", {
-        path: req.originalUrl.split("?").shift(),
-      });
-})
-app.get("/manager/product/list", (req, res) => {
-    res.render("./manager/product/list", {
-        path: req.originalUrl.split("?").shift(),
-      });
-})
-app.get("/manager/product/detail", (req, res) => {
-    res.render("manager/product/detail", {
-        path: req.originalUrl.split("?").shift(),
-      });
-})
-app.get("/manager/package/list", (req, res) => {
-    res.render("manager/package/list", {
-        path: req.originalUrl.split("?").shift(),
-      });
-})
-app.get("/manager/package/detail", (req, res) => {
-    res.render("manager/package/detail", {
-        path: req.originalUrl.split("?").shift(),
-      });
-})
+// app.get("/auth/signin", (req, res) => {
+//     res.render("signin", {
+//         path: req.originalUrl.split("?").shift(),
+//       });
+// })
+// app.get("/init", (req, res) => {
+//     res.render("init", {
+//         path: req.originalUrl.split("?").shift(),
+//       });
+// })
+// app.get("/manager/user/list", (req, res) => {
+//     res.render("manager/user/list", {
+//         path: req.originalUrl.split("?").shift(),
+//       });
+// })
+// app.get("/manager/user/detail", (req, res) => {
+//     res.render("manager/user/detail", {
+//         path: req.originalUrl.split("?").shift(),
+//       });
+// })
+// app.get("/manager/user/update", (req, res) => {
+//     res.render("home", {
+//         path: req.originalUrl.split("?").shift(),
+//       });
+// })
+// app.get("/manager/user/create", (req, res) => {
+//     res.render("home", {
+//         path: req.originalUrl.split("?").shift(),
+//       });
+// })
+// app.get("/manager/product/list", (req, res) => {
+//     res.render("./manager/product/list", {
+//         path: req.originalUrl.split("?").shift(),
+//       });
+// })
+// app.get("/manager/product/detail", (req, res) => {
+//     res.render("manager/product/detail", {
+//         path: req.originalUrl.split("?").shift(),
+//       });
+// })
+// app.get("/manager/package/list", (req, res) => {
+//     res.render("manager/package/list", {
+//         path: req.originalUrl.split("?").shift(),
+//       });
+// })
+// app.get("/manager/package/detail", (req, res) => {
+//     res.render("manager/package/detail", {
+//         path: req.originalUrl.split("?").shift(),
+//       });
+// })
 // app.get("/manager/product/delete?id=10", (req, res) => {
 //     res.render("home");
 // })
