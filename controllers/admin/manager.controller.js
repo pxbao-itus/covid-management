@@ -36,7 +36,7 @@ managerRouter.post('/create', async (req, res) => {
     return res.redirect('/admin/manager/create');
 })
 
-managerRouter.get('/disable', async (req, res) => {
+managerRouter.get('/update', async (req, res) => {
     try {
         const entity = {
             TrangThai: req.query.status
@@ -47,13 +47,14 @@ managerRouter.get('/disable', async (req, res) => {
     }
     return res.redirect('/admin/manager/list');
 })
-managerRouter.get('/delete?', async (req, res) => {
+managerRouter.get('/delete', async (req, res) => {
     try {
         const result = managerModel.delete(req.query.id);
     } catch (error) {
         
     }
     return res.redirect('/admin/manager/list');
+    
 })
 managerRouter.get('/history', async (req, res) => {
     let result;
@@ -62,6 +63,9 @@ managerRouter.get('/history', async (req, res) => {
     } catch (error) {
         result = [];
     }
-    return res.render('admin/managerHistory');
+    return res.render('admin/managerHistory', {
+        history: result
+    });
+
 })
 module.exports = managerRouter;
