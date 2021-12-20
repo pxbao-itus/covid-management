@@ -13,29 +13,32 @@ authUser.get('/signin',async (req, res) =>{
     if(!adminExist) {
         return res.redirect('/init');
     }
-    if(req.keep-signin === 'true') {
-        if(req.signedCookies.user) {
-            let user = await userModel.get(userAccountTable, req.signedCookies.user);
-            if(user) {
-                return res.redirect('/home');
-            } else {
-                user = await userModel.get(managerAccountTable, req.signedCookies.user);
+    if(req.cookies.keepSignin) {
+        if(req.cookies.keepSignin === 'true') {
+            if(req.signedCookies.user) {
+                let user = await userModel.get(userAccountTable, req.signedCookies.user);
                 if(user) {
-                    return res.redirect('/manager', {
-                        manager: user.Username
-                    })
+                    return res.redirect('/home');
                 } else {
-                    user = await userModel.get(adminAccountTable, req.signedCookies.user); 
+                    user = await userModel.get(managerAccountTable, req.signedCookies.user);
                     if(user) {
-                        return res.redirect('/admin');
+                        return res.redirect('/manager', {
+                            manager: user.Username
+                        })
                     } else {
-                        return res.render('signin');
+                        user = await userModel.get(adminAccountTable, req.signedCookies.user); 
+                        if(user) {
+                            return res.redirect('/admin');
+                        } else {
+                            return res.render('signin');
+                        }
                     }
                 }
             }
+            
         }
-        
     }
+    
     if(req.account) {
         let user = await userModel.get(userAccountTable, req.account.Username);
         if(user) {
@@ -79,9 +82,9 @@ authUser.post('/signin',async (req, res, next) => {
                 });
             }
             if(req.body.keep === 'on') {
-                res.cookie('keep-signin', 'true');
+                res.cookie('keepSignin', 'true');
             } else {
-                res.cookie('keep-signin', 'false');
+                res.cookie('keepSignin', 'false');
             }
             res.cookie('user', user.Username, {signed: true});
             let account = await accountModel.get(userAccountTable, user.Username);
