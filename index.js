@@ -122,7 +122,7 @@ app.use('/manager/payment', require('./controllers/manager/payment.controller'))
 app.use('/admin/manager', require('./controllers/admin/manager.controller'));
 
 // router for manage treatment place
-
+app.use('/admin/treatment-place', require('./controllers/admin/treatment.controller'));
 
 // ------------------ Router for user
 // router for package
