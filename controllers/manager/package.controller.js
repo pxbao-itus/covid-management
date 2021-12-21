@@ -7,6 +7,7 @@ packageRouter.get('/list',async (req, res) => {
     return res.render("manager/package/list", {
       packages: result,
       path: req.originalUrl,
+      path2: {title: "This is a title", bullet: ['Item 1','Item 2','Item 3'], button: "View"},
     });
 })
 

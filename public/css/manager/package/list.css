@@ -1,6 +1,7 @@
 @import url("../../modal.css");
+@import url("../tableList.css");
 
-#modal-update > .modal-dialog {
+#modal-insert > .modal-dialog {
   width: 95vw;
   /* height: 90vh; */
   max-width: none;
@@ -34,7 +35,7 @@
 }
 
 #list-prod {
-  height: 65vh;
+  height: 60vh;
   overflow-y: scroll;
 }
 
@@ -84,13 +85,15 @@
 .card-add-product {
   padding-top: 1.5rem;
   padding-bottom: 1rem;
-  padding-left: 5rem;
-  padding-right: 5rem;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 250;
+  line-height: 1;
 }
 
 .card-add-product > img {
-  height: 3rem;
-  width: 3rem;
+  height: 2.5rem;
+  width: 2.5rem;
   opacity: 0.5;
 }
 

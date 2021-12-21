@@ -1,0 +1,164 @@
+<head>
+  <style>
+    .grid {
+      margin-top: 75px;
+    }
+
+    .chart-wrap {
+      margin-left: 50px;
+      font-family: sans-serif;
+      height: 450px;
+      width: 300px;
+    }
+
+    .chart-wrap .title {
+      font-weight: bold;
+      font-size: 1.62em;
+      padding: 1.5em 0 1.8em 0;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .chart-wrap.vertical .grid {
+      transform: translateY(-175px) translateX(175px) rotate(-90deg);
+    }
+
+    .chart-wrap.vertical .grid .bar::after {
+      transform: translateY(-50%) rotate(90deg);
+      display: block;
+    }
+
+    .chart-wrap.vertical .grid::before,
+    .chart-wrap.vertical .grid::after {
+      transform: translateX(-0.2em) rotate(90deg);
+    }
+
+    .chart-wrap .grid {
+      position: relative;
+      padding: 5px 0 5px 0;
+      height: 100%;
+      width: 100%;
+      border-left: 2px solid #aaa;
+      background: repeating-linear-gradient(90deg, transparent, transparent 19.5%, rgba(170, 170, 170, 0.7) 20%);
+    }
+
+    .chart-wrap .grid::before {
+      font-size: 0.8em;
+      font-weight: bold;
+      content: '0';
+      position: absolute;
+      left: -0.5em;
+      top: -1.5em;
+    }
+
+    .chart-wrap .grid::after {
+      font-size: 0.8em;
+      font-weight: bold;
+      content: '1000';
+      position: absolute;
+      right: -1.5em;
+      top: -1.5em;
+    }
+
+    .chart-wrap .bar {
+      width: var(--bar-value);
+      height: 50px;
+      margin: 30px 0;
+      background-color: #F16335;
+      border-radius: 0 3px 3px 0;
+    }
+
+    .chart-wrap .bar:hover {
+      opacity: 0.7;
+    }
+
+    .chart-wrap .bar::after {
+      content: attr(data-name);
+      margin-left: 100%;
+      padding: 10px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+{{> navbar text='Tìm kiếm nhu yếu phẩm ... '}}
+
+<div class="mb-6"></div>
+
+<div class="container-fluid">
+  <div class="row">
+    {{> sidebar where='statistic'}}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="covid-count">
+        <h1>Thống kê thông tin</h1>
+        <div class="chart-wrap vertical">
+          <h2 class="title">Thống kê số lượng Covid trong ngày {{day}} 21/12/2021</h2>
+
+          <div class="grid">
+            <div class="bar" style="--bar-value:85%;" data-name="F0" title="1000"></div>
+            <div class="bar" style="--bar-value:23%;" data-name="F1" title="100"></div>
+            <div class="bar" style="--bar-value:7%;" data-name="F2" title="100"></div>
+            <div class="bar" style="--bar-value:20%;" data-name="Đã khỏi bệnh" title="Đã khỏi bệnh"></div>
+          </div>
+        </div>
+      </div>
+      <div class="status-change">
+        <h1>Thống kê số người chuyển trạng thái trong ngày {{today}}</h1>
+        <div class="chart-wrap vertical">
+          <h2 class="title">Thống kê số lượng Covid trong ngày {{day}} 21/12/2021</h2>
+
+          <div class="grid">
+            <div class="bar" style="--bar-value:85%;" data-name="F0" title="1000"></div>
+            <div class="bar" style="--bar-value:23%;" data-name="F1" title="100"></div>
+            <div class="bar" style="--bar-value:7%;" data-name="F2" title="100"></div>
+            <div class="bar" style="--bar-value:20%;" data-name="Đã khỏi bệnh" title="Đã khỏi bệnh"></div>
+          </div>
+        </div>
+      </div>
+      <div class="top5-package">
+        <h1>Thống kê số người chuyển trạng thái trong ngày {{today}}</h1>
+        <div class="chart-wrap vertical">
+          <h2 class="title">Thống kê số lượng Covid trong ngày {{day}} 21/12/2021</h2>
+
+          <div class="grid">
+            <div class="bar" style="--bar-value:85%;" data-name="F0" title="1000"></div>
+            <div class="bar" style="--bar-value:23%;" data-name="F1" title="100"></div>
+            <div class="bar" style="--bar-value:7%;" data-name="F2" title="100"></div>
+            <div class="bar" style="--bar-value:20%;" data-name="Đã khỏi bệnh" title="Đã khỏi bệnh"></div>
+          </div>
+        </div>
+      </div>
+      <div class="top5-product">
+        <h1>Thống kê số người chuyển trạng thái trong ngày {{today}}</h1>
+        <div class="chart-wrap vertical">
+          <h2 class="title">Thống kê số lượng Covid trong ngày {{day}} 21/12/2021</h2>
+
+          <div class="grid">
+            <div class="bar" style="--bar-value:85%;" data-name="F0" title="1000"></div>
+            <div class="bar" style="--bar-value:23%;" data-name="F1" title="100"></div>
+            <div class="bar" style="--bar-value:7%;" data-name="F2" title="100"></div>
+            <div class="bar" style="--bar-value:20%;" data-name="Đã khỏi bệnh" title="Đã khỏi bệnh"></div>
+          </div>
+        </div>
+      </div>
+      <div class="status-change">
+        <h1>Thống kê số người chuyển trạng thái trong ngày {{today}}</h1>
+        <div class="chart-wrap vertical">
+          <h2 class="title">Thống kê số lượng Covid trong ngày {{day}} 21/12/2021</h2>
+
+          <div class="grid">
+            <div class="bar" style="--bar-value:85%;" data-name="F0" title="1000"></div>
+            <div class="bar" style="--bar-value:23%;" data-name="F1" title="100"></div>
+            <div class="bar" style="--bar-value:7%;" data-name="F2" title="100"></div>
+            <div class="bar" style="--bar-value:20%;" data-name="Đã khỏi bệnh" title="Đã khỏi bệnh"></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+</div>
+{{> modal}}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js">  </script>

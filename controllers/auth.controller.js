@@ -70,7 +70,7 @@ authUser.post('/signin',async (req, res, next) => {
             });
         }
         if(!user) {
-            return res.render('user/signin', {
+            return res.render('signin', {
                 msg: 'Tên đăng nhập hoặc mật khẩu không chính xác!'
             });
             

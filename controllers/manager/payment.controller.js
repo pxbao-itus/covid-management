@@ -3,14 +3,14 @@ const paymentModel = require('../../models/manager/payment.model');
 
 
 payment.get('/', (req, res) => {
-    res.send("Payment");
+    res.render("manager/payment/payment");
 });
 
 payment.get('/change-limit', (req, res) => {
     res.send("Man Hinh Thay Doi Dinh Muc");
 });
 
-payment.post('/change-limit', async (req, res) => {
+payment.post('/change-limit', async(req, res) => {
     // const limitUpdated = req.body.limit;
     try {
         const entity = {
@@ -26,7 +26,7 @@ payment.post('/change-limit', async (req, res) => {
     }
 });
 
-payment.post('/accept-payment', async (req, res) => {
+payment.post('/accept-payment', async(req, res) => {
     const statusUpdated = req.body.limit;
     // const arrayId = [5];
     try {

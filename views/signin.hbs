@@ -1,0 +1,39 @@
+<body class="text-center mx-auto w-25 h-100 my-auto" style="background-color: #F5F5F5;margin-top: 10% !important;
+    top: 100%;">
+  <div class="card p-5">
+    <form class="form-signin" method="post" action="/auth/signin">
+      <h1 class="h3 mb-3 font-weight-normal">
+        Covid Management
+      </h1>
+      <h1 class="h3 mb-3 font-weight-normal">
+        Đăng nhập
+      </h1>
+      <label for="inputEmail" class="sr-only">
+        Tài khoản
+      </label>
+      <input id="inputEmail" name="username" class="form-control" placeholder="Email address" required=""
+        autofocus="" />
+      <div class="mb-3"></div>
+      <label for="inputPassword" class="sr-only">
+        Mật khẩu
+      </label>
+      <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password"
+        required="" />
+      <div class="mb-3"></div>
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me" name="keep" />
+          Lưu mật khẩu
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">
+        Đăng nhập
+      </button>
+      {{#if msg}}
+      <p>
+        {{msg}}
+      </p>
+      {{/if}}
+    </form>
+  </div>
+</body>

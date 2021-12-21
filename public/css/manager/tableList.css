@@ -1,0 +1,26 @@
+#line-title {
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.group-btn-action {
+  position: absolute;
+  right: 2rem;
+  top: 0rem;
+}
+
+.table-responsive {
+  height: 77vh;
+}
+
+.item-id {
+  display: none;
+}
+
+#table-main th{
+  text-align: center!important;
+}
+#table-main td{
+  text-align: center!important;
+}
