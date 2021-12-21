@@ -9,8 +9,8 @@ const NLQ = 'NguoiLienQuan';
 const MLH = 'MoiLienHe';
 const LichSuDuocQuanLy = 'LichSuDuocQuanLy';
 
-exports.loadListUser = async tbName => {
-    const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
+exports.loadListUser = async () => {
+    const table = new pgp.helpers.TableName({ table: NLQ, schema: schema });
     const qStr = pgp.as.format('SELECT * FROM $1', table);
     try {
         const res = await db.any(qStr);
@@ -70,3 +70,28 @@ exports.createUser = async (entity) => {
         console.log(error);
     }
 }
+
+exports.loadProfile = async (value) => {
+    const table = new pgp.helpers.TableName({ table: NLQ, schema: schema });
+    const qStr = pgp.as.format(`SELECT * FROM $1 WHERE "MaNguoiLienQuan" = $2`, [table, value]);
+    try {
+        const res = await db.one(qStr);
+        return res;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+exports.loadHistory = async (value) => {
+    const table = new pgp.helpers.TableName({ table: LichSuDuocQuanLy, schema: schema });
+    const qStr = pgp.as.format(`SELECT * FROM $1 WHERE "NguoiLienQuan" = $2`, [table, value]);
+    try {
+        const res = await db.any(qStr);
+        return res;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
+
