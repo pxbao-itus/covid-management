@@ -21,7 +21,7 @@ exports.loadAccount = async tbName => {
         const res = await db.any(qStr);
         return res;
     } catch (error) {
-        console.log(error);
+        return null;
     }
 }
 
@@ -32,7 +32,7 @@ exports.getAccount = async (tbName, filedName, value) => {
         const res = await db.any(qStr);
         return res;
     } catch (error) {
-        console.log(error);
+        return null;
     }
 }
 exports.addAccount = async (tbName, entity) => {
@@ -42,7 +42,7 @@ exports.addAccount = async (tbName, entity) => {
         const res = await db.one(qStr);
         return res;
     } catch (error) {
-        console.log(error);
+        return null;
     }
 }
 
@@ -50,11 +50,11 @@ exports.updateAccount = async (tbName, entity, value) => {
     const table = new pgp.helpers.TableName({table: tbName, schema: schema});
     const condition = pgp.as.format(' WHERE "Username" = $1', [value]);
     const qStr = pgp.helpers.update(entity, null, table) + condition + " RETURNING *";
-    console.log(qStr)
     try {
         const res = await db.one(qStr);
         return res;
     } catch (error) {
-        console.log(error);
+
+        return null;
     }
 }
