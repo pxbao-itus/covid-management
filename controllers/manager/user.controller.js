@@ -3,7 +3,6 @@ const userModel = require('../../models/manager/user.model');
 
 user.get('/list', async (req, res) => {
     const users = await userModel.list();
-    console.log(users);
     res.send("List-user");
 });
 
