@@ -1,0 +1,55 @@
+body {
+    background-color: #DBD6D6;
+}
+#navbar {
+    height: 60px;
+    color: white;
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    background-color: #0724B2;
+    display: grid;
+    grid-template-columns: 15vw 65vw 20vw;
+}
+.grid-item {
+    margin: auto;
+}
+#logo {
+    font-size: 35px;
+    font-weight: bold;
+    padding-left: 30px;
+}
+#menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.menu-item {
+    margin-left: 45px;
+    color: white;
+    text-decoration: none;
+}
+.menu-item:hover {
+    color: yellow;
+    text-decoration: none;
+}
+#signout {
+    padding-left: 30px;
+}
+#signout:hover {
+    text-decoration: none;
+}
+#btn-signout {
+    color: #0724B2;
+    font-weight: bold;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-radius: 20px;
+    background-color: white;
+}
+#btn-signout:hover {
+    color:#0724B2;
+    text-decoration: none;
+}

@@ -1,0 +1,39 @@
+
+<div id="body" class="container">
+    <div id="search-filter">
+        <input class="sf-item" id="input" type="text" name="package" value="{{textSearch}}">
+        <a class="sf-item" id="search" href="#">
+            <div id="btn-search">Tìm kiếm</div>
+        </a>
+        <select id="sort" class="sf-item">
+            <option id="sx" value="" >Sắp xếp</option>
+            <option id="th" value="th" {{#if sort.th}} selected {{/if}}>Thời hạn</option>
+            <option id="hm" value="hm"{{#if sort.hm}} selected {{/if}}>Hạn mức</option>
+        </select>
+    </div>
+    <div id="packages">
+        {{#each packages}}
+            <div class="package">
+            <img src="/img/bread2.jpg" alt="Package image">
+            <div class="content">
+                <div class="name">{{this.TenGoiNYP}}</div>
+                <ul>
+                    <li>Mức mua giới hạn: {{this.MucGioiHan}} lần</li>
+                    <li>Thời gian giới hạn: {{this.ThoiGianGioiHan}} ngày</li>
+                </ul>
+                <a class="detail" href="/packages/detail?id={{this.MaGoiNYP}}">
+                    <div class="btn-detail">Xem chi tiết</div>
+                </a>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    <div id="pagnition">
+        {{#each pagnition}}
+            <a class="page-link page-active" href="/package/list?page={{this}}">
+                <div class="page ">{{this}}</div>
+            </a>
+        {{/each}}
+    </div>
+</div>
+
