@@ -36,8 +36,7 @@ accountRouter.get('/', (req, res) => {
 })
 
 accountRouter.post('/', async (req, res) => {
-    //const username = req.signedCookies.user;
-    const username = req.cookies.username;
+    const username = req.signedCookies.user;
     try {
         let result = await accountModel.get(userTable, username);
         if(result) {
