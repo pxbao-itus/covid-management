@@ -9,6 +9,7 @@ body {
     background-color: #0724B2;
     display: grid;
     grid-template-columns: 15vw 65vw 20vw;
+
 }
 .grid-item {
     margin: auto;
