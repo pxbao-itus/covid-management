@@ -4,11 +4,20 @@ const orderModel = require('../../models/user/order.model');
 
 orderRouter.post('/buy', async (req, res) => {
     try {
-        const result = await orderModel.create(req.body.order, req.body.orderDetail);
+        console.log(req.body)
+        let {package, details} = req.body;
+        const entityPackage = {
+            NguoiLienQuan: 2,//req.signedCookies.userId,
+            GoiNYP: package.MaGoiNYP,
+            SoTien: package.SoTien,
+            ThoiGian: package.ThoiGian
+        }
+        const result = await orderModel.create(entityPackage, details);
         if(result) {
             return res.status(200).json({status: true});
         } else return res.status(200).json({status: false});
     } catch (error) {
+        console.log(error)
         return res.status(400).json({status: false});
     }
 })
@@ -18,11 +27,13 @@ orderRouter.get('/list', async (req, res) => {
     try {
         const result = await orderModel.list(userid);
         return res.render('user/order', {
-            orders: result
+            orders: result,
+            layout: 'user'
         })
     } catch (error) {
         return res.render('user/order', {
-            orders: []
+            orders: [],
+            layout: 'user'
         })
     }
 })

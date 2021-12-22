@@ -80,15 +80,22 @@ packageRouter.get('/detail', async (req, res) => {
     const MaGoiNYP = req.query.id;
     try {
         const result = await packageModel.detail(MaGoiNYP);
-        if(result) {
-            return res.render('manager/packageDetail', {
-                package: result.package,
-                details : result.details
-            })
+        for (let index = 0; index < result.details.length; index++) {
+            result.details[index].SoLuong = parseInt(result.details[index].SoLuong)
+            result.details[index].SoLuongToiDa = parseInt(result.details[index].SoLuongToiDa)
+            result.details[index].SoLuongToiThieu = parseInt(result.details[index].SoLuongToiThieu)
         }
-        return res.render('/manager/packageDetail');
+        return res.render('user/packageDetail', {
+            layout: 'user',
+            title: 'Chi tiết gói nhu yếu phẩm',
+            style: 'package.detail',
+            script: 'package.detail',
+            package: result.package,
+            details: result.details
+
+        });
     } catch (error) {
-        return res.render('/manager/packageDetail');
+        return res.render('/user/package.detail');
     }
 })
 

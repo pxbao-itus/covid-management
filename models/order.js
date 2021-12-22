@@ -24,10 +24,9 @@ exports.createOrder = async (order, orderDetail) => {
     try {
         const resultOrder = await db.one(qStr);
         const getOrder = pgp.as.format(`SELECT * FROM $1 WHERE "MaLichSuMua" = '${resultOrder.MaLichSuMua}' LIMIT 1`, orderTable);
-        const resultGetOrder = await db.any(getOrder);
         for (const item of orderDetail) {
             const entity = {
-                LichSuMua: resultGetOrder.MaLichSuMua,
+                LichSuMua: resultOrder.MaLichSuMua,
                 NhuYeuPham: item.MaNYP,
                 SoLuong: item.SoLuong,
                 DonGia: item.DonGia

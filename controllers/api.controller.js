@@ -3,7 +3,7 @@ const apiRouter = require('express').Router();
 const addressModel = require('../models/api/address.model');
 const productModel = require('../models/api/product.model');
 const treatmentModel = require('../models/api/treatment.model');
-
+const packageModel = require('../models/manager/package.model');
 // api get all province
 apiRouter.get('/province', async (req, res) => {
     try {
@@ -74,4 +74,13 @@ apiRouter.get('/product', async (req, res) => {
     }
 })
 
+// api get detail of package by package id 
+apiRouter.get('/package/detail', async (req, res) => {
+    try {
+        const result = await packageModel.detail(req.query.id);
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(400).json([]);
+    }
+})
 module.exports = apiRouter;
