@@ -74,6 +74,16 @@ apiRouter.get('/product', async (req, res) => {
     }
 })
 
+// api get all package
+apiRouter.get('/package', async (req, res) => {
+    try {
+        const result = await packageModel.list();
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(400).json([]);
+    }
+})
+
 // api get detail of package by package id 
 apiRouter.get('/package/detail', async (req, res) => {
     try {
@@ -83,4 +93,5 @@ apiRouter.get('/package/detail', async (req, res) => {
         return res.status(400).json([]);
     }
 })
+
 module.exports = apiRouter;

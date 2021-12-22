@@ -1,0 +1,46 @@
+#body {
+    margin: auto;
+    margin-top: 30px;
+    width: 1000px;
+    background-color: white;
+
+}
+
+#title {
+    background-color: #0724B2;
+    color: white;
+    width: 350px;
+    height: 37px;
+    font-size: 20px;
+    padding-top: 3px;
+    text-align: center;
+    border-color: #0724B2;
+}
+thead {
+    background-color: #0724B2;
+    color: white;
+    font-size: 16px;
+    border-top: 0px;
+}
+tr {
+    text-align: center;
+}
+.left {
+    border-left: 1px solid white;
+}
+.right {
+    border-right: 1px solid #DBD6D6;
+}
+td a {
+    color: white;
+    background-color: #0724B2;
+    padding-top: 3px;
+    padding-right: 15px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    border-radius: 20px;
+}
+td a:hover {
+    text-decoration: none;
+    color: white;
+}
