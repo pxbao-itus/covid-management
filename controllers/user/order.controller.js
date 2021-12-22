@@ -23,27 +23,52 @@ orderRouter.post('/buy', async (req, res) => {
 })
 
 orderRouter.get('/list', async (req, res) => {
-    const userid = req.cookies.userId;
+    const userid = 2;//req.cookies.userId;
     try {
         const result = await orderModel.list(userid);
-        return res.render('user/order', {
+        for (let index = 0; index < result.length; index++) {
+            result[index].ThoiGian = JSON.stringify(result[index].ThoiGian).slice(1,11);
+        }
+        return res.render('user/orders', {
             orders: result,
-            layout: 'user'
+            layout: 'user',
+            style: 'orders',
+            script: 'orders',
+            title: 'Lịch sử mua hàng'
         })
     } catch (error) {
-        return res.render('user/order', {
+        console.log(error)
+        return res.render('user/orders', {
             orders: [],
-            layout: 'user'
+            layout: 'user',
+            style: 'orders',
+            script: 'orders',
+            title: 'Lịch sử mua hàng'
         })
     }
 })
 orderRouter.get('/detail', async (req, res) => {
-    const userid = req.cookies.userId;
-    const historyId = req.query.id;
-    const result = await orderModel.detail(userid, historyId);
-    return res.render('user/orderDetail', {
-        order: result.order,
-        details: result.details
-    })
+    try {
+        const userid = '2'; //req.cookies.userId;
+        const historyId = req.query.id;
+        const result = await orderModel.detail(userid, historyId);
+        for(let index = 0; index < result.details.length; index++) {
+            result.details[index].SoLuong = parseInt(result.details[index].SoLuong);
+            result.details[index].SoLuongToiDa = parseInt(result.details[index].SoLuongToiDa);
+            result.details[index].SoLuongToiThieu = parseInt(result.details[index].SoLuongToiThieu);
+        }
+        result.order.SoTien = parseInt(result.order.SoTien);
+        return res.render('user/orderDetail', {
+            order: result.order,
+            details: result.details,
+            title: 'Chi tiết mua hàng',
+            layout: 'user',
+            style: 'order.detail',
+            script: 'order.detail'
+        })
+    } catch (error) {
+        console.log(error)
+    }
+    
 })
 module.exports = orderRouter;
