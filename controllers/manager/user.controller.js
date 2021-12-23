@@ -1,25 +1,26 @@
 const user = require('express').Router();
 const userModel = require('../../models/manager/user.model');
 
-user.get('/list', async (req, res) => {
+user.get('/list', async(req, res) => {
     const users = await userModel.list();
     console.log(users);
-    res.send("List-user");
+    console.log('-----------------------------------------------')
+    res.render("manager/user/list", { user: user });
 });
 
-user.get('/list/ajax', async (req, res) => {
+user.get('/list/ajax', async(req, res) => {
     const users = await userModel.list();
     res.send(users);
 })
 
-user.get('/detail', async (req, res) => {
+user.get('/detail', async(req, res) => {
     const MaNLQ = req.query.id;
     const detailInfo = await userModel.detail(MaNLQ);
     console.log(detailInfo);
     res.send(detailInfo);
 });
 
-user.post('/update', async (req, res) => {
+user.post('/update', async(req, res) => {
     const userUpdated = req.body;
     // const userUpdated = {
     //     id: 1,
@@ -38,7 +39,7 @@ user.post('/update', async (req, res) => {
     }
 });
 
-user.get('/create', async (req, res) => {
+user.get('/create', async(req, res) => {
     if (req.cookies('createUser')) {
         message = req.cookies('create');
     }
@@ -47,7 +48,7 @@ user.get('/create', async (req, res) => {
     });
 })
 
-user.post('/create', async (req, res) => {
+user.post('/create', async(req, res) => {
     res.clearCookie('createUser');
     // const objectSample = {
     //     ten: 'Lê Nguyên Tuấn',
