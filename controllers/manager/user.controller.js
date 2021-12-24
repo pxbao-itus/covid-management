@@ -3,11 +3,19 @@ const userModel = require('../../models/manager/user.model');
 
 user.get('/list', async(req, res) => {
     const users = await userModel.list();
-    console.log(users);
+    users.forEach(element => {
+        element.Tuoi = _calculateAge(element.NgaySinh);
+    });
+    console.log((users));
     console.log('-----------------------------------------------')
-    res.render("manager/user/list", { user: user });
+    res.render("manager/user/list", { user: users });
 });
 
+function _calculateAge(birthday) { // birthday is a date
+    var ageDifMs = Date.now() - birthday.getTime();
+    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
 user.get('/list/ajax', async(req, res) => {
     const users = await userModel.list();
     res.send(users);

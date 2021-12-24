@@ -43,9 +43,10 @@
       </div>
 
       <div class="table-responsive">
-{{user}}
+
         <table id="table-main" class="table table-striped table-sm">
           <thead>
+            
             <tr>
               <th>STT</th>
               <th>Họ tên</th>
@@ -56,34 +57,24 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="item-id">1234</td>
-              <td>1</td>
-              <td>Trà Anh Toàn</td>
-              <td>F10</td>
-              <td>22</td>
-              <td>Quảng Ngãi</td>
+            {{#each user}}
+              <tr>
+              <td class="item-id">{{MaNguoiLienQuan}}</td>
+              <td>{{HoTen}}</td>
+              <td>{{TrangThaiHienTai}}</td>
+              <td>{{Tuoi}}</td>
+              <td>{{DiaChi}}</td>
               <td>
                 <button type="button" class="btn btn-primary btn-info">Chi tiết</button>
               </td>
             </tr>
-            <tr>
-              <td class="item-id">1234</td>
-              <td>2</td>
-              <td>Trà Anh Toàn</td>
-              <td>F10</td>
-              <td>22</td>
-              <td>Quảng Ngãi</td>
-              <td>
-                <button type="button" class="btn btn-primary btn-info">Chi tiết</button>
-              </td>
-            </tr>
+            {{/each}}
           </tbody>
         </table>
-        {{> pagination}}
       </div>
 
     </main>
+        {{> pagination}}
   </div>
 </div>
 {{> modal}}
