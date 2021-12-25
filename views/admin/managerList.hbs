@@ -2,11 +2,11 @@
 
 <div class="mb-6"></div>
 
-<div class="container-fluid">
+<div class="container-fluid" style="padding-top:30px">
     <div class="row">
         {{> adminSidebar where='manageInfo'}}
-
-        <div class="card mx-auto my-auto" style="width:60%">
+        <div class="card mx-auto my-auto" style="width:60%;">
+            <h1>Quản lý thông tin người quản lý</h1>
             <div class="card-body">
                 <div class="table-responsive">
 
@@ -16,13 +16,47 @@
                             <tr>
                                 <th>STT</th>
                                 <th>Họ tên</th>
+                                <th>Tên tài khoản</th>
                                 <th>Trạng thái</th>
-                                <th>Tuổi tác</th>
-                                <th>Địa chỉ</th>
-                                <th>Chi tiết</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                <td class="item-id">1</td>
+                                <td>Trà Anh Toàn</td>
+                                <td>anhtoan1103</td>
+                                <td>Mở</td>
+                                <td><button type="button" class="btn btn-primary btn-info"> Khóa</button></td>
+                                <td><button type="button" class="btn btn-primary btn-info"> Lịch sử</button></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-info">Chi tiết</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="item-id">2</td>
+                                <td>Trà Anh Toàn</td>
+                                <td>anhtoan1103</td>
+                                <td>Mở</td>
+                                <td><button type="button" class="btn btn-primary btn-info"> Khóa</button></td>
+                                <td><button type="button" class="btn btn-primary btn-info"> Lịch sử</button></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-info">Chi tiết</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="item-id">3</td>
+                                <td>Trà Anh Toàn</td>
+                                <td>anhtoan1103</td>
+                                <td>Mở</td>
+                                <td><button type="button" class="btn btn-primary btn-info"> Khóa</button></td>
+                                <td><button type="button" class="btn btn-primary btn-info"> Lịch sử</button></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-info">Chi tiết</button>
+                                </td>
+                            </tr>
                             {{#each user}}
                             <tr>
                                 <td class="item-id">{{MaNguoiLienQuan}}</td>
