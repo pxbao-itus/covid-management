@@ -1,25 +1,34 @@
 const user = require('express').Router();
 const userModel = require('../../models/manager/user.model');
 
-user.get('/list', async (req, res) => {
+user.get('/list', async(req, res) => {
     const users = await userModel.list();
-    console.log(users);
-    res.send("List-user");
+    users.forEach(element => {
+        element.Tuoi = _calculateAge(element.NgaySinh);
+    });
+    console.log((users));
+    console.log('-----------------------------------------------')
+    res.render("manager/user/list", { user: users });
 });
 
-user.get('/list/ajax', async (req, res) => {
+function _calculateAge(birthday) { // birthday is a date
+    var ageDifMs = Date.now() - birthday.getTime();
+    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+user.get('/list/ajax', async(req, res) => {
     const users = await userModel.list();
     res.send(users);
 })
 
-user.get('/detail', async (req, res) => {
+user.get('/detail', async(req, res) => {
     const MaNLQ = req.query.id;
     const detailInfo = await userModel.detail(MaNLQ);
     console.log(detailInfo);
     res.send(detailInfo);
 });
 
-user.post('/update', async (req, res) => {
+user.post('/update', async(req, res) => {
     const userUpdated = req.body;
     // const userUpdated = {
     //     id: 1,
@@ -38,7 +47,7 @@ user.post('/update', async (req, res) => {
     }
 });
 
-user.get('/create', async (req, res) => {
+user.get('/create', async(req, res) => {
     if (req.cookies('createUser')) {
         message = req.cookies('create');
     }
@@ -47,7 +56,7 @@ user.get('/create', async (req, res) => {
     });
 })
 
-user.post('/create', async (req, res) => {
+user.post('/create', async(req, res) => {
     res.clearCookie('createUser');
     // const objectSample = {
     //     ten: 'Lê Nguyên Tuấn',

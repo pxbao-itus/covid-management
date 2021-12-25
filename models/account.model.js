@@ -3,7 +3,10 @@ const fieldName = 'Username';
 module.exports = {
     all: async (tableName) => {
         const res = await db.loadAccount(tableName);
-        return res;
+        if(res.length > 0) {
+            return res;
+        }
+        return null;
     },
     get: async (tableName, value) => {
         const res = await db.getAccount(tableName, fieldName, value);
