@@ -30,7 +30,7 @@ require('./config/handlebars.config')(app);
 
 // use router
 app.get("/", (req, res) => {
-    res.render("manager/relatedPeopleDetail.hbs", {
+    res.render("admin/managerCreate.hbs", {
         path: req.originalUrl.split("?").shift(),
     });
 })
