@@ -2,6 +2,8 @@ const product = require('express').Router();
 
 const productModel = require('../../models/manager/product.model');
 
+
+
 product.get('/list', async (req, res) => {
     const products = await productModel.list();
     return res.render("./manager/product/list", {

@@ -30,15 +30,15 @@ require('./config/handlebars.config')(app);
 
 // use router
 app.get("/", (req, res) => {
-    res.render("admin/managerCreate.hbs", {
-        path: req.originalUrl.split("?").shift(),
+    res.render("manager/user/detail.hbs", {
+        path: '/manager/user/detail',
     });
 })
 
 // use router
-// app.get("/auth/signin", (req, res) => {
-//     res.render("signin", {
-//         path: req.originalUrl.split("?").shift(),
+// app.get("manager/payment", (req, res) => {
+//     res.render("manager/payment/payment", {
+//         path: '/css/manager/payment/payment',
 //       });
 // })
 // app.get("/init", (req, res) => {
@@ -53,16 +53,6 @@ app.get("/", (req, res) => {
 // })
 // app.get("/manager/user/detail", (req, res) => {
 //     res.render("manager/user/detail", {
-//         path: req.originalUrl.split("?").shift(),
-//       });
-// })
-// app.get("/manager/user/update", (req, res) => {
-//     res.render("home", {
-//         path: req.originalUrl.split("?").shift(),
-//       });
-// })
-// app.get("/manager/user/create", (req, res) => {
-//     res.render("home", {
 //         path: req.originalUrl.split("?").shift(),
 //       });
 // })
@@ -86,8 +76,10 @@ app.get("/", (req, res) => {
 //         path: req.originalUrl.split("?").shift(),
 //       });
 // })
-// app.get("/manager/product/delete?id=10", (req, res) => {
-//     res.render("home");
+// app.get("/manager/statistic/", (req, res) => {
+//     res.render("manager/statistic/statistic", {
+//         path: req.originalUrl.split("?").shift(),
+//       });
 // })
 
 

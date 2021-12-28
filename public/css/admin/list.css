@@ -1,0 +1,48 @@
+@import url("../../modal.css");
+@import url("../../tableList.css");
+
+/* === modal === */
+#modal-settings > .modal-dialog {
+  width: 32vw;
+}
+
+.group-btn-number {
+  margin: 0.3rem;
+  position: relative;
+}
+.group-btn-number > div {
+  position: absolute;
+  right: 10px;
+}
+
+.group-incr-decr > div {
+  height: 1.7rem;
+}
+
+.group-incr-decr input {
+  text-align: center;
+  width: 3rem;
+  height: 1.7em;
+}
+
+.group-incr-decr button {
+  padding: 0px;
+  padding-bottom: 2px;
+  width: 1.5rem;
+}
+
+#modal-settings .modal-body p{
+  margin-bottom: 0rem;
+  margin-top: 0.3rem;
+
+}
+/* === end - modal === */
+
+
+
+
+
+
+
+
+

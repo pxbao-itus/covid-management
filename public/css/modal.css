@@ -8,10 +8,18 @@
     max-height: none;
 }
 
+#modal-settings > .modal-dialog{
+    max-width: none;
+    max-height: none;
+}
+
+.modal-dialog{
+    position: absolute;
+    top: 50% !important;;
+    left: 50% !important;;
+    transform: translate(-50%, -50%) !important;
+}
+
 #modal-delete .modal-dialog {
-    left: 0;
-    right: 0;
     margin-top: auto;
-    top: 50%;
-    transform: translateY(-50%);
 }

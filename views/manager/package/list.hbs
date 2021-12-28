@@ -1,5 +1,4 @@
 {{> navbar text='Tìm kiếm gói nhu yếu phẩm ... '}}
-{{!-- {{> navbar text=path2}} --}}
 
 <div class="container-fluid">
   <div class="row">
@@ -31,7 +30,7 @@
         <table id="table-main" class="table table-striped table-sm">
           <thead>
             <tr>
-              <th class="text-center"> STT </th>
+              <th class="text-center">STT </th>
               <th class="text-center">Tên</th>
               <th class="text-center">Ngày lập gói</th>
               <th class="text-center">Mức giới hạn</th>
@@ -40,46 +39,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="item-id">1234</td>
-              <td class="text-center">
-                1
-              </td>
-              <td class="text-center">Bánh mì 1</td>
-              <td class="text-center">
-                F10
-              </td>
-              <td class="text-center">
-                22
-              </td>
 
-              <td class="text-center">
-                22
-              </td>
-              <td class="text-center">
-                <button type="button" class="btn btn-info btn-detail">Chi tiết</button>
-              </td class="text-center">
-            </tr>
+            {{#each packages}}
             <tr>
-              <td class="item-id">1234</td>
-              <td class="text-center">
-                2
+              <td class="item-id">{{MaGoiNYP}}</td>
+              <td>{{inc @index}}</td>
+              <td>{{TenGoiNYP}}</td>
+              <td>{{NgayLapGoi}}</td>
+              <td>{{MucGioiHan}}</td>
+              <td>{{ThoiGianGioiHan}}</td>
+              <td>
+                <button type="button" class="btn btn-primary btn-info">Chi tiết</button>
               </td>
-              <td class="text-center">Bánh mì 2</td>
-              <td class="text-center">
-                F10
-              </td>
-              <td class="text-center">
-                22
-              </td>
-              <td class="text-center">
-                22
-              </td>
-
-              <td class="text-center">
-                <button type="button" class="btn btn-info btn-detail">Chi tiết</button>
-              </td class="text-center">
             </tr>
+            {{/each}}
+
           </tbody>
         </table>
         {{> pagination}}
