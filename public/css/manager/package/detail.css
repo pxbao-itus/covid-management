@@ -1,5 +1,5 @@
 @import url("../../modal.css");
-@import url("../tableDetail.css");
+@import url("../../tableDetail.css");
 
 #modal-insert > .modal-dialog {
   width: 95vw;

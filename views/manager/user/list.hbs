@@ -12,32 +12,32 @@
         <h2 class="title">Danh sách người liên quan</h2>
         <div class="btn-toolbar mb-2 mb-md-0 group-btn-action">
           <div class="btn-group mr-2">
-<button class="btn btn-primary" data-toggle="modal" data-target="#modal-insert">
-  Thêm người
-</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#modal-insert">
+              Thêm người
+            </button>
           </div>
           <div class="btn-group">
             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
               Sắp xếp theo
             </button>
-<div class="dropdown-menu dropdown-menu-right">
-  <button class="dropdown-item" type="button">
-    Tình trạng
-  </button>
-  <button class="dropdown-item" type="button">
-    Độ tuổi
-  </button>
-  <button class="dropdown-item" type="button">
-    Giới tính
-  </button>
-  <button class="dropdown-item" type="button">
-    Địa chỉ
-  </button>
-  <button class="dropdown-item" type="button">
-    Nơi điều trị
-  </button>
-</div>
+            <div class="dropdown-menu dropdown-menu-right">
+              <button class="dropdown-item" type="button">
+                Tình trạng
+              </button>
+              <button class="dropdown-item" type="button">
+                Độ tuổi
+              </button>
+              <button class="dropdown-item" type="button">
+                Giới tính
+              </button>
+              <button class="dropdown-item" type="button">
+                Địa chỉ
+              </button>
+              <button class="dropdown-item" type="button">
+                Nơi điều trị
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -46,7 +46,7 @@
 
         <table id="table-main" class="table table-striped table-sm">
           <thead>
-            
+
             <tr>
               <th>STT</th>
               <th>Họ tên</th>
@@ -58,7 +58,7 @@
           </thead>
           <tbody>
             {{#each user}}
-              <tr>
+            <tr>
               <td class="item-id">{{MaNguoiLienQuan}}</td>
               <td>{{HoTen}}</td>
               <td>{{TrangThaiHienTai}}</td>
@@ -74,7 +74,7 @@
       </div>
 
     </main>
-        {{> pagination}}
+    {{> pagination}}
   </div>
 </div>
 {{> modal}}
