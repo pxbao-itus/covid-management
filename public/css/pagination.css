@@ -10,3 +10,14 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.page-link2 {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #007bff;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}

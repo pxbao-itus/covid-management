@@ -1,16 +1,21 @@
 <nav id='pagination-nav' aria-label="..." class="mx-auto">
     <ul class="pagination" style="margin: auto;">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1">First</a>
-        </li>
-        <li class="page-item active"><a class="page-link" href="#">1</a></li>
         <li class="page-item">
-            <a class="page-link" href="#">2</a>
+            <a id="first-page" class="page-link" href="#">First</a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
         <li class="page-item">
-            <a class="page-link" href="#">Last</a>
+            <a class="page-link page-num" href="#">1</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link page-num" href="#">2</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link page-num" href="#">3</a>
+        </li>
+        <li class="page-item">
+            <a id="last-page" class="page-link" href="#">Last</a>
         </li>
     </ul>
 </nav>
 <link rel="stylesheet" href="/css/pagination.css">
+<script src="/js/pagination.js"></script>

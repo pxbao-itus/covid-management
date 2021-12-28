@@ -6,7 +6,6 @@ packageRouter.get("/list", async (req, res) => {
   const result = await packageModel.list();
 
   var options = { day: "2-digit", month: "2-digit", year: "numeric" };
-
   result.forEach((element) => {
     element.NgayLapGoi = element.NgayLapGoi.toLocaleDateString(
       "en-US",
@@ -17,17 +16,21 @@ packageRouter.get("/list", async (req, res) => {
   return res.render("manager/package/list", {
     packages: result,
     path: req.originalUrl,
-    path2: {
-      title: "This is a title",
-      bullet: ["Item 1", "Item 2", "Item 3"],
-      button: "View",
-    },
   });
 });
 
 packageRouter.get("/list/ajax", async (req, res) => {
   try {
     const result = await packageModel.list();
+
+    var options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    result.forEach((element) => {
+      element.NgayLapGoi = element.NgayLapGoi.toLocaleDateString(
+        "en-US",
+        options
+      );
+    });
+    
     if (result) {
       return res.send(result);
     } else {

@@ -3,11 +3,12 @@ const userModel = require("../../models/manager/user.model");
 
 user.get("/list", async (req, res) => {
   const users = await userModel.list();
+
   users.forEach((element) => {
     element.Tuoi = _calculateAge(element.NgaySinh);
   });
-  console.log(users);
-  console.log("-----------------------------------------------");
+  // console.log(users);
+  // console.log("-----------------------------------------------");
   res.render("manager/user/list", { user: users, path: "/manager/user/list" });
 });
 
@@ -19,6 +20,11 @@ function _calculateAge(birthday) {
 }
 user.get("/list/ajax", async (req, res) => {
   const users = await userModel.list();
+
+  users.forEach((element) => {
+    element.Tuoi = _calculateAge(element.NgaySinh);
+  });
+  
   res.send(users);
 });
 
