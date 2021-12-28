@@ -10,12 +10,12 @@
   top: 0rem;
 }
 
-/* .table-responsive {
-  height: 70vh;
-} */
+.table-responsive {
+  height: 77vh;
+}
 
 .item-id {
-  /* display: none; */
+  display: none;
 }
 
 #table-main th{
