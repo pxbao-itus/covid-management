@@ -8,13 +8,14 @@ const managerAccountTable = 'TaiKhoanNguoiQuanLy';
 const adminAccountTable = 'TaiKhoanNguoiQuanTri';
 
 module.exports = app => {
+    var tableName;
     passport.use(new LocalStrategy({
         usernameField: 'username',
         passwordField: 'password',
     },
         async (username, password, done) => {
             let account;
-            var tableName;
+            
             try {
                 tableName = userAccountTable;
                 account = await accountModel.get(userAccountTable, username);

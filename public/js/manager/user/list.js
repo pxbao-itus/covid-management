@@ -1,7 +1,23 @@
-$(".btn-info").click(function(e) {
-    var id = $(e.target).parent().siblings(".item-id")[0].innerText;
-    console.log(id);
-    window.location.replace(`/manager/user/detail?id=${id}`);
+$(document).ready(function() {
+    $(".btn-info").click(function(e) {
+        var id = $(e.target).parent().siblings(".item-id")[0].innerText;
+        console.log(id);
+        window.location.replace(`/manager/user/detail?id=${id}`);
+    });
+
+    $("#insert-form").submit(function(e) {
+        var form = $(this);
+        var url = "/manager/user/create";
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(), // serializes the form's elements.
+            success: function(data) {
+                alert(data); // show response from the php script.
+            },
+        });
+    });
 });
 
 $(document).ready(function() {

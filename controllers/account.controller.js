@@ -9,14 +9,30 @@ const adminTable = 'TaiKhoanNguoiQuanTri';
 
 
 accountRouter.get('/', (req, res) => {
-    if(req.cookies.change-password) {
-        res.render('changePassword', {
-            msg: req.cookies.change-password
-        });
-    } else {
-        res.render('changePassword');
-    }
-    return 
+    let msg = false;
+    let status = true;
+    if(req.cookies.changePassword) {
+        if(req.cookies.changePassword === 'failed') {
+            msg = 'Mật khẩu cũ không chính xác!';
+            status = false;
+        }    
+        if(req.cookies.changePassword === 'not match') {
+            msg = 'Xác nhận mật khẩu mới không đúng!'
+            status = false;
+        }
+        if(req.cookies.changePassword === 'success') {
+            msg = 'Đổi mật khẩu thành công!'
+        }
+    } 
+    res.clearCookie('changePassword');
+    res.render('user/changepassword', {
+        layout: 'user',
+        title: 'Đổi mật khẩu',
+        style: 'changepw',
+        script: 'changepw',
+        msg: msg,
+        status: status
+    });
 })
 
 accountRouter.post('/', async (req, res) => {
@@ -26,7 +42,7 @@ accountRouter.post('/', async (req, res) => {
         if(result) {
             const challengeResult = await bcrypt.compare(req.body.oldpassword, result.Password);
             if(challengeResult) {
-                res.cookie('change-password', 'success');
+                res.cookie('changePassword', 'success');
                 const newPassword = await bcrypt.hash(req.body.newpassword, saltRounds);
                 console.log(newPassword);
                 const entity = {
@@ -35,46 +51,45 @@ accountRouter.post('/', async (req, res) => {
                 const updatePassword = await accountModel.update(userTable, entity, result.Username);
                 return res.redirect('/change-password');
             } else {
-                res.cookie('change-password', 'incorrect old password');
+                res.cookie('changePassword', 'failed');
                 return res.redirect('/change-password');
-
             }
         }
-        result = await accountModel.get(managerTable, username);
-        if(result) {
-            const challengeResult = await bcrypt.compare(req.body.oldpassword, result.Password);
+        // result = await accountModel.get(managerTable, username);
+        // if(result) {
+        //     const challengeResult = await bcrypt.compare(req.body.oldpassword, result.Password);
             
-            if(challengeResult) {
-                res.cookie('change-password', 'success');
-                const newPassword = await bcrypt.hash(req.body.newpassword, saltRounds);
-                const entity = {
-                    Password: newPassword
-                }
-                const updatePassword = await accountModel.update(managerTable, entity, result.Username);
-                return res.redirect('/change-password');
-            } else {
-                res.cookie('change-password', 'incorrect old password');
-                return res.redirect('/change-password');
-            }
-        }
-        result = await accountModel.get(adminTable, username);
-        if(result) {
-            const challengeResult = await bcrypt.compare(req.body.oldpassword, result.Password);
-            if(challengeResult) {
-                res.cookie('change-password', 'success');
-                const newPassword = await bcrypt.hash(req.body.newpassword, saltRounds);
-                const entity = {
-                    Password: newPassword
-                }
-                const updatePassword = await accountModel.update(adminTable, entity, result.Username);
-                return res.redirect('/change-password');
-            } else {
-                res.cookie('change-password', 'incorrect old password');
-                return res.redirect('/change-password');
-            }
-        }
+        //     if(challengeResult) {
+        //         res.cookie(changePassword, 'success');
+        //         const newPassword = await bcrypt.hash(req.body.newpassword, saltRounds);
+        //         const entity = {
+        //             Password: newPassword
+        //         }
+        //         const updatePassword = await accountModel.update(managerTable, entity, result.Username);
+        //         return res.redirect('/change-password');
+        //     } else {
+        //         res.cookie(changePassword, 'Mật khẩu cũ không chính xác');
+        //         return res.redirect('/change-password');
+        //     }
+        // }
+        // result = await accountModel.get(adminTable, username);
+        // if(result) {
+        //     const challengeResult = await bcrypt.compare(req.body.oldpassword, result.Password);
+        //     if(challengeResult) {
+        //         res.cookie(changePassword, 'success');
+        //         const newPassword = await bcrypt.hash(req.body.newpassword, saltRounds);
+        //         const entity = {
+        //             Password: newPassword
+        //         }
+        //         const updatePassword = await accountModel.update(adminTable, entity, result.Username);
+        //         return res.redirect('/change-password');
+        //     } else {
+        //         res.cookie(changePassword, 'Mật khẩu cũ không chính xác');
+        //         return res.redirect('/change-password');
+        //     }
+        // }
     } catch (error) {
-        res.cookie('change-password', 'faild');
+        res.cookie('changePassword', 'faild');
         return res.redirect('/change-password');
     }
 })

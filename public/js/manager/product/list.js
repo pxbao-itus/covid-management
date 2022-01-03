@@ -1,7 +1,23 @@
-$(".btn-info").click(function (e) {
-  var id = $(e.target).parent().siblings(".item-id")[0].innerText;
-  console.log(id);
-  window.location.replace(`/manager/product/detail?id=${id}`);
+$(document).ready(function () {
+  $(".btn-info").click(function (e) {
+    var id = $(e.target).parent().siblings(".item-id")[0].innerText;
+    console.log(id);
+    window.location.replace(`/manager/product/detail?id=${id}`);
+  });
+
+  $("#insert-form").submit(function (e) {
+    var form = $(this);
+    var url = "/manager/product/create";
+
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: form.serialize(), // serializes the form's elements.
+      success: function (data) {
+        alert(data); // show response from the php script.
+      },
+    });
+  });
 });
 
 function reloadTable(items) {
@@ -25,3 +41,9 @@ function reloadTable(items) {
     index += 1;
   });
 }
+
+// function()
+
+// $(document).ready(function () {
+
+// });

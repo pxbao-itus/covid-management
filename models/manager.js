@@ -36,7 +36,7 @@ exports.listManagerAccount = async () => {
         return res;
     } catch (error) {
         console.log(error);
-        return null;
+        return [];
     }
 }
 
@@ -57,13 +57,14 @@ exports.updateManagerAccount = async (entity, value) => {
 exports.deleteManagerAccount = async (value) => {
     const manager = new pgp.helpers.TableName({table: TaiKhoanNguoiQuanLy, schema: schema});
     const history = new pgp.helpers.TableName({table: LichSuNguoiQuanLy, schema: schema});
-    const queryManager = pgp.as.format('DELETE FROM $1 WHERE "MaTaiKhoan" = $2', [manager, value]);
-    const queryHistory = pgp.as.format('DELETE FROM $1 WHERE "NguoiQuanLy" = $2', [history, value]);
+    const queryManager = pgp.as.format('DELETE FROM $1 WHERE "MaTaiKhoan" = $2 RETURNING *', [manager, value]);
+    const queryHistory = pgp.as.format('DELETE FROM $1 WHERE "NguoiQuanLy" = $2 RETURNING *', [history, value]);
     try {
-        await pgp.none(queryHistory);
-        await pgp.none(queryManager);
+        await db.none(queryHistory);
+        await db.none(queryManager);
         return true;
     } catch (error) {
+        
         return false;
     }
 }

@@ -30,7 +30,7 @@ packageRouter.get("/list/ajax", async (req, res) => {
         options
       );
     });
-    
+
     if (result) {
       return res.send(result);
     } else {
@@ -44,6 +44,8 @@ packageRouter.get("/delete", async (req, res) => {
   const MaGoiNYP = req.query.id;
   try {
     const result = await packageModel.delete(MaGoiNYP);
+    return res.send(result);
+
     return res.redirect("/manager/package/list");
   } catch (error) {
     return res.redirect("/manager/package/list");
@@ -54,11 +56,10 @@ packageRouter.get("/detail", async (req, res) => {
   try {
     const result = await packageModel.detail(MaGoiNYP);
     if (result) {
-      return res.render("manager/packageDetail", {
-        package: result.package,
-        details: result.details,
-      });
-    }
+      return res.render("manager/package/detail", {
+        package: result,
+        path: "/manager/package/detail",
+      });    }
     return res.render("/manager/packageDetail");
   } catch (error) {
     return res.render("/manager/packageDetail");

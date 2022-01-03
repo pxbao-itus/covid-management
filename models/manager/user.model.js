@@ -1,14 +1,13 @@
 const db = require('../user');
 
-const tbName = 'NguoiLienQuan';
 
 module.exports = {
     list: async () => {
-        const res = await db.loadListUser(tbName);
+        const res = await db.loadListUser();
         return res;
     },
-    detail: async (id) => {
-        const res = await db.viewDetailUser(id);
+    detail: async (value) => {
+        const res = await db.viewDetailUser(value);
         return res;
     },
     update: async (entity, value) => {
@@ -19,7 +18,17 @@ module.exports = {
     create: async (entity) => {
         const res = await db.createUser(entity);
         return res;
-    }
+    },
+
+    get: async (value) => {
+        const res = await db.loadProfile(value);
+        return res;
+    },
+
+    history: async (value) => {
+        const res = await db.loadHistory(value);
+        return res;
+    },
 
 };
 
