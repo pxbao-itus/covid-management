@@ -1,0 +1,95 @@
+<!-- Update Modal -->
+<div class="modal fade" id="modal-update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Tuỳ chỉnh</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm col-form">
+            <form id="update-form">
+
+              <div class="row mb-4">
+                <div class="col-3">
+                  <p class="font-weight-bold">Tên nơi ĐTCL</p>
+                </div>
+                <div class="col-9">
+                  <input type="text" class="form-control" id="exampleInputPassword1" name="CMND" />
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col-3">
+                  <p class="font-weight-bold">Sức chứa</p>
+                </div>
+                <div class="col-9">
+                  <input type="text" class="form-control" id="exampleInputPassword1" name="CMND" />
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col-3">
+                  <p class="font-weight-bold">Số lượng hiện tại</p>
+                </div>
+                <div class="col-9">
+                  <input type="text" class="form-control" id="exampleInputPassword1" name="CMND" />
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col-3">
+                  <p class="font-weight-bold">Địa chỉ</p>
+                </div>
+                <div class="col-9">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend" style="width: 33%;">
+                      <input type="text" class="form-control" aria-label="Text input with segmented dropdown button"
+                        placeholder="Xã">
+                    </div>
+
+                    <select class="custom-select" id="inputGroupSelect01"
+                      style="width: 33%; margin-left: -5px; margin-right: -5px;">
+                      <option selected>Huyện</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+
+                    <div class="input-group-append" style="width: 33%; border-radius: 0 0.25rem 0.25rem 70%;">
+                      <select class="custom-select" id="inputGroupSelect01">
+                        <option selected>Tỉnh</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-3">
+                  <p class="font-weight-bold">Loại</p>
+                </div>
+                <div class="col-9">
+                  <select class="custom-select" id="inputGroupSelect01"
+                  style="width: 33%; margin-left: -5px; margin-right: -5px;">
+                  <option selected>Nơi điều trị</option>
+                  <option value="1">Nơi cách ly</option>
+                </select>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+        <button type="button" class="btn btn-primary">Cập nhật</button>
+      </div>
+
+    </div>
+  </div>
+</div>

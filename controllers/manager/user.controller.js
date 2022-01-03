@@ -1,24 +1,52 @@
-const user = require('express').Router();
-const userModel = require('../../models/manager/user.model');
+const user = require("express").Router();
+const userModel = require("../../models/manager/user.model");
 
-user.get('/list', async (req, res) => {
+user.get("/list", async(req, res) => {
     const users = await userModel.list();
-    res.send("List-user");
+
+    users.forEach((element) => {
+        element.Tuoi = _calculateAge(element.NgaySinh);
+    });
+    // console.log(users);
+    // console.log("-----------------------------------------------");
+    res.render("manager/user/list", { user: users, path: "/manager/user/list" });
 });
 
-user.get('/list/ajax', async (req, res) => {
+function _calculateAge(birthday) {
+    // birthday is a date
+    var ageDifMs = Date.now() - birthday.getTime();
+    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+user.get("/list/ajax", async(req, res) => {
     const users = await userModel.list();
-    res.send(users);
-})
 
-user.get('/detail', async (req, res) => {
+    users.forEach((element) => {
+        element.Tuoi = _calculateAge(element.NgaySinh);
+    });
+
+    res.send(users);
+});
+
+user.get("/detail", async(req, res) => {
     const MaNLQ = req.query.id;
     const detailInfo = await userModel.detail(MaNLQ);
-    console.log(detailInfo);
-    res.send(detailInfo);
+
+    var options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    detailInfo.detail.NgaySinh = detailInfo.detail.NgaySinh.toLocaleDateString(
+        "vi-VN",
+        options
+    );
+
+    console.log((detailInfo))
+    res.render("manager/user/detail", {
+        userDetail: detailInfo.detail,
+        relatedUsers: detailInfo.DSNguoiLienDoi,
+        path: "/manager/user/detail",
+    });
 });
 
-user.post('/update', async (req, res) => {
+user.post("/update", async(req, res) => {
     const userUpdated = req.body;
     // const userUpdated = {
     //     id: 1,
@@ -28,7 +56,7 @@ user.post('/update', async (req, res) => {
     try {
         const entity = {
             TrangThaiHienTai: userUpdated.trangthaimoi,
-            NoiDieuTri: userUpdated.noidieutrimoi
+            NoiDieuTri: userUpdated.noidieutrimoi,
         };
         const result = await userModel.update(entity, userUpdated.id);
         return res.redirect(`/manager/user/detail?id=${userUpdated.id}`);
@@ -37,47 +65,40 @@ user.post('/update', async (req, res) => {
     }
 });
 
-user.get('/create', async (req, res) => {
-    if (req.cookies('createUser')) {
-        message = req.cookies('create');
+user.get("/create", async(req, res) => {
+    if (req.cookies("createUser")) {
+        message = req.cookies("create");
     }
-    return res.render('manager/userCreate', {
-        msg: message
+    return res.render("manager/userCreate", {
+        msg: message,
     });
-})
+});
 
-user.post('/create', async (req, res) => {
-    res.clearCookie('createUser');
-    // const objectSample = {
-    //     ten: 'Lê Nguyên Tuấn',
-    //     cccd: '070200006308',
-    //     sdt: '0336647060',
-    //     ngaysinh: '1998-01-01',
-    //     diachi: 'abcasdasdasdasd',
-    //     trangthaihientai: 'F1',
-    //     noidieutri: 1
-    // }
+user.post("/create", async(req, res) => {
+    res.clearCookie("createUser");
     try {
         const entity = {
             HoTen: req.body.ten,
             CCCD: req.body.cccd,
-            SDT: req.body.sdt,
+            SoDienThoai: req.body.sdt,
             NgaySinh: req.body.ngaysinh,
             DiaChi: req.body.diachi,
             TrangThaiHienTai: req.body.trangthaihientai,
-            NoiDieuTri: req.body.noidieutri
-        }
+            NoiDieuTri: req.body.noidieutri,
+        };
         const result = await userModel.create(entity);
+        console.log(result)
         if (result) {
-            res.cookie('createUser', 'Thêm người liên quan covid thành công.');
+            res.cookie("createUser", "Thêm người liên quan covid thành công.");
         } else {
-            res.cookie('createUser', 'Thêm người liên quan covid không thành công.');
+            res.cookie("createUser", "Thêm người liên quan covid không thành công.");
         }
-        // return res.redirect('/manager/user/create');
+
+
         res.send(result);
     } catch (error) {
-        return res.redirect('/manager/user/create');
+        return res.redirect("/manager/user/create");
     }
-})
+});
 
 module.exports = user;

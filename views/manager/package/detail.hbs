@@ -11,111 +11,172 @@
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <button id="btn-back" class="btn btn-primary">Quay lại</button>
                     <div class="btn-toolbar mb-2 mb-md-0">
-                        <button class="btn btn-primary" data-toggle="modal"
-                            data-target="#manager_statusChange_modal">Thay
-                            đổi trạng thái</button>
-                        <div class="mb-2 mr-sm-2"></div>
-                        <button class="btn btn-primary" data-toggle="modal"
-                            data-target="#manager_placeChange_modal">Thay
-                            đổi nơi điều trị</button>
+                        <button type="button" class="btn btn-primary btn-update mr-1" data-toggle="modal"
+                            data-target="#modal-update">Cập nhật</button>
+                        <button type="button" class="btn btn-primary btn-delete" data-toggle="modal"
+                            data-target="#modal-delete">Xoá</button>
                     </div>
                 </div>
             </div>
 
-            <h2>Chi tiết gói nhu yếu phẩm</h2>
-            <div class="mb-3"></div>
             <div class="table-responsive">
-                <div class="card">
-                    <div class="card-body">
-                        <table id="table-1" class="table">
-                            <tbody>
-                                <tr>
-                                    <th style="border-top: none;" scope="row">Mã gói nhu yếu phẩm :</th>
-                                    <td style="border-top: none;"> 212846352</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Tên gói nhu yếu phẩm :</th>
-                                    <td>Trà Anh Toàn</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Ngày tạo :</th>
-                                    <td>free</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Mức giới hạn :</th>
-                                    <td>chiếc</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Thời gian giới hạn :</th>
-                                    <td>chiếc</td>
-                                </tr>
-                            </tbody>
-                        </table>
+
+                <div>
+                    <h2>Chi tiết gói nhu yếu phẩm</h2>
+                    <div class="mb-3"></div>
+                    <div class="card">
+                        <div class="card-body">
+                            <table id="table-1" class="table">
+                                <tbody>
+                                    <tr>
+                                        <th style="border-top: none;" scope="row">Mã gói nhu yếu phẩm :</th>
+                                        <td style="border-top: none;"> 212846352</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Tên gói nhu yếu phẩm :</th>
+                                        <td>Trà Anh Toàn</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Ngày tạo :</th>
+                                        <td>free</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Mức giới hạn :</th>
+                                        <td>chiếc</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Thời gian giới hạn :</th>
+                                        <td>24-10-1917</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="mb-4"></div>
+                </div>
+
+                <div>
+                    <h2>Danh sách nhu yếu phẩm của gói</h2>
+                    <div class="mb-3"></div>
+                    <div class="card">
+                        <div class="card-body">
+                            <table id="table-2" class="table">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th style="border-top: none;">STT</th>
+                                        <th style="border-top: none;">Tên nhu yếu phẩm</th>
+                                        <th style="border-top: none;">Số lượng tối thiểu</th>
+                                        <th style="border-top: none;">Số lượng</th>
+                                        <th style="border-top: none;">Số lượng tối đa</th>
+                                        <th style="border-top: none;">Chi tiết</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="item-id">1234</td>
+                                        <td>1</td>
+                                        <td>Gói bánh 1</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-info btn-detail-product">Chi tiết</button>
+                                        </td class="text-center">
+                                    </tr>
+                                    <tr>
+                                        <td class="item-id">1234</td>
+                                        <td>1</td>
+                                        <td>Gói bánh 1</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-info btn-detail-product">Chi tiết</button>
+                                        </td class="text-center">
+                                    </tr>
+                                    <tr>
+                                        <td class="item-id">1234</td>
+                                        <td>1</td>
+                                        <td>Gói bánh 1</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-info btn-detail-product">Chi tiết</button>
+                                        </td class="text-center">
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="mb-4"></div>
+                </div>
+
+                <div>
+                    <h2>Lịch sử mua gói</h2>
+                    <div class="mb-3"></div>
+                    <div class="card">
+                        <div class="card-body">
+                            <table id="table-2" class="table">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th style="border-top: none;">Mã lịch sử mua</th>
+                                        <th style="border-top: none;">Người mua</th>
+                                        <th style="border-top: none;">Số tiền</th>
+                                        <th style="border-top: none;">Thời gian</th>
+                                        <th style="border-top: none;">Số lượng</th>
+                                        <th style="border-top: none;">Chi tiết người mua</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="item-id">1234</td>
+                                        <td>1234</td>
+                                        <td>Trà Anh Tòn</td>
+                                        <td>1000USD</td>
+                                        <td>24-10-1917</td>
+                                        <td>2</td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-info btn-detail-user">Chi tiết</button>
+                                        </td class="text-center">
+                                    </tr>
+                                    <tr>
+                                        <td class="item-id">1234</td>
+                                        <td>1234</td>
+                                        <td>Trà Anh Tòn</td>
+                                        <td>1000USD</td>
+                                        <td>24-10-1917</td>
+                                        <td>2</td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-info btn-detail-user">Chi tiết</button>
+                                        </td class="text-center">
+                                    </tr>
+                                    <tr>
+                                        <td class="item-id">1234</td>
+                                        <td>1234</td>
+                                        <td>Trà Anh Tòn</td>
+                                        <td>1000USD</td>
+                                        <td>24-10-1917</td>
+                                        <td>2</td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-info btn-detail-user">Chi tiết</button>
+                                        </td class="text-center">
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-                <div class="mb-4"></div>
 
-                <h2>Danh sách gói nhu yếu phẩm liên quan</h2>
-                <div class="mb-3"></div>
-                <div class="card">
-                    <div class="card-body">
-                        <table id="table-2" class="table">
-                            <thead>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th style="border-top: none;">STT</th>
-                                    <th style="border-top: none;">Tên gói</th>
-                                    <th style="border-top: none;">Số lượng tối thiểu</th>
-                                    <th style="border-top: none;">Số lượng</th>
-                                    <th style="border-top: none;">Số lượng tối đa</th>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Gói bánh 1</td>
-                                    <td>0</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Gói bánh 1</td>
-                                    <td>0</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Gói bánh 1</td>
-                                    <td>0</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Gói bánh 1</td>
-                                    <td>0</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Gói bánh 1</td>
-                                    <td>0</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
         </main>
     </div>
 </div>
-{{> modal}}
-{{> manager_statusChange_modal}}
-{{> manager_placeChange_modal}}
+{{> package/updateModal}}
+{{> package/deleteModal}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>

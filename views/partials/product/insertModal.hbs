@@ -33,16 +33,24 @@
               </div>
             </div>
           </div>
-          <div class="col-sm">
-            <form action="#">
+          <div class="col-sm col-form">
+            <form id="insert-form">
               <div class="row">
                 <div class="col-sm">
                   <p class="font-weight-bold">Mã nhu yếu phẩm</p>
                 </div>
                 <div class="col-sm">
-                  <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                  <input type="text" class="form-control" placeholder="" aria-label="Username"
                     aria-describedby="basic-addon1">
-                  <p>1524</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm">
+                  <p class="font-weight-bold">Tên nhu yếu phẩm</p>
+                </div>
+                <div class="col-sm">
+                  <input type="text" class="form-control" placeholder="" aria-label="Username"
+                    aria-describedby="basic-addon1">
                 </div>
               </div>
               <div class="row">
@@ -50,9 +58,8 @@
                   <p class="font-weight-bold">Đơn giá</p>
                 </div>
                 <div class="col-sm">
-                  <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                  <input type="text" class="form-control" placeholder="VND" aria-label="Username"
                     aria-describedby="basic-addon1">
-                  <p>1000USD</p>
                 </div>
               </div>
               <div class="row">
@@ -60,9 +67,15 @@
                   <p class="font-weight-bold">Đơn vị định lượng</p>
                 </div>
                 <div class="col-sm">
-                  <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                    aria-describedby="basic-addon1">
-                  <p>cái</p>
+                  <div class="btn-group show btn-drop">
+                    <button type="button" class="btn btn-secondary dropdown-toggle"  aria-expanded="false" data-toggle="dropdown" aria-haspopup="true" style="width: 100%;">
+                      Cái
+                    </button>
+                      <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-30px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                      <button class="dropdown-item" type="button">Cái</button>
+                      <button class="dropdown-item" type="button">tạ</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </form>

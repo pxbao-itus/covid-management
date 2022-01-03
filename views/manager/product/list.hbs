@@ -17,8 +17,8 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
               style="position: absolute; transform: translate3d(-24px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
-              <button class="dropdown-item" type="button">Đơn giá</button>
-              <button class="dropdown-item" type="button">Lượng tiêu thụ</button>
+              <button class="dropdown-item sort-item" type="button" value="1">Đơn giá</button>
+              <button class="dropdown-item sort-item" type="button" value="2">Lượng tiêu thụ</button>
             </div>
           </div>
         </div>
@@ -31,157 +31,27 @@
               <th class="text-center" style="width: 25%">Tên</th>
               <th class="text-center" style="width: 10%">Đơn giá</th>
               <th class="text-center" style="width: 25%">Đơn vị định lượng</th>
-              <th class="text-center" style="width: 30%"> Thao tác </th>
+              <th class="text-center" style="width: 15%"> Thao tác </th>
             </tr>
           </thead>
           <tbody>
+
+            {{#each products}}
             <tr>
-              <td class="item-id">1234</td>
-              <td class="text-center">
-                1
-              </td class="text-center">
-              <td class="text-center">Bánh mì 1</td class="text-center">
-              <td class="text-center">
-                F10
-              </td class="text-center">
-              <td class="text-center">
-                22
-              </td class="text-center">
-              <td class="text-center">
-                <button type="button" class="btn btn-info btn-detail">Chi tiết</button>
-              </td class="text-center">
+              <td class="item-id">{{MaNYP}}</td>
+              <td>{{inc @index}}</td>
+              <td>{{TenNYP}}</td>
+              <td>{{DonGia}} VND</td>
+              <td>{{DonViDinhLuong}}</td>
+              <td>
+                <button type="button" class="btn btn-primary btn-info">Chi tiết</button>
+              </td>
             </tr>
-            <tr>
-              <td class="item-id">1234</td>
-              <td class="text-center">
-                2
-              </td class="text-center">
-              <td class="text-center">Bánh mì 2</td class="text-center">
-              <td class="text-center">
-                F10
-              </td class="text-center">
-              <td class="text-center">
-                22
-              </td class="text-center">
-              <td class="text-center">
-                <button type="button" class="btn btn-info btn-detail">Chi tiết</button>
-              </td class="text-center">
-            </tr>
-            <tr>
-              <td class="item-id">1234</td>
-              <td class="text-center">
-                2
-              </td class="text-center">
-              <td class="text-center">Bánh mì 2</td class="text-center">
-              <td class="text-center">
-                F10
-              </td class="text-center">
-              <td class="text-center">
-                22
-              </td class="text-center">
-              <td class="text-center">
-                <button type="button" class="btn btn-info btn-detail">Chi tiết</button>
-              </td class="text-center">
-            </tr>
-            <tr>
-              <td class="item-id">1234</td>
-              <td class="text-center">
-                2
-              </td class="text-center">
-              <td class="text-center">Bánh mì 2</td class="text-center">
-              <td class="text-center">
-                F10
-              </td class="text-center">
-              <td class="text-center">
-                22
-              </td class="text-center">
-              <td class="text-center">
-                <button type="button" class="btn btn-info btn-detail">Chi tiết</button>
-              </td class="text-center">
-            </tr>
-            <tr>
-              <td class="item-id">1234</td>
-              <td class="text-center">
-                1
-              </td class="text-center">
-              <td class="text-center">Bánh mì 1</td class="text-center">
-              <td class="text-center">
-                F10
-              </td class="text-center">
-              <td class="text-center">
-                22
-              </td class="text-center">
-              <td class="text-center">
-                <button type="button" class="btn btn-info btn-detail">Chi tiết</button>
-              </td class="text-center">
-            </tr>
-            <tr>
-              <td class="item-id">1234</td>
-              <td class="text-center">
-                2
-              </td class="text-center">
-              <td class="text-center">Bánh mì 2</td class="text-center">
-              <td class="text-center">
-                F10
-              </td class="text-center">
-              <td class="text-center">
-                22
-              </td class="text-center">
-              <td class="text-center">
-                <button type="button" class="btn btn-info btn-detail">Chi tiết</button>
-              </td class="text-center">
-            </tr>
-            <tr>
-              <td class="item-id">1234</td>
-              <td class="text-center">
-                2
-              </td class="text-center">
-              <td class="text-center">Bánh mì 2</td class="text-center">
-              <td class="text-center">
-                F10
-              </td class="text-center">
-              <td class="text-center">
-                22
-              </td class="text-center">
-              <td class="text-center">
-                <button type="button" class="btn btn-info btn-detail">Chi tiết</button>
-              </td class="text-center">
-            </tr>
-            <tr>
-              <td class="item-id">1234</td>
-              <td class="text-center">
-                2
-              </td class="text-center">
-              <td class="text-center">Bánh mì 2</td class="text-center">
-              <td class="text-center">
-                F10
-              </td class="text-center">
-              <td class="text-center">
-                22
-              </td class="text-center">
-              <td class="text-center">
-                <button type="button" class="btn btn-info btn-detail">Chi tiết</button>
-              </td class="text-center">
-            </tr>
-            <tr>
-              <td class="item-id">1234</td>
-              <td class="text-center">
-                1
-              </td class="text-center">
-              <td class="text-center">Bánh mì 1</td class="text-center">
-              <td class="text-center">
-                F10
-              </td class="text-center">
-              <td class="text-center">
-                22
-              </td class="text-center">
-              <td class="text-center">
-                <button type="button" class="btn btn-info btn-detail">Chi tiết</button>
-              </td class="text-center">
-            </tr>
+            {{/each}}
+            
           </tbody>
         </table>
-        {{> pagination}}
+        {{> pagination }}
       </div>
     </main>
   </div>

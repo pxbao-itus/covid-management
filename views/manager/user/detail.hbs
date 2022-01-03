@@ -10,11 +10,11 @@
             <div class="line-1">
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <button id="btn-back" class="btn btn-primary">Quay lại</button>
+                    <button id="btn-back" class="btn btn-primary">
+                        Quay lại</button>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <button class="btn btn-primary" data-toggle="modal"
-                            data-target="#manager_statusChange_modal">Thay
-                            đổi trạng thái</button>
+                            data-target="#manager_statusChange_modal">Thay đổi trạng thái</button>
                         <div class="mb-2 mr-sm-2"></div>
                         <button class="btn btn-primary" data-toggle="modal"
                             data-target="#manager_placeChange_modal">Thay
@@ -32,30 +32,31 @@
                         <table class="table">
                             <thead>
                             </thead>
+                            
                             <tbody>
                                 <tr>
                                     <th scope="row">Họ và tên:</th>
-                                    <td>Trà Anh Toàn</td>
+                                    <td>{{userDetail.HoTen}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">CMND/CCCD:</th>
-                                    <td>212846352</td>
+                                    <td>{{userDetail.CCCD}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Năm sinh:</th>
-                                    <td>2000</td>
+                                    <td>{{userDetail.NgaySinh}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Địa chỉ:</th>
-                                    <td>Phổ An, Đức Phổ, Quảng Ngãi</td>
+                                    <td>{{userDetail.DiaChi}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Trạng thái hiện tại:</th>
-                                    <td>F10</td>
+                                    <td>{{userDetail.TrangThaiHienTai}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Nơi điều trị/cách li:</th>
-                                    <td>Bệnh viện đa khoa Đặng Thùy Trâm</td>
+                                    <td>{{userDetail.NoiDieuTri}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -70,25 +71,17 @@
                             <tbody>
 
                                 <tr>
-                                    <th>STT</th>
+                                    <th>ID</th>
                                     <th>Họ và tên</th>
                                     <th>Tình trạng</th>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Đặng Văn Hiển</td>
-                                    <td>F0</td>
+                                {{#each relatedUsers}}
+                                    <tr>
+                                    <td>{{MaNguoiLienQuan}}</td>
+                                    <td>{{HoTen}}</td>
+                                    <td>{{TrangThaiHienTai}}</td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Phan Xuân Bảo</td>
-                                    <td>F1</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Lê Nguyên Tuấn</td>
-                                    <td>F3</td>
-                                </tr>
+                                {{/each}}
 
                             </tbody>
                         </table>
@@ -98,8 +91,7 @@
         </main>
     </div>
 </div>
-{{> modal}}
-{{> manager_statusChange_modal}}
 {{> manager_placeChange_modal}}
+{{> manager_statusChange_modal}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
