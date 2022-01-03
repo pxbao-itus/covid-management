@@ -102,9 +102,9 @@ apiRouter.get('/manager/user/change-status', async(req, res) => {
             TrangThaiHienTai: req.query.status
         }
         const result = await userModel.update(entity, req.query.userid);
-        return res.status(200);
+        return res.status(200).json({msg: "success"});
     } catch (error) {
-        return res.status(400);
+        return res.status(400).json({msg: "fail"});
     }
 })
 apiRouter.get('/manager/user/change-treatment', async (req, res) => {
@@ -113,9 +113,9 @@ apiRouter.get('/manager/user/change-treatment', async (req, res) => {
             NoiDieuTri: req.query.treatmentid
         }
         const result = await userModel.update(entity, req.query.userid);
-        return res.status(200);
+        return res.status(200).json({msg: "success"});
     } catch (error) {
-        return res.status(400);
+        return res.status(400).json({msg: "fail"});
     }
 })
 module.exports = apiRouter;
