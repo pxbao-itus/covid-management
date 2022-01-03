@@ -4,17 +4,44 @@ $(document).ready(function() {
         window.location.href = `/manager/product/detail?id=${id}`;
     });
 
+    // $("#insert-form").submit(function(e) {
+    //     e.preventDefault();
+    //     var formData = new FormData(this);
+
+    //     $.ajax({
+    //         url: '/manager/product/create',
+    //         type: 'POST',
+    //         data: formData,
+    //         success: function(data) {
+    //             alert(data)
+    //         },
+    //         cache: false,
+    //         contentType: false,
+    //         processData: false
+    //     });
+    // });
+
     $("#insert-form").submit(function(e) {
+
+        e.preventDefault()
         var form = $(this);
+        var formData = new FormData(this);
         var url = "/manager/product/create";
+
+
+        console.log('dsfsdfdsf')
+        console.log(formData)
 
         $.ajax({
             type: "POST",
             url: url,
-            data: form.serialize(), // serializes the form's elements.
+            data: formData, // serializes the form's elements.
             success: function(data) {
                 alert(data); // show response from the php script.
             },
+            cache: false,
+            contentType: false,
+            processData: false
         });
     });
 });
