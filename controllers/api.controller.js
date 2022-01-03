@@ -4,6 +4,7 @@ const addressModel = require('../models/api/address.model');
 const productModel = require('../models/api/product.model');
 const treatmentModel = require('../models/api/treatment.model');
 const packageModel = require('../models/manager/package.model');
+const userModel=require('../models/manager/user.model');
 // api get all province
 apiRouter.get('/province', async(req, res) => {
     try {
@@ -94,4 +95,27 @@ apiRouter.get('/package/detail', async(req, res) => {
     }
 })
 
+// apis update status, treatment place of user
+apiRouter.get('/manager/user/change-status', async(req, res) => {
+    try {
+        const entity = {
+            TrangThaiHienTai: req.query.status
+        }
+        const result = await userModel.update(entity, req.query.userid);
+        return res.status(200).json({msg: "success"});
+    } catch (error) {
+        return res.status(400).json({msg: "fail"});
+    }
+})
+apiRouter.get('/manager/user/change-treatment', async (req, res) => {
+    try {
+        const entity = {
+            NoiDieuTri: req.query.treatmentid
+        }
+        const result = await userModel.update(entity, req.query.userid);
+        return res.status(200).json({msg: "success"});
+    } catch (error) {
+        return res.status(400).json({msg: "fail"});
+    }
+})
 module.exports = apiRouter;

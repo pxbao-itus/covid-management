@@ -137,6 +137,9 @@ authUser.get('/signout', (req, res) => {
     if(req.account) {
         req.logOut();
     }
+    if(req.cookies.keepSignin) {
+        res.clearCookie('keepSignin');
+    }
     return res.redirect('/auth/signin');
 })
 

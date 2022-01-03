@@ -4,7 +4,6 @@ const orderModel = require('../../models/user/order.model');
 
 orderRouter.post('/buy', async (req, res) => {
     try {
-        console.log(req.body)
         let {package, details} = req.body;
         const entityPackage = {
             NguoiLienQuan: 2,//req.signedCookies.userId,
