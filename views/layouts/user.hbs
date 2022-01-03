@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="../css/user/navbar.css">
+    <link rel="stylesheet" href="../css/user/{{style}}.css">   
+    <title>{{title}}</title>
+    <script
+        src="https://code.jquery.com/jquery-3.6.0.slim.js"
+        integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
+        crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id='navbar'>
+        <div id="logo" class="grid-item">CM</div>
+        <div id="menu" class="grid-item">
+            <a href="/profile" class="menu-item">Cá nhân</a>
+            <a href="/package/list" class="menu-item">Mua hàng</a>
+            <a href="/order/list" class="menu-item">Lịch sử mua hàng</a>
+            <a href="/payment" class="menu-item">Thanh toán</a>
+            <a href="/change-password" class="menu-item">Đổi mật khẩu</a>
+        </div>
+        <a id="signout" href="/auth/signout" class="grid-item">
+            <div id="btn-signout">Đăng xuất</div>
+        </a>
+    </div>
+    {{{body}}}
+    <script src="../js/user/{{script}}.js"></script>
+    
+</body>
+</html>

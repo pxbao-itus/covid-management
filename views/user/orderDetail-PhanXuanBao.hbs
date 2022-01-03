@@ -1,0 +1,40 @@
+<div id="body">
+    <a id="btn-back" href="/package/list">
+        Quay lại
+    </a>
+    <div id="content">
+        <div id="title">Chi tiết gói nhu yếu phẩm</div>
+        <div id="package-name">
+            <div >{{order.TenGoiNYP}}</div>
+        </div>
+        <div id="package-content">
+            <div>Mức mua giới hạn: {{order.MucGioiHan}} lần</div>
+            <div>Thời gian giới hạn: {{order.ThoiGianGioiHan}} ngày</div>
+            <div id="total">Tổng tiền: đồng</div>
+        </div>
+        <div id="detail">
+            {{#each details}}
+                <div class="product">
+                    <div class="img-set">
+                        <img src="/img/bread2.jpg" alt="{{package.TenGoiNYP}}">
+                        <img src="/img/bread3.jpg" alt="{{package.TenGoiNYP}}">
+                        <img src="/img/bread4.jpg" alt="{{package.TenGoiNYP}}">
+                        <img src="/img/bread1.jpg" alt="{{package.TenGoiNYP}}">
+                    </div>
+                    <div class="name-price padding-tb">
+                        <div class="name">{{this.TenNYP}}</div>
+                        <div class="price"> Giá: {{this.DonGia}} đồng/{{this.DonViDinhLuong}}</div>
+                    </div>
+                    <div class="level padding-tb">
+                        <div>Số lượng tối thiểu: {{this.SoLuongToiThieu}} {{this.DonViDinhLuong}}</div>
+                        <div>Số lượng tối đa: {{this.SoLuongToiDa}} {{this.DonViDinhLuong}}</div>
+                    </div>
+                    <div class="amount padding-tb">
+                        <div>Số lượng {{this.SoLuong}} {{this.DonViDinhLuong}}</div>
+                    </div>
+                </div>
+            {{/each}}   
+        </div>
+    </div>
+    
+</div>

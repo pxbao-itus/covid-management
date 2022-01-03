@@ -25,3 +25,9 @@ function reloadTable(items) {
     index += 1;
   });
 }
+
+// function()
+
+// $(document).ready(function () {
+
+// });

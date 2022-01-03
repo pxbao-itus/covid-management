@@ -194,6 +194,7 @@ CREATE TABLE "ChiTietMuaGoiNYP"(
 	"LichSuMua" int4 NOT NULL,
 	"NhuYeuPham" int4 NOT NULL,
 	"SoLuong" numeric(19,2),
+	"DonGia" numeric(19,0), 
 	
 	PRIMARY KEY ("LichSuMua","NhuYeuPham")
 	

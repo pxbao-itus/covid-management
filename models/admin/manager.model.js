@@ -1,4 +1,4 @@
-const db = require('../account')
+const db = require('../manager')
 
 module.exports = {
     create: async (entity) => {
@@ -6,8 +6,13 @@ module.exports = {
         return res;
     },
     list: async () => {
-        const res = await db.listManagerAccount();
-        return res;
+        try {
+            const res = await db.listManagerAccount();
+            return res;
+        } catch (error) {
+            console.log(error)
+        }
+        
     },
     history: async (value) => {
         const res = await db.historyManagerAction(value);
