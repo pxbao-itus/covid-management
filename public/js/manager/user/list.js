@@ -1,7 +1,6 @@
 $(document).ready(function() {
     $(".btn-info").click(function(e) {
         var id = $(e.target).parent().siblings(".item-id")[0].innerText;
-        console.log(id);
         window.location.href = `/manager/user/detail?id=${id}`;
     });
 
