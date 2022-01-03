@@ -1,39 +1,39 @@
-<body class="text-center mx-auto w-25 h-100 my-auto" style="background-color: #F5F5F5;margin-top: 10% !important;
-    top: 100%;">
-  <div class="card p-5">
+
+<body id="body">
+  <div id="form-container" class="card p-5">
+    <div id="title">
+       <p>Đăng nhập</p> 
+    </div>
+    {{#if msg}}
+        <div class="alert alert-warning" role="alert">
+          {{msg}}
+        </div>
+      {{/if}}
     <form class="form-signin" method="post" action="/auth/signin">
-      <h1 class="h3 mb-3 font-weight-normal">
-        Covid Management
-      </h1>
-      <h1 class="h3 mb-3 font-weight-normal">
-        Đăng nhập
-      </h1>
-      <label for="inputEmail" class="sr-only">
-        Tài khoản
-      </label>
-      <input id="inputEmail" name="username" class="form-control" placeholder="Email address" required=""
-        autofocus="" />
-      <div class="mb-3"></div>
-      <label for="inputPassword" class="sr-only">
+      <div class="input-group">
+        <label for="username" class="sr-only">
+          Tài khoản
+        </label>
+        <input id="username" name="username" class="form-control " placeholder="Tên đăng nhập" required=""
+          autofocus="" />
+      </div>
+      <div class="input-group">
+        <label for="password" class="sr-only">
         Mật khẩu
-      </label>
-      <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password"
-        required="" />
-      <div class="mb-3"></div>
+        </label>
+        <input type="password" name="password" id="password" class="form-control" placeholder="Mật khẩu"
+          required="" />
+      </div >
       <div class="checkbox mb-3">
         <label>
-          <input type="checkbox" value="remember-me" name="keep" />
+          <input type="checkbox" value="on" name="keep" />
           Lưu mật khẩu
         </label>
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Đăng nhập
       </button>
-      {{#if msg}}
-      <p>
-        {{msg}}
-      </p>
-      {{/if}}
     </form>
+    
   </div>
 </body>

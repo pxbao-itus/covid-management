@@ -124,6 +124,11 @@ app.use('/package', require('./controllers/user/package.controller'));
 app.use('/order', require('./controllers/user/order.controller'))
 
 
+
+// ------------------- Router for api
+app.use('/api', require('./controllers/api.controller'));
+
+
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
 })

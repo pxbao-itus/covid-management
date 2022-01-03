@@ -28,7 +28,6 @@ $(document).ready(function () {
 });
 
 function changePage(page) {
-
   let pageItems = $(".page-item");
 
   if (page == 1) {

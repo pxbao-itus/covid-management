@@ -1,0 +1,29 @@
+<div id="body">
+    <div id="title">
+        <div>Lịch sửa mua hàng</div>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Mã MH</th>
+                    <th class="left" scope="col">Thời gian</th>
+                    <th class="left" scope="col">Tên gói nhu yếu phẩm</th>
+                    <th class="left" scope="col">Số tiền</th>
+                    <th class="left" scope="col">Xem chi tiết</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each orders}}
+                    <tr>
+                        <td class="right">{{this.MaLichSuMua}}</td>
+                        <td class="right">{{this.ThoiGian}}</td>
+                        <td class="right">{{this.TenGoiNYP}}</td>
+                        <td class="right">{{this.SoTien}} đồng</td>
+                        <td><a href="/order/detail?id={{this.MaLichSuMua}}">Xem chi tiết</a></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

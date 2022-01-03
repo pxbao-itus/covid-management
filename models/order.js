@@ -24,10 +24,9 @@ exports.createOrder = async (order, orderDetail) => {
     try {
         const resultOrder = await db.one(qStr);
         const getOrder = pgp.as.format(`SELECT * FROM $1 WHERE "MaLichSuMua" = '${resultOrder.MaLichSuMua}' LIMIT 1`, orderTable);
-        const resultGetOrder = await db.any(getOrder);
         for (const item of orderDetail) {
             const entity = {
-                LichSuMua: resultGetOrder.MaLichSuMua,
+                LichSuMua: resultOrder.MaLichSuMua,
                 NhuYeuPham: item.MaNYP,
                 SoLuong: item.SoLuong,
                 DonGia: item.DonGia
@@ -44,9 +43,10 @@ exports.createOrder = async (order, orderDetail) => {
 
 exports.listOrder = async (userid) => {
     const orderTable = new pgp.helpers.TableName({table: LichSuMuaGoiNYP, schema: schema});
-    const qOrder = pgp.as.format(`SELECT * FROM $1 WHERE "NguoiLienQuan" = $2`, [orderTable, userid]);
+    const packageTable = new pgp.helpers.TableName({table: GoiNYP, schema: schema});
+    const qOrder = pgp.as.format(`SELECT * FROM $1, $2 WHERE $6."NguoiLienQuan" = $3 AND $4."GoiNYP" = $5."MaGoiNYP"`, [orderTable, packageTable, userid, orderTable, packageTable, orderTable]);
     try {
-        const resultOrder = pgp.any(qOrder);
+        const resultOrder = db.any(qOrder);
         return resultOrder;
     } catch (error) {
         return [];
@@ -56,13 +56,14 @@ exports.orderDetail = async (userid, historyid) => {
     const orderTable = new pgp.helpers.TableName({table: LichSuMuaGoiNYP, schema: schema});
     const detail = new pgp.helpers.TableName({table: ChiTietMuaGoiNYP, schema: schema});
     const product = new pgp.helpers.TableName({table: NYP, schema: schema});
-    const qOrder = pgp.as.format(`SELECT * FROM $1 WHERE "NguoiLienQuan" = $2 AND "MaLichSuMua" = $3 LIMIT 1`, [orderTable, userid, historyid]);
+    const packageTable = new pgp.helpers.TableName({table: GoiNYP, schema: schema});
+    const qOrder = pgp.as.format(`SELECT * FROM $1, $2 WHERE $6."NguoiLienQuan" = $3 AND $4."GoiNYP" = $5."MaGoiNYP" AND $7."GoiNYP" = $8."MaGoiNYP"`, [orderTable, packageTable, userid, orderTable, packageTable, orderTable, orderTable, packageTable]);
     try {
-        const resultOrder = pgp.one(qOrder);
-        const qDetail = pgp.as.format(`SELECT * FROM $1, $2 WHERE $3."NhuYeuPham" = $4."MaNYP" AND $5."LichSuMua" = $6`, [detail, product, detail, product, detail, resultOrder.MaLichSuMua]);
-        const resultDetail = pgp.any(qDetail);
+        const resultOrder = await db.any(qOrder);
+        const qDetail = pgp.as.format(`SELECT * FROM $1, $2 WHERE $3."NhuYeuPham" = $4."MaNYP" AND $5."LichSuMua" = $6`, [detail, product, detail, product, detail, historyid]);
+        const resultDetail = await db.any(qDetail);
         return {
-            order: resultOrder,
+            order: resultOrder[0],
             details: resultDetail
         }
     } catch (error) {

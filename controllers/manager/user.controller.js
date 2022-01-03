@@ -24,15 +24,18 @@ user.get("/list/ajax", async (req, res) => {
   users.forEach((element) => {
     element.Tuoi = _calculateAge(element.NgaySinh);
   });
-  
+
   res.send(users);
 });
 
 user.get("/detail", async (req, res) => {
   const MaNLQ = req.query.id;
   const detailInfo = await userModel.detail(MaNLQ);
-  console.log(detailInfo);
-  res.send(detailInfo);
+  res.render("manager/user/detail", {
+    userDetail: detailInfo.detail,
+    relatedUsers: detailInfo.DSNguoiLienDoi,
+    path: "/manager/user/detail",
+  });
 });
 
 user.post("/update", async (req, res) => {
