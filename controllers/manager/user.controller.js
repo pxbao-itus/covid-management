@@ -31,6 +31,14 @@ user.get("/list/ajax", async(req, res) => {
 user.get("/detail", async(req, res) => {
     const MaNLQ = req.query.id;
     const detailInfo = await userModel.detail(MaNLQ);
+
+    var options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    detailInfo.detail.NgaySinh = detailInfo.detail.NgaySinh.toLocaleDateString(
+        "vi-VN",
+        options
+    );
+
+    console.log((detailInfo))
     res.render("manager/user/detail", {
         userDetail: detailInfo.detail,
         relatedUsers: detailInfo.DSNguoiLienDoi,

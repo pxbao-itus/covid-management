@@ -1,32 +1,31 @@
-$(document).ready(function () {
-  $(".btn-info").click(function (e) {
-    var id = $(e.target).parent().siblings(".item-id")[0].innerText;
-    console.log(id);
-    window.location.replace(`/manager/package/detail?id=${id}`);
-  });
-
-  $("#insert-form").submit(function (e) {
-    var form = $(this);
-    var url = "/manager/package/create";
-
-    $.ajax({
-      type: "POST",
-      url: url,
-      data: form.serialize(), // serializes the form's elements.
-      success: function (data) {
-        alert(data); // show response from the php script.
-      },
+$(document).ready(function() {
+    $(".btn-info").click(function(e) {
+        var id = $(e.target).parent().siblings(".item-id")[0].innerText;
+        window.location.href = `/manager/package/detail?id=${id}`;
     });
-  });
+
+    $("#insert-form").submit(function(e) {
+        var form = $(this);
+        var url = "/manager/package/create";
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(), // serializes the form's elements.
+            success: function(data) {
+                alert(data); // show response from the php script.
+            },
+        });
+    });
 });
 
 function reloadTable(items) {
-  let index = 1;
+    let index = 1;
 
-  $("tbody").html("");
+    $("tbody").html("");
 
-  items.forEach((element) => {
-    $("tbody").append(`
+    items.forEach((element) => {
+        $("tbody").append(`
 <tr>
   <td class="item-id">${element.MaGoiNYP}</td>
   <td>${index}</td>
@@ -39,6 +38,6 @@ function reloadTable(items) {
   </td>
 </tr>
   `);
-    index += 1;
-  });
+        index += 1;
+    });
 }
