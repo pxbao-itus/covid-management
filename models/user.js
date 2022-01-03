@@ -28,7 +28,7 @@ exports.viewDetailUser = async id => {
     const table_LichSuDuocQuanLy = new pgp.helpers.TableName({ table: LichSuDuocQuanLy, schema: schema });
     const qrs_NguoiLienQuan = pgp.as.format(`SELECT * FROM $1 WHERE "MaNguoiLienQuan" = ${id}`, table_NLQ);
     const qrs_NguoiLienDoi = pgp.as.format(`SELECT "NguoiLienQuan2" "MaNguoiLienQuan" ,NLQ."HoTen",NLQ."CCCD",NLQ
-   ."SDT",NLQ."NgaySinh",NLQ."DiaChi",NLQ."TrangThaiHienTai",NLQ."NoiDieuTri" 
+   ."SoDienThoai",NLQ."NgaySinh",NLQ."DiaChi",NLQ."TrangThaiHienTai",NLQ."NoiDieuTri" 
    FROM $1 MLH INNER JOIN $2 NLQ 
    ON NLQ."MaNguoiLienQuan" = MLH."NguoiLienQuan2" WHERE MLH."NguoiLienQuan1" =  ${id};
     `, [table_MLH, table_NLQ]);
@@ -47,7 +47,7 @@ exports.viewDetailUser = async id => {
     }
 }
 
-exports.updateUser = async (entity, value) => {
+exports.updateUser = async(entity, value) => {
     const table = new pgp.helpers.TableName({ table: NLQ, schema: schema });
     const condition = pgp.as.format(' WHERE "MaNguoiLienQuan" = $1', [value]);
     const qStr = pgp.helpers.update(entity, null, table) + condition + " RETURNING *";
@@ -60,7 +60,7 @@ exports.updateUser = async (entity, value) => {
     }
 }
 
-exports.createUser = async (entity) => {
+exports.createUser = async(entity) => {
     const table = new pgp.helpers.TableName({ table: NLQ, schema: schema });
     const qStr = pgp.helpers.insert(entity, null, table) + "RETURNING *";
     try {
