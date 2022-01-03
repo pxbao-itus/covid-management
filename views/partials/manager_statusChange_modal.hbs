@@ -43,7 +43,7 @@
             <div class="br-2"></div>
             <div class="btn-group">
             <div class="btn-group">
-              <select name="trangthaimoi" class="custom-select" id="inputGroupSelect01">
+              <select name="status" class="custom-select" id="inputGroupSelect01">
                 <option selected>Trạng Thái</option>
                 <option value="F0">F0</option>
                 <option value="F1">F1</option>
@@ -51,13 +51,14 @@
                 <option value="F3">F3</option>
               </select>
             </div>
+            <input type="text" name="userid" value="{{MaNguoiLienQuan}}" style="display: none;">
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">
               Hủy
             </button>
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
               Lưu
             </button>
           </div>

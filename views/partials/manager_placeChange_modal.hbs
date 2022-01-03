@@ -17,20 +17,18 @@
             <label for="exampleInputEmail1">
               Địa chỉ hiện tại:
             </label>
-            <h3>
-              {{NoiDieuTri}}
-            </h3>
+            <h5 id="noiDieuTriModal">
+            </h5>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">
               Địa chỉ mới:
             </label>
+            <input type="text" style="display: none;" name="userid" value="{{MaNguoiLienQuan}}">
           </div>
           <div class="btn-group">
-            <select name="trangthaimoi" class="custom-select" id="noiDieuTri">
-              <option disabled selected>Địa chỉ mới</option>
-            
-            
+            <select name="treatmentid" class="custom-select" id="noiDieuTri">
+              <option disabled selected style="display: none;">Địa chỉ mới</option>
             </select>
           </div>
           <div class="modal-footer">

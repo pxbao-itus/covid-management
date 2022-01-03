@@ -1,106 +1,101 @@
 @import url("../../modal.css");
 @import url("../../tableList.css");
-
-#modal-insert > .modal-dialog {
-  width: 95vw;
-  max-width: none;
-  max-height: none;
+#modal-insert>.modal-dialog {
+    width: 95vw;
+    max-width: none;
+    max-height: none;
 }
 
 .item-img-container {
-  width: 30vw;
-  padding: 0;
-  margin: 0;
-  margin-bottom: -16px;
+    width: 30vw;
+    padding: 0;
+    margin: 0;
+    margin-bottom: -16px;
 }
 
 .item-img-container img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  background-image: url("/img/upload.png");
+    width: 100%;
+    aspect-ratio: 1 / 1;
 }
 
-.item-img-container img :hover {
-  background-image: url("/img/upload.png");
-}
-
-.item-img-container > .row {
-  padding-bottom: 16px;
+.item-img-container>.row {
+    padding-bottom: 16px;
 }
 
 .item-img-container .col-sm {
-  padding-right: 0px;
+    padding-right: 0px;
 }
 
 #list-prod {
-  height: 60vh;
-  overflow-y: scroll;
+    height: 60vh;
+    overflow-y: scroll;
 }
 
 .card-product {
-  box-shadow: 0 4px 3px #bababa1f;
-  padding-bottom: 1rem;
-  padding-top: 1rem;
-  width: 95%;
+    box-shadow: 0 4px 3px #bababa1f;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    width: 95%;
 }
 
 .card-product img {
-  width: 5rem;
-  aspect-ratio: 1 / 1;
+    width: 5rem;
+    aspect-ratio: 1 / 1;
 }
 
 .card-product h1 {
-  font-size: 1.4em;
-  font-weight: 250;
-  line-height: 1.2;
+    font-size: 1.4em;
+    font-weight: 250;
+    line-height: 1.2;
 }
 
 .group-btn-number {
-  margin: 0.3rem;
-  position: relative;
-}
-.group-btn-number > div {
-  position: absolute;
-  right: 10px;
+    margin: 0.3rem;
+    position: relative;
 }
 
-.group-incr-decr > div {
-  height: 1.7rem;
+.group-btn-number>div {
+    position: absolute;
+    right: 10px;
+}
+
+.group-incr-decr>div {
+    height: 1.7rem;
 }
 
 .group-incr-decr input {
-  text-align: center;
-  width: 2rem;
-  height: 1.7em;
+    text-align: center;
+    width: 2rem;
+    height: 1.7em;
 }
 
 .group-incr-decr button {
-  padding: 0px;
-  padding-bottom: 2px;
-  width: 1.5rem;
+    padding: 0px;
+    padding-bottom: 2px;
+    width: 1.5rem;
 }
 
 .card-add-product {
-  padding-top: 1.5rem;
-  padding-bottom: 1rem;
-  text-align: center;
-  font-size: 1.2em;
-  font-weight: 250;
-  line-height: 1;
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 250;
+    line-height: 1;
 }
 
-.card-add-product > img {
-  height: 2.5rem;
-  width: 2.5rem;
-  opacity: 0.5;
+.card-add-product>img {
+    height: 2.5rem;
+    width: 2.5rem;
+    opacity: 0.5;
 }
 
 .col-info {
-  padding-top: 1rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
+    padding-top: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
-.col-info > form > .row {
-  margin-bottom: 2rem;
+.col-info>form>.row {
+    margin-bottom: 2rem;
 }

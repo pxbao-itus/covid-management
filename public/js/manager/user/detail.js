@@ -1,19 +1,23 @@
+var noiDieuTri = '';
 $(document).ready(function() {
-    $("#noiDieuTri").ready(function() {
-        $.ajax({
-            type: "GET",
-            url: "/api/treatment",
-            success: function(data) {
-                if (data) {
-                    for (const iterator of data) {
-                        console.log(data)
-                        console.log(iterator.TenNoiDTCL)
-                        $("#noiDieuTri").append(`<option value="${iterator.MaNoiDTCL}">${iterator.TenNoiDTCL}</option>`);
+    var idNoiDieuTri = $("#noiDieuTriM").text();
+    $.ajax({
+        type: "GET",
+        url: "/api/treatment",
+        success: function(data) {
+            if (data) {
+                for (const iterator of data) {
+                    if (iterator.MaNoiDTCL == idNoiDieuTri) {
+                        console.log(iterator.MaNoiDTCL)
+                        $("#noiDieuTriM").html(iterator.TenNoiDTCL)
+                        $("#noiDieuTriModal").html(iterator.TenNoiDTCL)
                     }
+                    $("#noiDieuTri").append(`<option value="${iterator.MaNoiDTCL}">${iterator.TenNoiDTCL}</option>`);
                 }
             }
-        });
-    })
+        }
+    });
+
     $("#btn-back").click(function() {
         history.back();
     });
@@ -23,21 +27,25 @@ $(document).ready(function() {
         e.preventDefault(); // avoid to execute the actual submit of the form.
 
         var form = $(this);
-        var url = "/manager/user/update";
+        var url = "/api/manager/user/change-status";
 
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: url,
             data: form.serialize(), // serializes the form's elements.
             success: function(data) {
-                if (data)
-                    alert("Cập nhật trạng thái người liên quan thành công"); // show response from the php script.
+                if (data) {
+
+                    alert("Cập nhật trạng thái người liên quan thành công");
+                    location.reload();
+
+                }
+                // show response from the php script.
                 else {
-                    alert("Cập nhật trạng thái người liên quan  thất bại")
+                    alert("Cập nhật trạng thái người liên quan  thất bại");
                 }
             }
         });
-
 
     });
 
@@ -48,16 +56,17 @@ $(document).ready(function() {
         e.preventDefault(); // avoid to execute the actual submit of the form.
 
         var form = $(this);
-        var url = "/manager/user/update";
+        var url = "/api/manager/user/change-treatment";
 
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: url,
             data: form.serialize(), // serializes the form's elements.
             success: function(data) {
-                if (data)
+                if (data) {
                     alert("Cập nhật nơi điều trị người liên quan thành công"); // show response from the php script.
-                else {
+                    location.reload();
+                } else {
                     alert("Cập nhật nơi điều trị người liên quan  thất bại")
                 }
             }
