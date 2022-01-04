@@ -1,19 +1,29 @@
+var filename;
+
 $(document).ready(function() {
+    $.fn.fileinputBsVersion = "3.3.7"; // if not set, this will be auto-derived
+
+    // initialize plugin with defaults
+    $("#input-id").fileinput();
+
+    // with plugin options
+    $("#input-id").fileinput({ 'showUpload': false, 'previewFileType': 'any' });
     $(".btn-info").click(function(e) {
         var id = $(e.target).parent().siblings(".item-id")[0].innerText;
         window.location.href = `/manager/product/detail?id=${id}`;
     });
-
+    // //ajax for image upload
     // $("#insert-form").submit(function(e) {
-    //     e.preventDefault();
-    //     var formData = new FormData(this);
 
+    //     e.preventDefault()
+    //     var form = new FormData(this);
+    //     var url = "/upload";
     //     $.ajax({
-    //         url: '/manager/product/create',
-    //         type: 'POST',
-    //         data: formData,
+    //         type: "POST",
+    //         url: url,
+    //         data: form, // serializes the form's elements.
     //         success: function(data) {
-    //             alert(data)
+    //             alert(data); // show response from the php script.
     //         },
     //         cache: false,
     //         contentType: false,
@@ -21,22 +31,21 @@ $(document).ready(function() {
     //     });
     // });
 
+    // console.log(link)
+    // ajax for form insert
     $("#insert-form").submit(function(e) {
 
         e.preventDefault()
-        var form = $(this);
-        var formData = new FormData(this);
+        var form = new FormData(this);
         var url = "/manager/product/create";
-
-
-        console.log('dsfsdfdsf')
-        console.log(formData)
-
         $.ajax({
             type: "POST",
             url: url,
-            data: formData, // serializes the form's elements.
+            data: form, // serializes the form's elements.
             success: function(data) {
+                console.log('zzzzzzzzzzzzzzzzzzzzz')
+                fetchAPI(link, page, sort);
+
                 alert(data); // show response from the php script.
             },
             cache: false,

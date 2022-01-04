@@ -1,4 +1,5 @@
 const product = require("express").Router();
+var upload = require('../../config/upload.config');
 
 const productModel = require("../../models/manager/product.model");
 
@@ -58,26 +59,27 @@ product.get("/create", async(req, res) => {
         msg: message,
     });
 });
-product.post("/create", async(req, res) => {
-    //res.clearCookie("createProduct");
-
+product.post("/create", upload.array("files", 4), async(req, res) => {
     try {
+        console.log(req.files[0])
         const entity = {
-            MaNYP: req.body.id,
             TenNYP: req.body.ten,
-            HinhAnh1: req.files[0].filename,
-            HinhAnh2: req.files[1].filename,
-            HinhAnh3: req.files[2].filename,
-            HinhAnh4: req.files[3].filename,
+            HinhAnh1: req.files[0].filename + req.files[0].originalname.split(".")[1],
+            HinhAnh2: req.files[1].filename + req.files[1].originalname.split(".")[1],
+            HinhAnh3: req.files[2].filename + req.files[2].originalname.split(".")[1],
+            HinhAnh4: req.files[3].filename + req.files[3].originalname.split(".")[1],
             DonGia: req.body.dongia,
             DonViDinhLuong: req.body.donvi,
         };
         const result = await productModel.create(entity);
-        if (result) {
-            res.cookie("createProduct", "Thêm nhu yếu phẩm thành công.");
-        } else {
-            res.cookie("createProduct", "Thêm nhu yếu phẩm không thành công.");
-        }
+        // if (result) {
+        //     alert("Thêm sản phẩm thành công!")
+        //     res.cookie("createProduct", "Thêm nhu yếu phẩm thành công.");
+        // } else {
+        //     res.cookie("createProduct", "Thêm nhu yếu phẩm không thành công.");
+        // }
+        console.log('fsdf')
+        res.send('result')
         res.send(result)
             // return res.redirect("/manager/product/create");
     } catch (error) {

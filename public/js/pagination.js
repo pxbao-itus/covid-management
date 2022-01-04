@@ -1,9 +1,9 @@
 var lastpage = 6;
-
+var link = window.location.pathname;
+var sort = 0;
+var page = 1;
 $(document).ready(function() {
-    var link = window.location.pathname;
-    var sort = 0;
-    var page = 1;
+    // var link = window.location.pathname;
     link = link.concat("/ajax");
     changePage(page);
 
