@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/pxbao-itus/covid-management#readme",
   "dependencies": {
+    "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "chart.js": "^3.6.2",
     "cookie-parser": "^1.4.6",
