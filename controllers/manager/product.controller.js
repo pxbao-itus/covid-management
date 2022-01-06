@@ -78,21 +78,20 @@ product.get("/list", async (req, res) => {
   
 });
 
-
-
-// sort product 
-
-
-
 product.get("/list/ajax", async (req, res) => {
   const products = await productModel.list();
   return res.send(products);
 });
 
 product.get("/delete", async (req, res) => {
-  const MaNYP = req.query.id;
-  const result = await productModel.delete(MaNYP);
-  return res.redirect("/manager/product/list");
+  try {
+    const MaNYP = req.query.id;
+    const result = await productModel.delete(MaNYP);
+    return res.send('success');
+  } catch (error) {
+    return res.send('fail');
+  }
+  
 });
 
 product.get("/detail", async (req, res) => {
