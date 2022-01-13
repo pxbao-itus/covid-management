@@ -38,7 +38,6 @@ user.get("/detail", async(req, res) => {
         options
     );
 
-    console.log((detailInfo))
     res.render("manager/user/detail", {
         userDetail: detailInfo.detail,
         relatedUsers: detailInfo.DSNguoiLienDoi,
@@ -87,7 +86,6 @@ user.post("/create", async(req, res) => {
             NoiDieuTri: req.body.noidieutri,
         };
         const result = await userModel.create(entity);
-        console.log(result)
         if (result) {
             res.cookie("createUser", "Thêm người liên quan covid thành công.");
         } else {

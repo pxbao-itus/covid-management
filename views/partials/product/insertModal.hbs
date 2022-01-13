@@ -2,46 +2,45 @@
 <div class="modal fade" id="modal-insert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content" >
+      <form id="insert-form" enctype="multipart/form-data" method="post">
 
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Thêm nhu yếu phẩm</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-sm-auto col-img">
-            <div class="container item-img-container">
-              <div class="row">
-                <div class="col-sm">
-                  <img class="item-img" src="/img/bread1.jpg">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Thêm nhu yếu phẩm</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-auto col-img">
+              <div class="container item-img-container">
+                <div class="row">
+                  <div class="col-sm">
+                    <input name="img-files" type="file" multiple>
+                  </div>
+                  <div class="col-sm">
+                    <img class="item-img" src="/img/bread2.jpg">
+                  </div>
                 </div>
-                <div class="col-sm">
-                  <img class="item-img" src="/img/bread2.jpg">
-                </div>
-              </div>
 
-              <div class="row">
-                <div class="col-sm">
-                  <img class="item-img" src="/img/bread3.jpg">
-                </div>
-                <div class="col-sm">
-                  <img class="item-img" src="/img/bread4.jpg">
+                <div class="row">
+                  <div class="col-sm">
+                    <img class="item-img" src="/img/bread3.jpg">
+                  </div>
+                  <div class="col-sm">
+                    <img class="item-img" src="/img/bread4.jpg">
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-sm col-form">
-            <form id="insert-form">
+            <div class="col-sm col-form">
               <div class="row">
                 <div class="col-sm">
                   <p class="font-weight-bold">Mã nhu yếu phẩm</p>
                 </div>
                 <div class="col-sm">
-                  <input type="text" class="form-control" placeholder="" aria-label="Username"
-                    aria-describedby="basic-addon1">
+                  <input type="text" class="form-control" name="maaaa">
                 </div>
               </div>
               <div class="row">
@@ -68,25 +67,27 @@
                 </div>
                 <div class="col-sm">
                   <div class="btn-group show btn-drop">
-                    <button type="button" class="btn btn-secondary dropdown-toggle"  aria-expanded="false" data-toggle="dropdown" aria-haspopup="true" style="width: 100%;">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" aria-expanded="false"
+                      data-toggle="dropdown" aria-haspopup="true" style="width: 100%;">
                       Cái
                     </button>
-                      <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-30px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                    <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
+                      style="position: absolute; transform: translate3d(-30px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
                       <button class="dropdown-item" type="button">Cái</button>
                       <button class="dropdown-item" type="button">tạ</button>
                     </div>
                   </div>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
-        <button type="button" class="btn btn-primary">Cập nhật</button>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+          <button type="submit" class="btn btn-primary">Cập nhật</button>
+        </div>
 
+      </form>
     </div>
   </div>
 </div>

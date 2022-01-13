@@ -1,4 +1,5 @@
 const product = require("express").Router();
+const upload = require('../../config/upload.config');
 
 const productModel = require("../../models/manager/product.model");
 
@@ -60,8 +61,10 @@ product.get("/create", async (req, res) => {
     msg: message,
   });
 });
-product.post("/create", async (req, res) => {
+product.post("/create",upload.array('img-files', 12), async (req, res) => {
   res.clearCookie("createProduct");
+  console.log(req.files)
+
   try {
     const entity = {
       MaNYP: req.body.id,
@@ -79,9 +82,9 @@ product.post("/create", async (req, res) => {
     } else {
       res.cookie("createProduct", "Thêm nhu yếu phẩm không thành công.");
     }
-    return res.redirect("/manager/product/create");
+    // return res.redirect("/manager/product/create");
   } catch (error) {
-    return res.redirect("/manager/product/create");
+    // return res.redirect("/manager/product/create");
   }
 });
 module.exports = product;
