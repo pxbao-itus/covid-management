@@ -2,13 +2,14 @@ var filename;
 
 $(document).ready(function() {
     $.fn.fileinputBsVersion = "3.3.7"; // if not set, this will be auto-derived
-
+    sort = 'price';
     // initialize plugin with defaults
     $("#input-id").fileinput();
 
     // with plugin options
     $("#input-id").fileinput({ 'showUpload': false, 'previewFileType': 'any' });
-    $(".btn-info").click(function(e) {
+    $("tbody").on('click', '.btn-info', function(e) {
+        alert("ngu")
         var id = $(e.target).parent().siblings(".item-id")[0].innerText;
         window.location.href = `/manager/product/detail?id=${id}`;
     });
@@ -33,6 +34,33 @@ $(document).ready(function() {
 
     // console.log(link)
     // ajax for form insert
+    $('.sort-item').click(function(e) {
+        if (e.target.value == 'dgt') {
+            order = 'increase'
+        } else {
+            order = 'decrease'
+        }
+        fetchAPI(link, page, sort, order);
+        // let url = `${link}?page=${page}&sort=${sort}&order=${order}`
+
+        // $.ajax({
+        //     type: "POST",
+        //     url: url,
+        //     data: {
+
+        //     }, // serializes the form's elements.
+        //     success: function(data) {
+        //         //$('#contact').modal('hide');
+        //         fetchAPI(url, page, sort)
+
+        //         alert("Thêm nhu yếu phẩm thành công!"); // show response from the php script.
+        //     },
+        //     cache: false,
+        //     contentType: false,
+        //     processData: false
+        // });
+    })
+
     $("#insert-form").submit(function(e) {
 
         e.preventDefault()
@@ -43,13 +71,14 @@ $(document).ready(function() {
             url: url,
             data: form, // serializes the form's elements.
             success: function(data) {
-                console.log('zzzzzzzzzzzzzzzzzzzzz')
+                //$('#contact').modal('hide');
                 fetchAPI(link, page, sort);
 
+                alert("Thêm nhu yếu phẩm thành công!"); // show response from the php script.
 
-                alert(data); // show response from the php script.
                 $('#modal-insert form :input').val("");
                 $('#input-id').fileinput('reset');
+                $('#close_insert').click();
             },
             cache: false,
             contentType: false,
@@ -60,7 +89,7 @@ $(document).ready(function() {
 });
 
 function reloadTable(items) {
-    let index = 1;
+    console.log(items)
 
     $("tbody").html("");
 
@@ -68,7 +97,7 @@ function reloadTable(items) {
         $("tbody").append(`
   <tr>
     <td class="item-id">${element.MaNYP}</td>
-    <td>${index}</td>
+    <td>${element.MaNYP}</td>
     <td>${element.TenNYP}</td>
     <td>${element.DonGia} VND</td>
     <td>${element.DonViDinhLuong}</td>
@@ -77,6 +106,5 @@ function reloadTable(items) {
     </td>
   </tr>
   `);
-        index += 1;
     });
 }

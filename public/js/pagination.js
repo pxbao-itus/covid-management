@@ -1,20 +1,20 @@
+// const { post } = require("../../controllers/manager/product.controller");
+
 var lastpage = 6;
 var link = window.location.pathname;
-var sort = 0;
+var sort = 'price';
+var order = 'increase';
 var page = 1;
 $(document).ready(function() {
     // var link = window.location.pathname;
-    link = link.concat("/ajax");
+    link = link.concat("/");
+    fetchAPI(link, page, sort);
     changePage(page);
 
     $(".page-num").on("click", function() {
         page = $(this).text();
         fetchAPI(link, page, sort);
         changePage(page);
-    });
-    $(".sort-item").on("click", function() {
-        sort = $(this).val();
-        fetchAPI(link, page, sort);
     });
 
     $("#first-page").on("click", function() {
@@ -86,15 +86,18 @@ function changePage(page) {
     }
 }
 
-function fetchAPI(url, page, sort) {
+function fetchAPI(url, page, sort, order) {
+    url = `${url}?page=${page}&sort=${sort}&order=${order}`
+    console.log(url)
     $.ajax(url, {
-            data: {
-                page: page,
-                sort: sort,
-            },
+            method: 'POST',
         })
         .done(function(resJSON) {
-            reloadTable(resJSON);
+
+            lastpage = Math.floor(resJSON.length / 8) + 1
+            console.log(lastpage)
+
+            reloadTable(resJSON.resultPagnition);
         })
         .fail(function() {
             console.log("error");

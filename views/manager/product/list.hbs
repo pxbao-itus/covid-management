@@ -17,8 +17,8 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
               style="position: absolute; transform: translate3d(-24px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
-              <button class="dropdown-item sort-item" type="button" value="dg">Đơn giá</button>
-              <button class="dropdown-item sort-item" type="button" value="tsp">Tên sản phẩm</button>
+              <button class="dropdown-item sort-item" type="button" value="dgt">Đơn giá tăng</button>
+              <button class="dropdown-item sort-item" type="button" value="dgg">Đơn giá giảm</button>
             </div>
           </div>
         </div>
@@ -44,7 +44,8 @@
               <td>{{DonGia}} VND</td>
               <td>{{DonViDinhLuong}}</td>
               <td>
-                <button type="button" class="btn btn-primary btn-info">Chi tiết</button>
+                <button type="button" class="btn btn-primary btn-info">
+                  Chi tiết</button>
               </td>
             </tr>
             {{/each}}
@@ -59,5 +60,4 @@
 
 {{> product/insertModal}}
 
-{{> modal}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>

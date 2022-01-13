@@ -50,7 +50,7 @@
       <form id="insert-form" enctype="multipart/form-data" method="post" action="/upload">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Thêm nhu yếu phẩm</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" id="close_insert" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -60,7 +60,6 @@
               <div class="container item-img-container">
                 <div class="row">
                   <div class="col-sm">
-                    {{!-- <input type="file" name="files" class="item-img"> --}}
                     <input type="file" id="input-id" name="files" accept="image/*" multiple>
 
                   </div>
@@ -75,8 +74,7 @@
                   <p class="font-weight-bold">Tên nhu yếu phẩm</p>
                 </div>
                 <div class="col-sm">
-                  <input type="text" class="form-control" name="ten" placeholder="" aria-label="Username"
-                    aria-describedby="basic-addon1">
+                  <input type="text" class="form-control" name="ten">
                 </div>
               </div>
               <div class="row">
@@ -84,8 +82,7 @@
                   <p class="font-weight-bold">Đơn giá</p>
                 </div>
                 <div class="col-sm">
-                  <input type="text" class="form-control" name="dongia" placeholder="VND" aria-label="Username"
-                    aria-describedby="basic-addon1">
+                  <input required type="number" class="form-control" name="dongia" placeholder="VND">
                 </div>
               </div>
               <div class="row">
@@ -93,8 +90,7 @@
                   <p class="font-weight-bold">Đơn vị định lượng</p>
                 </div>
                 <div class="col-sm">
-                  <input type="text" class="form-control" name="donvi" placeholder="VND" aria-label="Username"
-                    aria-describedby="basic-addon1">
+                  <input type="text" class="form-control" name="donvi" placeholder="">
                 </div>
               </div>
             </div>
