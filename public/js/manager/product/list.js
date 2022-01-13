@@ -46,12 +46,16 @@ $(document).ready(function() {
                 console.log('zzzzzzzzzzzzzzzzzzzzz')
                 fetchAPI(link, page, sort);
 
+
                 alert(data); // show response from the php script.
+                $('#modal-insert form :input').val("");
+                $('#input-id').fileinput('reset');
             },
             cache: false,
             contentType: false,
             processData: false
         });
+        $('#modal-insert form').modal('hide');
     });
 });
 

@@ -72,14 +72,11 @@ product.post("/create", upload.array("files", 4), async(req, res) => {
             DonViDinhLuong: req.body.donvi,
         };
         const result = await productModel.create(entity);
-        // if (result) {
-        //     alert("Thêm sản phẩm thành công!")
-        //     res.cookie("createProduct", "Thêm nhu yếu phẩm thành công.");
-        // } else {
-        //     res.cookie("createProduct", "Thêm nhu yếu phẩm không thành công.");
-        // }
-        console.log('fsdf')
-        res.send('result')
+        if (result.length) {
+            res.cookie("createProduct", "Thêm nhu yếu phẩm thành công.");
+        } else {
+            res.cookie("createProduct", "Thêm nhu yếu phẩm không thành công.");
+        }
         res.send(result)
             // return res.redirect("/manager/product/create");
     } catch (error) {

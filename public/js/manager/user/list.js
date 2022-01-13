@@ -64,9 +64,11 @@ $(document).ready(function() {
                 url: url,
                 data: keyword, // serializes the form's elements.
                 success: function(data) {
-                    if (data)
+                    console.log(data)
+                    if (data) {
+                        //setTimeout(function() { $('#modal-insert').modal('hide'); }, 4000);
                         alert("Tạo người liên quan thành công"); // show response from the php script.
-                    else {
+                    } else {
                         alert("Tạo người liên quan  thất bại")
                     }
                 }
