@@ -71,10 +71,11 @@
 
               <div class="row">
                 <div class="col-sm">
-                  <p class="font-weight-bold">Tên nhu yếu phẩm</p>
+                  <p class="font-weight-bold">Tên nhu yếu phẩm </p>
                 </div>
                 <div class="col-sm">
-                  <input type="text" class="form-control" name="ten">
+                  {{product}}
+                  <input type="text" class="form-control" name="ten" value=" {{TenNYP}}">
                 </div>
               </div>
               <div class="row">
@@ -82,7 +83,7 @@
                   <p class="font-weight-bold">Đơn giá</p>
                 </div>
                 <div class="col-sm">
-                  <input required type="number" class="form-control" name="dongia" placeholder="VND">
+                  <input required type="number" class="form-control" name="dongia" placeholder="VND" value="{{DonGia}}">
                 </div>
               </div>
               <div class="row">
@@ -90,12 +91,16 @@
                   <p class="font-weight-bold">Đơn vị định lượng</p>
                 </div>
                 <div class="col-sm">
-                  <input type="text" class="form-control" name="donvi" placeholder="">
+                  <input type="text" class="form-control" name="donvi" value="{{DonViDinhLuong}}">
                   </div>
                   </div>
             </div>
             </div>
             </div>
+            <p id="img1" style="display: none;">{{HinhAnh1}}</p>
+            <p id="img2" style="display: none;">{{HinhAnh2}}</p>
+            <p id="img3" style="display: none;">{{HinhAnh3}}</p>
+            <p id="img4" style="display: none;">{{HinhAnh4}}</p>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
           <button type="submit" class="btn btn-primary">Cập nhật</button>
@@ -106,12 +111,22 @@
 </div>
 <script>
   $(function() {
+    let HinhAnh1=document.getElementById("img1").innerHTML;
+    let HinhAnh2=document.getElementById("img2").innerHTML;
+    let HinhAnh3=document.getElementById("img3").innerHTML;
+    let HinhAnh4=document.getElementById("img4").innerHTML;
     $("#input-id").fileinput({
       enableResumableUpload: true,
+      initialPreview: [
+        HinhAnh1? '<img src="/images/'+HinhAnh1+'" class="file-preview-image"  >':'',
+        HinhAnh2? '<img src="/images/'+HinhAnh2+'" class="file-preview-image"  >':'',
+        HinhAnh3? '<img src="/images/'+HinhAnh3+'" class="file-preview-image"  >':'',
+        HinhAnh4? '<img src="/images/'+HinhAnh4+'" class="file-preview-image"  >':'',
+      ],
       maxFileCount: 4,
       allowedFileTypes: ['image'],    // allow only images
       showCancel: true,
-      initialPreviewAsData: true,
+      //initialPreviewAsData: true,
       overwriteInitial: false,
       theme: 'fas',
     });
