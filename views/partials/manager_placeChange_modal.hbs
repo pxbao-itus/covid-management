@@ -1,141 +1,35 @@
-<link
-  rel="stylesheet prefetch"
-  href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css"
-/>
-<script
-  src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"
-></script>
-<div
-  class="modal fade"
-  id="manager_placeChange_modal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<link rel="stylesheet prefetch"
+  href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" />
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<div class="modal fade" id="manager_placeChange_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">
           Thay đổi nơi điều trị
         </h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="placeIdForm">
           <div class="form-group">
             <label for="exampleInputEmail1">
               Địa chỉ hiện tại:
             </label>
-            <h3>
-              Trung tâm y tế Đặng Thùy Trâm
-            </h3>
+            <h5 id="noiDieuTriModal">
+            </h5>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">
               Địa chỉ mới:
             </label>
+            <input type="text" style="display: none;" name="userid" value="{{MaNguoiLienQuan}}">
           </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">
-              Tỉnh
-            </label>
-            <div class="br-2"></div>
-            <div class="btn-group">
-              <button
-                type="button"
-                class="btn btn-secondary dropdown-toggle"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Quảng Ngãi
-              </button>
-              <div class="br-2"></div>
-              <div class="dropdown-menu dropdown-menu-right">
-                <button class="dropdown-item" type="button">
-                  Quảng Nam
-                </button>
-                <button class="dropdown-item" type="button">
-                  Bình Định
-                </button>
-                <button class="dropdown-item" type="button">
-                  Huế
-                </button>
-                <button class="dropdown-item" type="button">
-                  Phú Yên
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">
-              Huyện
-            </label>
-            <div class="br-2"></div>
-            <div class="btn-group">
-              <button
-                type="button"
-                class="btn btn-secondary dropdown-toggle"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Đức Phổ
-              </button>
-              <div class="br-2"></div>
-              <div class="dropdown-menu dropdown-menu-right">
-                <button class="dropdown-item" type="button">
-                  Ba Vì
-                </button>
-                <button class="dropdown-item" type="button">
-                  Ba Tơ
-                </button>
-                <button class="dropdown-item" type="button">
-                  Mộ Đức
-                </button>
-                <button class="dropdown-item" type="button">
-                  Sơn Tịnh
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="form-group" name="district">
-            <label for="exampleInputPassword1">
-              Xã
-            </label>
-            <div class="br-2"></div>
-            <div class="btn-group">
-              <button
-                type="button"
-                class="btn btn-secondary dropdown-toggle"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Phổ An
-              </button>
-              <div class="br-2"></div>
-              <div class="dropdown-menu dropdown-menu-right" name="district">
-                <button class="dropdown-item" type="button">
-                  Phổ Quang
-                </button>
-                <button class="dropdown-item" type="button">
-                  Phổ Vinh
-                </button>
-                <button class="dropdown-item" type="button">
-                  Phổ Ninh
-                </button>
-                <button class="dropdown-item" type="button">
-                  Phổ Hòa
-                </button>
-              </div>
-            </div>
+          <div class="btn-group">
+            <select name="treatmentid" class="custom-select" id="noiDieuTri">
+              <option disabled selected style="display: none;">Địa chỉ mới</option>
+            </select>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">
@@ -151,12 +45,12 @@
   </div>
 </div>
 <script>
-  $('#manager_statusChange_modal').on('shown.bs.modal', function () {
+      $('#manager_statusChange_modal').on('shown.bs.modal',function() {
       $('#myInput').trigger('focus')
   });
 </script>
 <script type="text/javascript">
-  $(function () {  
-$("#datepicker").datepicker()
-});
+      $(function() {
+        $("#datepicker").datepicker()
+      });
 </script>

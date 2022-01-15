@@ -1,66 +1,54 @@
 @import url("../../modal.css");
 @import url("../../tableList.css");
-
-
 .group-btn-action {
-  position: absolute;
-  right: 2rem;
-  top: 0rem;
+    position: absolute;
+    right: 2rem;
+    top: 0rem;
 }
 
 #modal-insert .modal-dialog {
-  width: 60vw;
+    width: 60vw;
 }
 
 .item-img-container {
-  width: 30vw;
-  /* height: 35vw; */
-  padding: 0;
-  margin: 0;
-  margin-bottom: -16px;
+    width: 30vw;
+    /* height: 35vw; */
+    padding: 0;
+    margin: 0;
+    margin-bottom: -16px;
 }
 
 .item-img-container img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  background-image: url("/img/upload.png");
+    width: 100%;
+    aspect-ratio: 1 / 1;
 }
 
-.item-img-container img :hover {
-  background-image: url("/img/upload.png");
-}
-
-.item-img-container > .row {
-  padding-bottom: 16px;
+.item-img-container>.row {
+    padding-bottom: 16px;
 }
 
 .item-img-container .col-sm {
-  padding-right: 0px;
+    padding-right: 0px;
 }
 
 .col-form .row {
-  margin-bottom: 2rem;
+    margin-bottom: 2rem;
 }
 
 .col-form {
-  padding-top: 1rem;
+    padding-top: 1rem;
 }
-
 
 .dropdown-toggle::after {
-  position: absolute;
-
-  right: 15px;
-  bottom: 15px;
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
 }
 
-.btn-drop  {
-  width: 100%;
+.btn-drop {
+    width: 100%;
 }
 
-.btn-group > button {
-  padding-right: 1.5rem;
+.btn-group>button {
+    padding-right: 1.5rem;
 }
-
-
-

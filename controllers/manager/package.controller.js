@@ -5,9 +5,9 @@ const packageModel = require("../../models/manager/package.model");
 packageRouter.get("/list", async(req, res) => {
     try {
         let result = await packageModel.list();
-        for(let index = 0; index < result.length; index++) {
+        for (let index = 0; index < result.length; index++) {
             const response = await axios.get(`http://localhost:3000/api/package/detail?id=${result[index].MaGoiNYP}`);
-            result[index].Amount  = response.data.details.length;
+            result[index].Amount = response.data.details.length;
             result[index].Total = response.data.details.reduce((item1, item2) => {
                 return item1 + item2.DonGia * item2.SoLuong;
             }, 0);
@@ -20,84 +20,84 @@ packageRouter.get("/list", async(req, res) => {
                 options
             );
         });
-        if(req.query.search) {
+        if (req.query.search) {
             result = result.filter(item => {
                 return (item.TenGoiNYP.toLowerCase().indexOf(req.query.search.toLowerCase()) >= 0);
             })
         }
-        if(req.query.sort && req.query.order) {
-            
-            if(req.query.sort === 'total') {               
-                result = result.sort((item1, item2) => { 
+        if (req.query.sort && req.query.order) {
+
+            if (req.query.sort === 'total') {
+                result = result.sort((item1, item2) => {
                     return req.query.order === 'increase' ? item1.Total - item2.Total : item2.Total - item1.Total;
                 })
             }
 
-            if(req.query.sort === 'amount') {
+            if (req.query.sort === 'amount') {
                 result = result.sort((item1, item2) => {
                     return req.query.order === 'increase' ? item1.Amount - item2.Amount : item2.Amount - item1.Amount;
                 })
             }
-            if(req.query.sort === 'limit') {
+            if (req.query.sort === 'limit') {
                 result = result.sort((item1, item2) => {
-                    return req.query.order === 'increase' ? item1.MucGioiHan - item2.MucGioiHan : item2.MucGioiHan - item1.MucGioiHan ;
+                    return req.query.order === 'increase' ? item1.MucGioiHan - item2.MucGioiHan : item2.MucGioiHan - item1.MucGioiHan;
                 })
             }
-            if(req.query.sort === 'time') {
+            if (req.query.sort === 'time') {
                 result = result.sort((item1, item2) => {
                     return req.query.order === 'increase' ? item1.ThoiGianGioiHan - item2.ThoiGianGioiHan : item2.ThoiGianGioiHan - item1.ThoiGianGioiHan;
                 })
-            }           
+            }
         }
-        if(req.query.start || req.query.end) {
-            if(req.query.type === 'total') {
+        if (req.query.start || req.query.end) {
+            if (req.query.type === 'total') {
                 result = result.filter(item => {
                     let status1 = true;
                     let status2 = true;
-                    if(req.query.start) {
-                    status1 = item.Total >= req.query.start;
+                    if (req.query.start) {
+                        status1 = item.Total >= req.query.start;
                     }
-                    if(req.query.end) {
-                    status2 = item.Total <= req.query.end;
+                    if (req.query.end) {
+                        status2 = item.Total <= req.query.end;
                     }
                     return status1 && status2;
                 })
             }
-            if(req.query.type === 'amount') {
+            if (req.query.type === 'amount') {
                 result = result.filter(item => {
                     let status1 = true;
                     let status2 = true;
-                    if(req.query.start) {
-                    status1 = item.Amount >= req.query.start;
+                    if (req.query.start) {
+                        status1 = item.Amount >= req.query.start;
                     }
-                    if(req.query.end) {
-                    status2 = item.Amount <= req.query.end;
+                    if (req.query.end) {
+                        status2 = item.Amount <= req.query.end;
                     }
                     return status1 && status2;
                 })
             }
-            if(req.query.type === 'limit') {
+            if (req.query.type === 'limit') {
                 result = result.filter(item => {
                     let status1 = true;
                     let status2 = true;
-                    if(req.query.start) {
-                    status1 = item.MucGioiHan >= req.query.start;
+                    if (req.query.start) {
+                        status1 = item.MucGioiHan >= req.query.start;
                     }
-                    if(req.query.end) {
-                    status2 = item.MucGioiHan <= req.query.end;
+                    if (req.query.end) {
+                        status2 = item.MucGioiHan <= req.query.end;
                     }
                     return status1 && status2;
                 })
             }
-            if(req.query.type === 'time') {
+            if (req.query.type === 'time') {
                 result = result.filter(item => {
                     let status1 = true;
                     let status2 = true;
-                    if(req.query.start) {
-                    status1 = item.ThoiGianGioiHan >= req.query.start;
+                    if (req.query.start) {
+                        status1 = item.ThoiGianGioiHan >= req.query.start;
                     }
-                    if(req.query.end) {
-                    status2 = item.ThoiGianGioiHan <= req.query.end;
+                    if (req.query.end) {
+                        status2 = item.ThoiGianGioiHan <= req.query.end;
                     }
                     return status1 && status2;
                 })
@@ -105,24 +105,24 @@ packageRouter.get("/list", async(req, res) => {
         }
 
         let pagnition = [];
-        for(let index = 1; index <= ((result.length - result.length%8)/8); index++ ) {
+        for (let index = 1; index <= ((result.length - result.length % 8) / 8); index++) {
             pagnition.push(index);
         }
-        if(result.length%8 > 0) {
-            pagnition.push(((result.length - result.length%8)/8) + 1);
+        if (result.length % 8 > 0) {
+            pagnition.push(((result.length - result.length % 8) / 8) + 1);
         }
-        if(req.query.page) {
-            for(let index = 8*(req.query.page - 1); index < 8*req.query.page; index++){
-                if(result[index]) {
+        if (req.query.page) {
+            for (let index = 8 * (req.query.page - 1); index < 8 * req.query.page; index++) {
+                if (result[index]) {
                     resultPagnition.push(result[index]);
                 } else {
                     break;
                 }
-                
+
             }
         } else {
-            for(let index = 0; index < 8; index++) {
-                if(result[index]) {
+            for (let index = 0; index < 8; index++) {
+                if (result[index]) {
                     resultPagnition.push(result[index]);
                 } else {
                     break;
@@ -133,15 +133,15 @@ packageRouter.get("/list", async(req, res) => {
             packages: resultPagnition,
             path: req.originalUrl,
         });
-        
+
     } catch (error) {
         return res.render("manager/package/list", {
             packages: [],
             path: req.originalUrl,
         });
     }
-    
-    
+
+
 });
 
 packageRouter.get("/list/ajax", async(req, res) => {

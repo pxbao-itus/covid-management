@@ -56,7 +56,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Nơi điều trị/cách li:</th>
-                                    <td>{{userDetail.NoiDieuTri}}</td>
+                                    <td id="noiDieuTriM">{{userDetail.NoiDieuTri}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -91,7 +91,7 @@
         </main>
     </div>
 </div>
-{{> manager_placeChange_modal}}
-{{> manager_statusChange_modal}}
+{{> manager_placeChange_modal userDetail}}
+{{> manager_statusChange_modal userDetail}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>

@@ -30,19 +30,19 @@
                             <tbody>
                                 <tr>
                                     <th style="border-top: none;" scope="row">Mã nhu yếu phẩm :</th>
-                                    <td style="border-top: none;"> 212846352</td>
+                                    <td style="border-top: none;"> {{product.MaNYP}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Tên yếu phẩm :</th>
-                                    <td>Trà Anh Toàn</td>
+                                    <td> {{product.TenNYP}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Đơn giá :</th>
-                                    <td>free</td>
+                                    <td> {{product.DonGia}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Đơn vị định lượng :</th>
-                                    <td>chiếc</td>
+                                    <td> {{product.DonViDinhLuong}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -50,66 +50,11 @@
                 </div>
                 <div class="mb-4"></div>
 
-                <h2>Danh sách gói nhu yếu phẩm liên quan</h2>
-                <div class="mb-3"></div>
-                <div class="card">
-                    <div class="card-body">
-                        <table id="table-2" class="table">
-                            <thead>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th style="border-top: none;">STT</th>
-                                    <th style="border-top: none;">Tên gói</th>
-                                    <th style="border-top: none;">Số lượng tối thiểu</th>
-                                    <th style="border-top: none;">Số lượng</th>
-                                    <th style="border-top: none;">Số lượng tối đa</th>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Gói bánh 1</td>
-                                    <td>0</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Gói bánh 1</td>
-                                    <td>0</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Gói bánh 1</td>
-                                    <td>0</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Gói bánh 1</td>
-                                    <td>0</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Gói bánh 1</td>
-                                    <td>0</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
         </main>
     </div>
 </div>
-{{> product/updateModal}}
-{{> product/deleteModal}}
+{{> product/updateModal product}}
+{{> product/deleteModal product}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>

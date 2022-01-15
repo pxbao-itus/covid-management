@@ -4,8 +4,9 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 
-// import module
 
+
+// import module
 
 // init variable
 const app = express();
@@ -123,7 +124,21 @@ app.use('/package', require('./controllers/user/package.controller'));
 // router for order
 app.use('/order', require('./controllers/user/order.controller'))
 
-
+// router for file upload
+// var multer = require('multer');
+// var storage = multer.diskStorage({
+//     destination: function(req, file, cb) {
+//         cb(null, './public/images/');
+//     },
+//     filename: function(req, file, cb) {
+//         cb(null, file.originalname)
+//     }
+// })
+// var upload = multer({ storage: storage })
+// app.post('/upload', , function(req, res) {
+//     console.log(req.file);
+//     res.send("upload file thành công")
+// });
 
 // ------------------- Router for api
 app.use('/api', require('./controllers/api.controller'));
