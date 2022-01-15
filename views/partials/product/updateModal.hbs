@@ -91,6 +91,7 @@
                 </div>
                 <div class="col-sm">
                   <input type="text" class="form-control" name="DonViDinhLuong" value="{{DonViDinhLuong}}">
+                  <input style="display: none;" type="text" class="form-control" name="id" value="{{MaNYP}}">
                 </div>
               </div>
             </div>
@@ -112,25 +113,19 @@
 
   var uploadedFile=[];
   var deletedFile=[];
-  uploadedFile.push(document.getElementById("img1").innerHTML)
-  uploadedFile.push(document.getElementById("img2").innerHTML)
-  uploadedFile.push(document.getElementById("img3").innerHTML)
-  uploadedFile.push(document.getElementById("img4").innerHTML)
-
+              if(document.getElementById("img1").innerHTML)
+              uploadedFile.push(document.getElementById("img1").innerHTML)
+              if(document.getElementById("img2").innerHTML)
+              uploadedFile.push(document.getElementById("img2").innerHTML)
+              if(document.getElementById("img3").innerHTML)
+              uploadedFile.push(document.getElementById("img3").innerHTML)
+              if(document.getElementById("img4").innerHTML)
+              uploadedFile.push(document.getElementById("img4").innerHTML)
+              var upfile=(uploadedFile)
   $("#input-id").fileinput({
     uploadUrl: '#',
-    initialPreview: [
-      uploadedFile[0]? '/images/'+uploadedFile[0]:null,
-      uploadedFile[1]? '/images/'+uploadedFile[1]:null,
-      uploadedFile[2]? '/images/'+uploadedFile[2]:null,
-      uploadedFile[3]? '/images/'+uploadedFile[3]:null,
-    ],
-    initialPreviewConfig: [
-      uploadedFile[0]? {key: uploadedFile[0]}:null,
-      uploadedFile[1]? {key: uploadedFile[1]}:null,
-      uploadedFile[2]? {key: uploadedFile[2]}:null,
-      uploadedFile[3]? {key: uploadedFile[3]}:null,
-    ],
+    initialPreview: [].concat(uploadedFile).map(x => '/images/'+x),
+    initialPreviewConfig: [].concat(upfile).map((x) => {return {key: x}}),
     deleteUrl: '/manager/product/list',
     maxTotalFileCount: 4,
     allowedFileTypes: ['image'],    // allow only images

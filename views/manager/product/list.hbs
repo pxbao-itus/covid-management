@@ -49,7 +49,7 @@
               </td>
             </tr>
             {{/each}}
-            
+
           </tbody>
         </table>
         {{> pagination }}
@@ -57,7 +57,12 @@
     </main>
   </div>
 </div>
-
+<div id="idMsg" style="display: none;">{{msg}}</div>
 {{> product/insertModal}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+<script>
+  let msg=$('#idMsg').text();
+  if(msg)
+    alert(msg)
+</script>

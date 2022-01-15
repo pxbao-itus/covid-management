@@ -29,6 +29,37 @@
                         <table id="table-1" class="table">
                             <tbody>
                                 <tr>
+                                    <img src="/images/{{product.HinhAnh1}}" alt="." class="photoPreview a{{product.HinhAnh1}}"
+                                        style="height: 150px;width:250px;">
+                                    </tr>
+                                    <tr>
+                                        <img src="/images/{{product.HinhAnh2}}" alt="." class="photoPreview a{{product.HinhAnh2}}"
+                                            style="height: 150px;width:250px;">
+                                    </tr>
+                                    <tr>
+                                        <img src="/images/{{product.HinhAnh3}}" alt="." class="photoPreview a{{product.HinhAnh3}}"
+                                            style="height: 150px;width:250px;">
+                                    </tr>
+                                    <tr>
+                                        <img src="/images/{{product.HinhAnh4}}" alt="." class="photoPreview a{{product.HinhAnh4}}"
+                                            style="height: 150px;width:250px;">
+                                    </tr>
+                                    <style>
+                                        .a {
+                                            display: none !important;
+                                        }
+                                    
+                                        .photoPreview {
+                                            background-image: url("/img/blank_background.png");
+                                    
+                                            height: fit-content;
+                                            width: 67px;
+                                            border-radius: 6px;
+                                            object-fit: scale-down;
+                                            background-size: 67px;
+                                        }
+                                    </style>
+                                    <tr>
                                     <th style="border-top: none;" scope="row">Mã nhu yếu phẩm :</th>
                                     <td style="border-top: none;"> {{product.MaNYP}}</td>
                                 </tr>
@@ -58,3 +89,9 @@
 {{> product/deleteModal product}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+<style>
+    .modal-dialog {
+
+        left: 25% !important;
+    }
+</style>
