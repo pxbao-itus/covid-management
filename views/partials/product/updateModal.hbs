@@ -50,24 +50,23 @@
     <div class="modal-content">
       <form id="update-form" enctype="multipart/form-data" method="post" action="/upload">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Thêm nhu yếu phẩm</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Sửa nhu yếu phẩm</h5>
           <button type="button" class="close" id="close_update" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
+        </div>
+        <div class="modal-body">
+          <div class="row">
             <div class="col-sm-auto col-img">
               <div class="container item-img-container">
                 <div class="row">
                   <div class="col-sm">
                     <input type="file" id="input-id" name="files" accept="image/*" multiple>
-                    
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    <div class="col-sm col-form">
+</div>
+</div>
+</div>
+</div>
+<div class="col-sm col-form">
 
               <div class="row">
                 <div class="col-sm">
@@ -75,7 +74,7 @@
                 </div>
                 <div class="col-sm">
                   {{product}}
-                  <input type="text" class="form-control" name="ten" value=" {{TenNYP}}">
+                  <input type="text" class="form-control" name="TenNYP" value=" {{TenNYP}}">
                 </div>
               </div>
               <div class="row">
@@ -83,7 +82,7 @@
                   <p class="font-weight-bold">Đơn giá</p>
                 </div>
                 <div class="col-sm">
-                  <input required type="number" class="form-control" name="dongia" placeholder="VND" value="{{DonGia}}">
+                  <input required type="number" class="form-control" name="DonGia" placeholder="VND" value="{{DonGia}}">
                 </div>
               </div>
               <div class="row">
@@ -91,20 +90,20 @@
                   <p class="font-weight-bold">Đơn vị định lượng</p>
                 </div>
                 <div class="col-sm">
-                  <input type="text" class="form-control" name="donvi" value="{{DonViDinhLuong}}">
+                  <input type="text" class="form-control" name="DonViDinhLuong" value="{{DonViDinhLuong}}">
                   </div>
                   </div>
             </div>
-            </div>
-            </div>
-            <p id="img1" style="display: none;">{{HinhAnh1}}</p>
-            <p id="img2" style="display: none;">{{HinhAnh2}}</p>
-            <p id="img3" style="display: none;">{{HinhAnh3}}</p>
-            <p id="img4" style="display: none;">{{HinhAnh4}}</p>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
-          <button type="submit" class="btn btn-primary">Cập nhật</button>
           </div>
+          </div>
+          <p id="img1" style="display: none;">{{HinhAnh1}}</p>
+          <p id="img2" style="display: none;">{{HinhAnh2}}</p>
+          <p id="img3" style="display: none;">{{HinhAnh3}}</p>
+          <p id="img4" style="display: none;">{{HinhAnh4}}</p>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+          <button type="submit" class="btn btn-primary">Cập nhật</button>
+        </div>
       </form>
     </div>
   </div>
@@ -115,6 +114,17 @@
     let HinhAnh2=document.getElementById("img2").innerHTML;
     let HinhAnh3=document.getElementById("img3").innerHTML;
     let HinhAnh4=document.getElementById("img4").innerHTML;
+    let files=[]
+    files[0]={
+      fieldname: 'files',
+      originalname: 'bread1.jpg',
+      encoding: '7bit',
+      mimetype: 'image/jpeg',
+      destination: 'public/images/',
+      filename: 'e64939f86626b088bed48f5190623121',
+      path: 'public\\images\\e64939f86626b088bed48f5190623121',
+      size: 1201245
+    }
     $("#input-id").fileinput({
       enableResumableUpload: true,
       initialPreview: [
@@ -126,10 +136,21 @@
       maxFileCount: 4,
       allowedFileTypes: ['image'],    // allow only images
       showCancel: true,
-      //initialPreviewAsData: true,
+      initialPreviewAsData: false,
       overwriteInitial: false,
       theme: 'fas',
     });
+
+    /* $('#input-id').fileinput('addToStack',{
+       fieldname: 'files',
+       originalname: 'bread1.jpg',
+       encoding: '7bit',
+       mimetype: 'image/jpeg',
+       destination: 'public/images/',
+       filename: 'e64939f86626b088bed48f5190623121',
+       path: 'public\\images\\e64939f86626b088bed48f5190623121',
+       size: 1201245
+     });*/
   });
 
   $(document).ready(function() {

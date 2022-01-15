@@ -183,6 +183,7 @@ product.get("/detail", async(req, res) => {
         if (result) {
             return res.render("manager/product/detail", {
                 product: result,
+                // files: files,
                 path: "/manager/product/detail",
             });
         }
@@ -193,18 +194,21 @@ product.get("/detail", async(req, res) => {
     // return res.redirect("/manager/product/list");;
 });
 
-product.post("/update", async(req, res) => {
+product.post("/update", upload.array("files", 4), async(req, res) => {
     const productUpdated = req.body;
+    // console.log((req.files))
     try {
         const entity = {
             TenNYP: productUpdated.TenNYP,
-            HinhAnh1: req.files[0].filename ? req.files[0].filename : productUpdated.HinhAnh1,
-            HinhAnh2: req.files[1].filename ? req.files[1].filename : productUpdated.HinhAnh2,
-            HinhAnh3: req.files[2].filename ? req.files[2].filename : productUpdated.HinhAnh3,
-            HinhAnh4: req.files[3].filename ? req.files[3].filename : productUpdated.HinhAnh4,
-            DonGia: productUpdated.DonGia,
+            HinhAnh1: req.files[0].filename,
+            HinhAnh2: req.files[1].filename,
+            HinhAnh3: req.files[2].filename,
+            HinhAnh4: req.files[3].filename,
+            DonGia: parseInt(productUpdated.DonGia),
             DonViDinhLuong: productUpdated.DonViDinhLuong,
         };
+        console.log("----------------------")
+            // console.log(entity)
         const result = await productModel.update(entity, productUpdated.id);
         return res.redirect(`/manager/product/detail?id=${productUpdated.id}`);
     } catch (error) {
@@ -247,24 +251,24 @@ product.post("/create", upload.array("files", 4), async(req, res) => {
         return res.redirect("/manager/product/create");
     }
 });
-product.post("/update", async(req, res) => {
-    const productUpdated = req.body;
-    try {
-        const entity = {
-            TenNYP: productUpdated.ten,
-            HinhAnh1: req.files[0].filename,
-            HinhAnh2: req.files[1].filename,
-            HinhAnh3: req.files[2].filename,
-            HinhAnh4: req.files[3].filename,
-            DonGia: productUpdated.dongia,
-            DonViDinhLuong: productUpdated.donvi,
-        };
-        const result = await productModel.update(entity, productUpdated.id);
-        return res.redirect(`/manager/product/detail?id=${productUpdated.id}`);
-    } catch (error) {
-        return res.redirect(`/manager/product/detail?id=${productUpdated.id}`);
-    }
-});
+// product.post("/update", async(req, res) => {
+//     const productUpdated = req.body;
+//     try {
+//         const entity = {
+//             TenNYP: productUpdated.ten,
+//             HinhAnh1: req.files[0].filename,
+//             HinhAnh2: req.files[1].filename,
+//             HinhAnh3: req.files[2].filename,
+//             HinhAnh4: req.files[3].filename,
+//             DonGia: productUpdated.dongia,
+//             DonViDinhLuong: productUpdated.donvi,
+//         };
+//         const result = await productModel.update(entity, productUpdated.id);
+//         return res.redirect(`/manager/product/detail?id=${productUpdated.id}`);
+//     } catch (error) {
+//         return res.redirect(`/manager/product/detail?id=${productUpdated.id}`);
+//     }
+// });
 product.get("/create", async(req, res) => {
     let message = "";
 
