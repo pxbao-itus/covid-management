@@ -245,7 +245,6 @@ product.post("/create", upload.array("files", 4), async(req, res) => {
             // res.cookie("createProduct", "Thêm nhu yếu phẩm không thành công.");
         }
         return res.redirect("/manager/product/create");
-        console.log("ngu")
     } catch (e) {
         console.log(e)
         return res.redirect("/manager/product/create");
