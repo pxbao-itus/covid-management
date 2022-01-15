@@ -178,8 +178,6 @@ product.get("/detail", async(req, res) => {
     const MaNYP = req.query.id;
     try {
         const result = await productModel.detail(MaNYP);
-        console.log(result)
-
         if (result) {
             return res.render("manager/product/detail", {
                 product: result,

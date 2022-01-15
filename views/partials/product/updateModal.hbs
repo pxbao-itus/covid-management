@@ -62,11 +62,11 @@
                 <div class="row">
                   <div class="col-sm">
                     <input type="file" id="input-id" name="files" accept="image/*" multiple>
-</div>
-</div>
-</div>
-</div>
-<div class="col-sm col-form">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm col-form">
 
               <div class="row">
                 <div class="col-sm">
@@ -91,17 +91,17 @@
                 </div>
                 <div class="col-sm">
                   <input type="text" class="form-control" name="DonViDinhLuong" value="{{DonViDinhLuong}}">
-                  </div>
-                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          </div>
-          <p id="img1" style="display: none;">{{HinhAnh1}}</p>
-          <p id="img2" style="display: none;">{{HinhAnh2}}</p>
-          <p id="img3" style="display: none;">{{HinhAnh3}}</p>
-          <p id="img4" style="display: none;">{{HinhAnh4}}</p>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+        </div>
+        <p id="img1" style="display: none;">{{HinhAnh1}}</p>
+        <p id="img2" style="display: none;">{{HinhAnh2}}</p>
+        <p id="img3" style="display: none;">{{HinhAnh3}}</p>
+        <p id="img4" style="display: none;">{{HinhAnh4}}</p>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
           <button type="submit" class="btn btn-primary">Cập nhật</button>
         </div>
       </form>
@@ -109,51 +109,51 @@
   </div>
 </div>
 <script>
-  $(function() {
-    let HinhAnh1=document.getElementById("img1").innerHTML;
-    let HinhAnh2=document.getElementById("img2").innerHTML;
-    let HinhAnh3=document.getElementById("img3").innerHTML;
-    let HinhAnh4=document.getElementById("img4").innerHTML;
-    let files=[]
-    files[0]={
-      fieldname: 'files',
-      originalname: 'bread1.jpg',
-      encoding: '7bit',
-      mimetype: 'image/jpeg',
-      destination: 'public/images/',
-      filename: 'e64939f86626b088bed48f5190623121',
-      path: 'public\\images\\e64939f86626b088bed48f5190623121',
-      size: 1201245
-    }
-    $("#input-id").fileinput({
-      enableResumableUpload: true,
-      initialPreview: [
-        HinhAnh1? '<img src="/images/'+HinhAnh1+'" class="file-preview-image"  >':'',
-        HinhAnh2? '<img src="/images/'+HinhAnh2+'" class="file-preview-image"  >':'',
-        HinhAnh3? '<img src="/images/'+HinhAnh3+'" class="file-preview-image"  >':'',
-        HinhAnh4? '<img src="/images/'+HinhAnh4+'" class="file-preview-image"  >':'',
-      ],
-      maxFileCount: 4,
-      allowedFileTypes: ['image'],    // allow only images
-      showCancel: true,
-      initialPreviewAsData: false,
-      overwriteInitial: false,
-      theme: 'fas',
-    });
 
-    /* $('#input-id').fileinput('addToStack',{
-       fieldname: 'files',
-       originalname: 'bread1.jpg',
-       encoding: '7bit',
-       mimetype: 'image/jpeg',
-       destination: 'public/images/',
-       filename: 'e64939f86626b088bed48f5190623121',
-       path: 'public\\images\\e64939f86626b088bed48f5190623121',
-       size: 1201245
-     });*/
+  var uploadedFile=[];
+  var deletedFile=[];
+  uploadedFile.push(document.getElementById("img1").innerHTML)
+  uploadedFile.push(document.getElementById("img2").innerHTML)
+  uploadedFile.push(document.getElementById("img3").innerHTML)
+  uploadedFile.push(document.getElementById("img4").innerHTML)
+
+  $("#input-id").fileinput({
+    uploadUrl: '#',
+    initialPreview: [
+      uploadedFile[0]? '/images/'+uploadedFile[0]:null,
+      uploadedFile[1]? '/images/'+uploadedFile[1]:null,
+      uploadedFile[2]? '/images/'+uploadedFile[2]:null,
+      uploadedFile[3]? '/images/'+uploadedFile[3]:null,
+    ],
+    initialPreviewConfig: [
+      uploadedFile[0]? {key: uploadedFile[0]}:null,
+      uploadedFile[1]? {key: uploadedFile[1]}:null,
+      uploadedFile[2]? {key: uploadedFile[2]}:null,
+      uploadedFile[3]? {key: uploadedFile[3]}:null,
+    ],
+    deleteUrl: '/manager/product/list',
+    maxTotalFileCount: 4,
+    allowedFileTypes: ['image'],    // allow only images
+    showCancel: true,
+    initialPreviewAsData: true,
+    overwriteInitial: false,
+    theme: 'fas',
   });
 
+  $('#input-id').on('filepredelete',function(event,key,jqXHR,data) {
+
+
+  });
+  // console.log($('#input-id').fileinput('getFileStack'))
+
+
   $(document).ready(function() {
+
+    $('#input-id').on('filepredelete',function(event,key,jqXHR,data) {
+      uploadedFile.splice(uploadedFile.indexOf(key),1);
+      deletedFile.push(key)
+      console.log('filepredelete '+key)
+    });
 
     $(".file-preview-thumbnails").css("overflow-x","scroll")
     $(".file-preview-thumbnails").css("display","flex")
