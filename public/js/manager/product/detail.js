@@ -24,6 +24,10 @@ $(document).ready(function() {
         let HinhAnh3 = document.getElementById("img3").innerHTML;
         let HinhAnh4 = document.getElementById("img4").innerHTML;
         var url = "/manager/product/update";
+        // console.log(uploadedFile)
+        // console.log(deletedFile)
+        form.set('uploadedFile', uploadedFile)
+        form.set('deletedFile', deletedFile)
         $.ajax({
             type: "POST",
             url: url,

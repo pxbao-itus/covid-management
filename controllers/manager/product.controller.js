@@ -67,9 +67,10 @@ product.get("/list", async(req, res) => {
                 }
             }
         }
-        // return res.send(resultPagnition);
+        let msg = req.cookies.msg;
         return res.render("./manager/product/list", {
             products: resultPagnition,
+            msg: msg,
             path: req.originalUrl,
         });
     } catch (error) {
@@ -79,6 +80,14 @@ product.get("/list", async(req, res) => {
         });
     }
 
+});
+product.get("/listAll", async(req, res) => {
+    try {
+        let result = await productModel.list();
+        return res.send(result)
+    } catch (e) {
+
+    }
 });
 product.post("/list", async(req, res) => {
     try {
@@ -166,9 +175,11 @@ product.get("/delete", async(req, res) => {
     try {
         const MaNYP = req.query.id;
         const result = await productModel.delete(MaNYP);
-        return res.send('success');
+        res.cookie('msg', 'Xóa thành công!', { maxAge: 2000 })
+        return res.redirect("/manager/product/list")
     } catch (error) {
-        return res.send('fail');
+        res.cookie('msg', 'Xóa thất bại!')
+        return res.redirect("/manager/product/list")
     }
 
 });
@@ -178,12 +189,9 @@ product.get("/detail", async(req, res) => {
     const MaNYP = req.query.id;
     try {
         const result = await productModel.detail(MaNYP);
-        console.log(result)
-
         if (result) {
             return res.render("manager/product/detail", {
                 product: result,
-                // files: files,
                 path: "/manager/product/detail",
             });
         }
@@ -191,18 +199,39 @@ product.get("/detail", async(req, res) => {
     } catch (e) {
 
     }
-    // return res.redirect("/manager/product/list");;
 });
-
+product.post("/detail", async(req, res) => {
+    const MaNYP = req.body.id;
+    try {
+        const result = await productModel.detail(MaNYP);
+        if (result) {
+            return res.send(result);
+        }
+    } catch (error) {
+        return res.send(null);
+    }
+});
+const fs = require('fs/promises')
 product.post("/update", upload.array("files", 4), async(req, res) => {
     const productUpdated = req.body;
+
+    console.log((req.files))
+    let uploadedFile = req.body.uploadedFile.split(',');
+    let deletedFile = req.body.deletedFile.split(',');
+
+    console.log(uploadedFile)
+    console.log(deletedFile)
+    for (const element of deletedFile) {
+        fs.rm(__dirname.split('controllers')[0] + 'public/images/' + element, { force: true })
+        console.log(__dirname.split('controllers')[0] + 'public/images/' + element)
+    }
     try {
         const entity = {
             TenNYP: productUpdated.TenNYP,
-            HinhAnh1: req.files[0].filename,
-            HinhAnh2: req.files[1].filename,
-            HinhAnh3: req.files[2].filename,
-            HinhAnh4: req.files[3].filename,
+            HinhAnh1: req.files[0] ? req.files[0].filename : uploadedFile[3],
+            HinhAnh2: req.files[1] ? req.files[1].filename : uploadedFile[2],
+            HinhAnh3: req.files[2] ? req.files[2].filename : uploadedFile[1],
+            HinhAnh4: req.files[3] ? req.files[3].filename : uploadedFile[0],
             DonGia: parseInt(productUpdated.DonGia),
             DonViDinhLuong: productUpdated.DonViDinhLuong,
         };

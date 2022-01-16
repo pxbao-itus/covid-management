@@ -3,11 +3,12 @@
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form id="delete-form">
+      <form id="delete-form" action="/manager/product/delete">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Xoá nhu yếu phẩm</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
+            <input type="text" name="id" value="{{MaNYP}}" style="display: none;">
           </button>
         </div>
         <div class="modal-body">
@@ -15,7 +16,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
-          <button type="button" class="btn btn-primary">Có</button>
+          <button type="submit" class="btn btn-primary">Có</button>
         </div>
       </form>
     </div>
