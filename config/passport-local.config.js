@@ -45,8 +45,42 @@ module.exports = app => {
     })
     passport.deserializeUser(async (account, done) => {
         try {
+            let role = null;
+            
+            switch(tableName) {
+                case 'TaiKhoanNguoiDung': {
+                    role = 'USER';
+                    break;
+                }
+                case 'TaiKhoanNguoiQuanLy': {
+                    role = 'MANAGER';
+                    break;
+                }
+                case 'TaiKhoanNguoiQuanTri': {
+                    role = 'ADMIN';
+                    break;
+                }
+                default: role = 'USER'
+            }
             account = await accountModel.get(tableName, account.Username);
-            return done(null, account);
+            let status = 0;
+            let userId = account.Username;
+            if(account.NguoiLienQuan) {
+                userId = account.NguoiLienQuan;
+                status = account.TrangThai;
+            }
+            if(account.MaTaiKhoan) {
+                userId = account.MaTaiKhoan;
+                status = account.TrangThai;
+            }
+            
+            return done(null, {
+                username: account.Username,
+                role: role,
+                userId: userId,
+                status: status,
+
+            });
         } catch (error) {
             return done(new Error('error'), null);
         }
