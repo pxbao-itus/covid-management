@@ -1,6 +1,6 @@
 const product = require("express").Router();
-var upload = require('../../config/upload.config');
-
+const cloudinary = require('../../config/cloudinary.config');
+const upload = require('../../config/multer.config');
 const productModel = require("../../models/manager/product.model");
 
 
@@ -214,6 +214,7 @@ product.post("/detail", async(req, res) => {
 const fs = require('fs/promises')
 product.post("/update", upload.array("files", 4), async(req, res) => {
     const productUpdated = req.body;
+
     console.log((req.files))
     let uploadedFile = req.body.uploadedFile.split(',');
     let deletedFile = req.body.deletedFile.split(',');
@@ -239,6 +240,7 @@ product.post("/update", upload.array("files", 4), async(req, res) => {
         const result = await productModel.update(entity, productUpdated.id);
         return res.redirect(`/manager/product/detail?id=${productUpdated.id}`);
     } catch (error) {
+        console.log(error)
         return res.redirect(`/manager/product/detail?id=${productUpdated.id}`);
     }
 });
@@ -252,25 +254,24 @@ product.get("/create", async(req, res) => {
     });
 });
 product.post("/create", upload.array("files", 4), async(req, res) => {
-    console.log(req.files[0])
-
+    const uploader = async (path) => await cloudinary.uploads(path, 'Images');
+    let fileUpload = [];
+    for (const file of req.files) {
+        const imageRes = await uploader(file.path);
+        fileUpload.push(imageRes.url);
+        console.log(imageRes)
+    }
     try {
         const entity = {
             TenNYP: req.body.ten,
-            HinhAnh1: req.files[0] ? req.files[0].filename : "",
-            HinhAnh2: req.files[1] ? req.files[1].filename : "",
-            HinhAnh3: req.files[2] ? req.files[2].filename : "",
-            HinhAnh4: req.files[3] ? req.files[3].filename : "",
+            HinhAnh1: fileUpload[0],
+            HinhAnh2: fileUpload[1],
+            HinhAnh3: fileUpload[2],
+            HinhAnh4: fileUpload[3],
             DonGia: req.body.dongia,
             DonViDinhLuong: req.body.donvi,
         };
         const result = await productModel.create(entity);
-        if (result) {
-
-            // res.cookie("createProduct", "Thêm nhu yếu phẩm thành công.");
-        } else {
-            // res.cookie("createProduct", "Thêm nhu yếu phẩm không thành công.");
-        }
         return res.redirect("/manager/product/create");
     } catch (e) {
         console.log(e)

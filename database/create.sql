@@ -145,6 +145,7 @@ CREATE TABLE "LichSuMuaGoiNYP"(
 -- ----------------------------
 CREATE TABLE "GoiNhuYeuPham"(
 	"MaGoiNYP" SERIAL,
+	"HinhAnh" varchar(150),
 	"TenGoiNYP" varchar(30),
 	"NgayLapGoi" timestamp,
 	"MucGioiHan" int4,

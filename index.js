@@ -4,9 +4,8 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 
-
-
 // import module
+const authMiddleware = require('./middlewares/middleware');
 
 // init variable
 const app = express();
@@ -28,61 +27,13 @@ require('./config/passport-local.config')(app);
 require('./config/handlebars.config')(app);
 
 // use middleware
-
+app.use(authMiddleware);;
 // use router
-app.get("/", (req, res) => {
+app.get("/manager", (req, res) => {
     res.render("manager/user/detail.hbs", {
         path: '/manager/user/detail',
     });
 })
-
-// use router
-// app.get("manager/payment", (req, res) => {
-//     res.render("manager/payment/payment", {
-//         path: '/css/manager/payment/payment',
-//       });
-// })
-// app.get("/init", (req, res) => {
-//     res.render("init", {
-//         path: req.originalUrl.split("?").shift(),
-//       });
-// })
-// app.get("/manager/user/list", (req, res) => {
-//     res.render("manager/user/list", {
-//         path: req.originalUrl.split("?").shift(),
-//       });
-// })
-// app.get("/manager/user/detail", (req, res) => {
-//     res.render("manager/user/detail", {
-//         path: req.originalUrl.split("?").shift(),
-//       });
-// })
-// app.get("/manager/product/list", (req, res) => {
-//     res.render("./manager/product/list", {
-//         path: req.originalUrl.split("?").shift(),
-//       });
-// })
-// app.get("/manager/product/detail", (req, res) => {
-//     res.render("manager/product/detail", {
-//         path: req.originalUrl.split("?").shift(),
-//       });
-// })
-// app.get("/manager/package/list", (req, res) => {
-//     res.render("manager/package/list", {
-//         path: req.originalUrl.split("?").shift(),
-//       });
-// })
-// app.get("/manager/package/detail", (req, res) => {
-//     res.render("manager/package/detail", {
-//         path: req.originalUrl.split("?").shift(),
-//       });
-// })
-// app.get("/manager/statistic/", (req, res) => {
-//     res.render("manager/statistic/statistic", {
-//         path: req.originalUrl.split("?").shift(),
-//       });
-// })
-
 
 // router for User, Manager, Admin sign in, sign out, change password
 app.use('/auth', require('./controllers/auth.controller'));

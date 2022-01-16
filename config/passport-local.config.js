@@ -1,11 +1,14 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
+require('dotenv').config();
+const session = require('express-session');
 
 const accountModel = require('../models/account.model');
 const userAccountTable = 'TaiKhoanNguoiDung';
 const managerAccountTable = 'TaiKhoanNguoiQuanLy';
 const adminAccountTable = 'TaiKhoanNguoiQuanTri';
+
 
 module.exports = app => {
     var tableName;
@@ -45,12 +48,52 @@ module.exports = app => {
     })
     passport.deserializeUser(async (account, done) => {
         try {
+            let role = null;
+            
+            switch(tableName) {
+                case 'TaiKhoanNguoiDung': {
+                    role = 'USER';
+                    break;
+                }
+                case 'TaiKhoanNguoiQuanLy': {
+                    role = 'MANAGER';
+                    break;
+                }
+                case 'TaiKhoanNguoiQuanTri': {
+                    role = 'ADMIN';
+                    break;
+                }
+                default: role = 'USER'
+            }
             account = await accountModel.get(tableName, account.Username);
-            return done(null, account);
+            let status = 0;
+            let userId = account.Username;
+            if(account.NguoiLienQuan) {
+                userId = account.NguoiLienQuan;
+                status = account.TrangThai;
+            }
+            if(account.MaTaiKhoan) {
+                userId = account.MaTaiKhoan;
+                status = account.TrangThai;
+            }
+            
+            return done(null, {
+                username: account.Username,
+                role: role,
+                userId: userId,
+                status: status,
+
+            });
         } catch (error) {
             return done(new Error('error'), null);
         }
     })
     app.use(passport.initialize());
     app.use(passport.session());
+    app.use(session({
+        secret: process.env.SECRET_KEY,
+        resave: false,
+        saveUninitialized: true,
+        cookie: { maxAge:  60 * 60 * 5000 }
+      }));
 }

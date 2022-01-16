@@ -13,24 +13,17 @@ packageRouter.get('/list',async (req, res) => {
     if(req.query.sort) {
         if(req.query.sort === 'th') {
             result = result.sort((item1, item2) => {
-                return item1.ThoiGianGioiHan - item2.ThoiGianGioiHan;
+                return item2.ThoiGianGioiHan - item1.ThoiGianGioiHan;
             })
         }
         if(req.query.sort === 'hm') {
             result = result.sort((item1, item2) => {
-                return item1.ThoiGianGioiHan - item2.ThoiGianGioiHan;
+                return item2.MucGioiHan - item1.MucGioiHan;
             })
         }
     }
-    let pagnition = [];
-    for(let index = 1; index <= ((result.length - result.length%6)/6); index++ ) {
-        pagnition.push(index);
-    }
-    if(result.length%6 > 0) {
-        pagnition.push(((result.length - result.length%6)/6) + 1);
-    }
     if(req.query.page) {
-        for(let index = 6*(req.query.page - 1); index < 6*req.query.page; index++){
+        for(let index = 9*(req.query.page - 1); index < 9*req.query.page; index++){
             if(result[index]) {
                 resultPagnition.push(result[index]);
             } else {
@@ -39,7 +32,7 @@ packageRouter.get('/list',async (req, res) => {
             
         }
     } else {
-        for(let index = 0; index < 6; index++) {
+        for(let index = 0; index < 9; index++) {
             if(result[index]) {
                 resultPagnition.push(result[index]);
             } else {
@@ -59,8 +52,6 @@ packageRouter.get('/list',async (req, res) => {
             th: (req.query.sort === 'th'),
             hm: (req.query.sort === 'hm')
         },
-        pagnition: pagnition,
-        pageActive: req.query.page || 1
     });
 
 })
@@ -75,6 +66,51 @@ packageRouter.get('/list/ajax', async (req, res) => {
     } catch (error) {
         return res.send([]);
     }
+})
+packageRouter.get('/list/more', async (req, res) => {
+    try {
+        let result = await packageModel.list();
+        let resultPagnition = [];
+        if(req.query.search) {
+            result = result.filter(item => {
+                return (item.TenGoiNYP.toLowerCase().indexOf(req.query.search.toLowerCase()) >= 0);
+            })
+        }
+        if(req.query.sort) {
+            if(req.query.sort === 'th') {
+                result = result.sort((item1, item2) => {
+                    return item2.ThoiGianGioiHan - item1.ThoiGianGioiHan;
+                })
+            }
+            if(req.query.sort === 'hm') {
+                result = result.sort((item1, item2) => {
+                    return item2.MucGioiHan - item1.MucGioiHan;
+                })
+            }
+        }
+        if(req.query.page) {
+            for(let index = 9*(req.query.page - 1); index < 9*req.query.page; index++){
+                if(result[index]) {
+                    resultPagnition.push(result[index]);
+                } else {
+                    break;
+                }
+                
+            }
+        } else {
+            for(let index = 0; index < 9; index++) {
+                if(result[index]) {
+                    resultPagnition.push(result[index]);
+                } else {
+                    break;
+                }
+            }
+        }
+        return res.send(resultPagnition);
+    } catch (error) {
+        return res.send([]);
+    }
+    
 })
 packageRouter.get('/detail', async (req, res) => {
     const MaGoiNYP = req.query.id;

@@ -363,11 +363,6 @@ packageRouter.post("/create", async(req, res) => {
     const { package, details } = req.body;
     try {
         const result = await packageModel.create(package, details);
-        if (result) {
-            res.cookie("createPackage", "Thêm gói nhu yếu phẩm thành công.");
-        } else {
-            res.cookie("createPackage", "Thêm gói nhu yếu phẩm không thành công.");
-        }
         return res.redirect("/manager/package/create");
     } catch (error) {
         return res.redirect("/manager/package/create");

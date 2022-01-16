@@ -1,7 +1,7 @@
 const payment = require("express").Router();
 const paymentModel = require("../../models/manager/payment.model");
 
-payment.get("/", (req, res) => {
+payment.get("/list", (req, res) => {
   res.render("manager/payment/list", {
     path: "/manager/payment/list",
   });
