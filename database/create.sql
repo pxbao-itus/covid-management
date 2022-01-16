@@ -28,10 +28,10 @@ DROP TABLE IF EXISTS "TaiKhoanNguoiQuanTri";
 -- ----------------------------
 CREATE TABLE "NguoiLienQuan"(
 	"MaNguoiLienQuan" SERIAL,
-	"HoTen" varchar(30),
+	"HoTen" varchar(100),
 	"CCCD" varchar(12) UNIQUE,
 	"NgaySinh" date,
-	"DiaChi" varchar(50),
+	"DiaChi" varchar(100),
 	"SoDienThoai" varchar(12),
 	"TrangThaiHienTai" varchar(10),
 	"NoiDieuTri" int4 NOT NULL,
@@ -65,10 +65,10 @@ CREATE TABLE "TaiKhoanNguoiDung"(
 
 CREATE TABLE "NoiDieuTriCachLy"(
 	"MaNoiDTCL" SERIAL,
-	"TenNoiDTCL" varchar(30),
+	"TenNoiDTCL" varchar(100),
 	"SucChua" int4,
 	"SoLuongHienTai" int4,
-	"DiaChi" varchar(50),
+	"DiaChi" varchar(100),
 	"Loai" int4,
 	
 	PRIMARY KEY ("MaNoiDTCL")
@@ -145,12 +145,11 @@ CREATE TABLE "LichSuMuaGoiNYP"(
 -- ----------------------------
 CREATE TABLE "GoiNhuYeuPham"(
 	"MaGoiNYP" SERIAL,
-	"HinhAnh" varchar(150),
-	"TenGoiNYP" varchar(30),
+	"HinhAnh" varchar(250),
+	"TenGoiNYP" varchar(100),
 	"NgayLapGoi" timestamp,
 	"MucGioiHan" int4,
 	"ThoiGianGioiHan" int4,
-	"HinhAnh" varchar(50),
 	PRIMARY KEY ("MaGoiNYP")
 	
 );
@@ -176,13 +175,13 @@ CREATE TABLE "ChiTietGoiNYP"(
 CREATE TABLE "NhuYeuPham"
 (
 	"MaNYP" SERIAL,
-	"TenNYP" varchar(30),
-	"HinhAnh1" varchar(50),
-	"HinhAnh2" varchar(50),
-	"HinhAnh3" varchar(50),
-	"HinhAnh4" varchar(50),
+	"TenNYP" varchar(100),
+	"HinhAnh1" varchar(250),
+	"HinhAnh2" varchar(250),
+	"HinhAnh3" varchar(250),
+	"HinhAnh4" varchar(250),
 	"DonGia" int4,
-	"DonViDinhLuong" varchar(10),
+	"DonViDinhLuong" varchar(20),
 	
 	PRIMARY KEY ("MaNYP")
 	
@@ -220,7 +219,7 @@ CREATE TABLE "QuanLyThanhToan"(
 CREATE TABLE "TaiKhoanNguoiQuanLy"(
 	"MaTaiKhoan" SERIAL,
 	"Password" varchar(100),
-	"Username" varchar(12),
+	"Username" varchar(30),
 	"TrangThai" int4,
 	
 	PRIMARY KEY ("MaTaiKhoan")
@@ -267,7 +266,7 @@ CREATE TABLE "SoNguoiTungTrangThai"(
 -- ----------------------------	
 CREATE TABLE "TaiKhoanNguoiDungHTTT"(
 	"MaTaiKhoan" SERIAL,
-	"Username" varchar(20),
+	"Username" varchar(30),
 	"Password" varchar(100),
 	"TrangThai" int4,
 	
@@ -337,7 +336,7 @@ CREATE TABLE "Xa"(
 -- ----------------------------	
 
 CREATE TABLE "TaiKhoanNguoiQuanTri"(
-	"Username" varchar(20),
+	"Username" varchar(30),
 	"Password" varchar(100),
 	
 	PRIMARY KEY("Username")
