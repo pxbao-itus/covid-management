@@ -14,14 +14,28 @@
           </div>
           <div class="btn-group">
             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
+              aria-expanded="false" style="    width: 200px;">
               Sắp xếp theo
             </button>
             <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
-              style="position: absolute; transform: translate3d(-24px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
-              <button class="dropdown-item" type="button">Đơn giá</button>
-              <button class="dropdown-item" type="button">Lượng tiêu thụ</button>
-            </div>
+              style="    width: 200px;position: absolute; transform: translate3d(-24px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <button class="dropdown-item sort-item" type="button" value="dg">Đơn giá
+                <span id="dgIncrease" style="float: right">&uarr;</span>
+                <span id="dgDecrease" style="display:none;float: right">&darr;</span>
+              </button>
+              <button class="dropdown-item sort-item" type="button" value="sl">Số lượng
+                <span id="slIncrease" style="float: right">&uarr;</span>
+                <span id="slDecrease" style="display:none;float: right">&darr;</span>
+              </button>
+              <button class="dropdown-item sort-item" type="button" value="mgh">Mức giới hạn
+                <span id="mghIncrease" style="float: right">&uarr;</span>
+                <span id="mghDecrease" style="display:none;float: right">&darr;</span>
+              </button>
+              <button class="dropdown-item sort-item" type="button" value="tggh">Thời gian giới hạn
+                <span id="tgghIncrease" style="float: right">&uarr;</span>
+                <span id="tgghDecrease" style="display:none;float: right">&darr;</span>
+              </button>
+              </div>
           </div>
         </div>
       </div>
@@ -35,29 +49,17 @@
               <th class="text-center">Ngày lập gói</th>
               <th class="text-center">Mức giới hạn</th>
               <th class="text-center">Thời gian giới hạn</th>
+              <th class="text-center">Số lượng NYP</th>
+              <th class="text-center">Tổng tiền</th>
               <th class="text-center"> Thao tác </th>
             </tr>
           </thead>
           <tbody>
 
-            {{#each packages}}
-            <tr>
-              <td class="item-id">{{MaGoiNYP}}</td>
-              <td>{{inc @index}}</td>
-              <td>{{TenGoiNYP}}</td>
-              <td>{{NgayLapGoi}}</td>
-              <td>{{MucGioiHan}}</td>
-              <td>{{ThoiGianGioiHan}}</td>
-              <td>
-                <button type="button" class="btn btn-primary btn-info">Chi tiết</button>
-              </td>
-            </tr>
-            {{/each}}
 
           </tbody>
         </table>
         {{> pagination }}
-
       </div>
     </main>
   </div>

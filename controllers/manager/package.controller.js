@@ -144,6 +144,7 @@ packageRouter.get("/list", async(req, res) => {
 
 
 });
+
 packageRouter.post("/list", async(req, res) => {
     try {
         let result = await packageModel.list();
@@ -333,6 +334,7 @@ packageRouter.get("/detail", async(req, res) => {
         return res.render("/manager/packageDetail");
     }
 });
+
 packageRouter.post("/update", async(req, res) => {
     const { package, details } = req.body;
     try {

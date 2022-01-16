@@ -43,3 +43,73 @@ $(document).ready(function() {
         });
     });
 });
+
+
+
+function reloadTableProductsOfPackage(items) {
+
+    $("#list-2").html("");
+
+
+    console.log(items)
+    for (const element of items) {
+        let NYPDetail = GetNYP(element.MaNYP);
+        $("#list-2").append(`
+        <div class="card-product">
+        <div class="row">
+          <div class="col-auto col-1st">
+            <img src="/img/${NYPDetail.HinhAnh1}">
+          </div>
+          <div class="col col-2nd">
+            <h1>${NYPDetail.TenNYP}</h1>
+
+            <div class="group-btn-number">
+              <span>Số lượng</span>
+              <div style=" display: inline-block; ">
+                <div class="input-group input-group-spinner group-incr-decr">
+                  <div class="input-group-prepend">
+                    <button class="btn btn-decrement btn-outline-secondary" type="button">-</button>
+                  </div>
+                  <input class="input" value="${element.SoLuong}">
+                  <div class="input-group-append">
+                    <button class="btn btn-increment btn-outline-secondary" type="button">+</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="group-btn-number">
+              <span>Số lượng tối đa</span>
+              <div style=" display: inline-block; ">
+                <div class="input-group input-group-spinner group-incr-decr">
+                  <div class="input-group-prepend">
+                    <button class="btn btn-decrement btn-outline-secondary" type="button">-</button>
+                  </div>
+                  <input class="input" value="${element.SoLuongToiDa}">
+                  <div class="input-group-append">
+                    <button class="btn btn-increment btn-outline-secondary" type="button">+</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="group-btn-number">
+              <span>Số lượng tối thiểu</span>
+              <div style=" display: inline-block; ">
+                <div class="input-group input-group-spinner group-incr-decr">
+                  <div class="input-group-prepend">
+                    <button class="btn btn-decrement btn-outline-secondary" type="button">-</button>
+                  </div>
+                  <input class="input" value="${element.SoLuongToiThieu}">
+                  <div class="input-group-append">
+                    <button class="btn btn-increment btn-outline-secondary" type="button">+</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        `);
+    };
+}

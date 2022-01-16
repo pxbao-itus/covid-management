@@ -81,6 +81,14 @@ product.get("/list", async(req, res) => {
     }
 
 });
+product.get("/listAll", async(req, res) => {
+    try {
+        let result = await productModel.list();
+        return res.send(result)
+    } catch (e) {
+
+    }
+});
 product.post("/list", async(req, res) => {
     try {
         let result = await productModel.list();
@@ -190,6 +198,17 @@ product.get("/detail", async(req, res) => {
         return res.redirect("/manager/product/list");
     } catch (e) {
 
+    }
+});
+product.post("/detail", async(req, res) => {
+    const MaNYP = req.body.id;
+    try {
+        const result = await productModel.detail(MaNYP);
+        if (result) {
+            return res.send(result);
+        }
+    } catch (error) {
+        return res.send(null);
     }
 });
 const fs = require('fs/promises')

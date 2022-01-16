@@ -149,7 +149,7 @@ CREATE TABLE "GoiNhuYeuPham"(
 	"NgayLapGoi" timestamp,
 	"MucGioiHan" int4,
 	"ThoiGianGioiHan" int4,
-	
+	"HinhAnh" varchar(50),
 	PRIMARY KEY ("MaGoiNYP")
 	
 );
