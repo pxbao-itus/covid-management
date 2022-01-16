@@ -1,11 +1,14 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
+require('dotenv').config();
+const session = require('express-session');
 
 const accountModel = require('../models/account.model');
 const userAccountTable = 'TaiKhoanNguoiDung';
 const managerAccountTable = 'TaiKhoanNguoiQuanLy';
 const adminAccountTable = 'TaiKhoanNguoiQuanTri';
+
 
 module.exports = app => {
     var tableName;
@@ -87,4 +90,10 @@ module.exports = app => {
     })
     app.use(passport.initialize());
     app.use(passport.session());
+    app.use(session({
+        secret: process.env.SECRET_KEY,
+        resave: false,
+        saveUninitialized: true,
+        cookie: { maxAge:  60 * 60 * 5000 }
+      }));
 }

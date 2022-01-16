@@ -1,6 +1,5 @@
 #body {
-    width: 1000px;
-    margin: auto;
+    width: 100%;
     margin-top: 20px;
 }
 #search-filter {
@@ -37,25 +36,16 @@
     border-radius: 20px;
 }
 
-#packages {
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: 330px 330px 330px;
-    grid-column-gap: 10px;
-    grid-row-gap: 20px;
-    margin-bottom: 20px;
-}
 .package {
-    width: auto;
+    width: 100%;
     background-color: white;
-    border-radius: 20px;
+    
 }
 img {
-    width: 100%;
-    height: 300px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    min-width: 100%;
+    height: 200px;
 }
+
 .name {
     padding-left: 10px;
     font-size: 20px;
@@ -67,10 +57,7 @@ img {
     justify-content: center;
     align-items: center;
 }
-.detail:hover {
-    text-decoration: none;
 
-}
 .btn-detail {
     background-color: #0724B2;
     color: white;
@@ -80,15 +67,33 @@ img {
     padding-bottom: 5px;
     border-radius: 20px;
 }
-#pagnition {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
+.btn-detail:hover {
+    text-decoration: none;
+    color: white;   
 }
-.page-link {
-    margin-left: 5px;
+#view-more {
+    cursor: pointer;
 }
-.page-active {
-    color: white;
+.btn-primary {
     background-color: #0724B2;
 }
+
+#myBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: red; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+  }
+  
+  #myBtn:hover {
+    background-color: #555; /* Add a dark-grey background on hover */
+  }
