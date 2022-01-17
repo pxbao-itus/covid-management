@@ -51,9 +51,6 @@ $(document).ready(function(){
     $('#view-more').click(function(){
         viewMorePackages();
     })
-    // document.getElementById('btn-search').addEventListener("click", () => {
-    //     window.location.href = `/package/list?search=${$('#input').val()}`;
-    // })
     $('#btn-search').click(function(){
         onSearch();
     })

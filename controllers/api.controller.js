@@ -5,6 +5,7 @@ const productModel = require('../models/api/product.model');
 const treatmentModel = require('../models/api/treatment.model');
 const packageModel = require('../models/manager/package.model');
 const userModel=require('../models/manager/user.model');
+const orderModel = require('../models/user/order.model');
 // api get all province
 apiRouter.get('/province', async(req, res) => {
     try {
@@ -138,5 +139,34 @@ apiRouter.get("/user/detail", async (req, res) => {
     return res.status(400).json([]);
   }
 });
+
+
+apiRouter.get('/get-loan', async (req, res) => {
+    try {
+        const userId = req.user.userId;
+        const loan = await orderModel.getLoan(userId);
+        if(loan) {
+            return res.status(200).send({SoDuNo: loan.SoDuNo});
+        } else {
+            return res.status(200).send({SoDuNo: 0});
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(200).send({SoDuNo: 0});
+    }
+})
+apiRouter.get('/get-level', async (req, res) => {
+    try {
+        const level = await orderModel.getLevel();
+        if(level) {
+            return res.status(200).send({HanMuc: level.HanMuc});
+        } else {
+            return res.status(200).send({HanMuc: 0});
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(200).send({HanMuc: 0});
+    }
+})
 
 module.exports = apiRouter;

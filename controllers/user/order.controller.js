@@ -6,7 +6,7 @@ orderRouter.post('/buy', async (req, res) => {
     try {
         let {package, details} = req.body;
         const entityPackage = {
-            NguoiLienQuan: 2,//req.signedCookies.userId,
+            NguoiLienQuan: req.user.userId,
             GoiNYP: package.MaGoiNYP,
             SoTien: package.SoTien,
             ThoiGian: package.ThoiGian
@@ -22,12 +22,15 @@ orderRouter.post('/buy', async (req, res) => {
 })
 
 orderRouter.get('/list', async (req, res) => {
-    const userid = 2;//req.cookies.userId;
+    const userid = req.user.userId;
     try {
-        const result = await orderModel.list(userid);
+        let result = await orderModel.list(userid);
         for (let index = 0; index < result.length; index++) {
             result[index].ThoiGian = JSON.stringify(result[index].ThoiGian).slice(1,11);
         }
+        result = result.sort((item1, item2) => {
+            return item2.MaLichSuMua - item1.MaLichSuMua;
+        })
         return res.render('user/orders', {
             orders: result,
             layout: 'user',
@@ -48,7 +51,7 @@ orderRouter.get('/list', async (req, res) => {
 })
 orderRouter.get('/detail', async (req, res) => {
     try {
-        const userid = '2'; //req.cookies.userId;
+        const userid = req.user.userId;
         const historyId = req.query.id;
         const result = await orderModel.detail(userid, historyId);
         for(let index = 0; index < result.details.length; index++) {

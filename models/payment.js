@@ -127,5 +127,24 @@ exports.rechargeMoney = async (entity, value) => {
     }
 }
 
+exports.getLoan = async (id) => {
+    const SoDuNo = new pgp.helpers.TableName({table: "SoDuNo", schema: schema});
+    const qStr = pgp.as.format(`SELECT * FROM $1 WHERE "NguoiLienQuan" = '${id}'`, SoDuNo);
+    try {
+        const res = await db.any(qStr);
+        return res;
+    } catch (error) {
+        return null;
+    }
+}
 
-
+exports.getLevel = async () => {
+    const QLTT = new pgp.helpers.TableName({table: "QuanLyThanhToan", schema: schema});
+    const qStr = pgp.as.format(`SELECT * FROM $1`, QLTT);
+    try {
+        const res = await db.any(qStr);
+        return res;
+    } catch (error) {
+        return null;
+    }
+}
