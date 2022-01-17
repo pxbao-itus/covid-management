@@ -1,6 +1,9 @@
 const packageRouter = require("express").Router();
 const axios = require('axios');
 const packageModel = require("../../models/manager/package.model");
+const cloudinary = require('../../config/cloudinary.config');
+const upload = require('../../config/multer.config');
+
 
 packageRouter.get("/list", async(req, res) => {
     try {
@@ -330,16 +333,23 @@ packageRouter.get("/detail", async(req, res) => {
     }
 });
 
-packageRouter.post("/update", async(req, res) => {
+packageRouter.post("/update", upload.single('image'), async(req, res) => {
     const { package, details } = req.body;
     try {
-        const entity = {
+        const uploader = async (path) => await cloudinary.uploads(path, 'Images');
+        let image = {};
+        if(req.file) {
+            const imageRes = await uploader(req.file.path);
+            image.HinhAnh = imageRes.url;
+        }
+        const packageFull = {  
             TenGoiNYP: package.TenGoiNYP,
             NgayLapGoi: package.NgayLapGoi,
             MucGioiHan: package.MucGioiHan,
             ThoiGianGioiHan: package.ThoiGianGioiHan,
+            ...image
         };
-        const result = packageModel.update(entity, details, package.MaGoiNYP);
+        const result = packageModel.update(packageFull, details, package.MaGoiNYP);
         return res.redirect(`/manager/detail?id=${package.MaGoiNYP}`);
     } catch (error) {
         return res.redirect(`/manager/detail?id=${package.MaGoiNYP}`);
@@ -354,10 +364,16 @@ packageRouter.get("/create", (req, res) => {
         msg: message,
     });
 });
-packageRouter.post("/create", async(req, res) => {
+packageRouter.post("/create", upload.single('image'), async(req, res) => {
     const { package, details } = req.body;
     try {
-        const result = await packageModel.create(package, details);
+        const uploader = async (path) => await cloudinary.uploads(path, 'Images');
+        const imageRes = await uploader(req.file.path);
+        const packageFull = {  
+            ...package,
+            HinhAnh: imageRes.url
+        };
+        const result = await packageModel.create(packageFull, details);
         return res.redirect("/manager/package/create");
     } catch (error) {
         return res.redirect("/manager/package/create");

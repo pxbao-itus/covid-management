@@ -211,107 +211,63 @@ product.post("/detail", async(req, res) => {
         return res.send(null);
     }
 });
-const fs = require('fs/promises')
-product.post("/update", upload.array("files", 4), async(req, res) => {
-    const productUpdated = req.body;
 
-    console.log((req.files))
-    let uploadedFile = req.body.uploadedFile.split(',');
-    let deletedFile = req.body.deletedFile.split(',');
-
-    console.log(uploadedFile)
-    console.log(deletedFile)
-    for (const element of deletedFile) {
-        fs.rm(__dirname.split('controllers')[0] + 'public/images/' + element, { force: true })
-        console.log(__dirname.split('controllers')[0] + 'public/images/' + element)
-    }
+product.post("/update", upload.array("image"), async(req, res) => {
     try {
+        const uploader = async (path) => await cloudinary.uploads(path, 'Images');
+        let fileUpload = [];
+        for (const file of req.files) {
+            const imageRes = await uploader(file.path);
+            fileUpload.push(imageRes.url);
+        }
+        let images = {};
+        if(fileUpload.length === 1) {
+            images.HinhAnh1 = fileUpload[0];
+        }
+        if(fileUpload.length === 2) {
+            images.HinhAnh2 = fileUpload[1];
+        }
+        if(fileUpload.length === 3) {
+            images.HinhAnh1 = fileUpload[2];
+        }
+        if(fileUpload.length === 4) {
+            images.HinhAnh2 = fileUpload[3];
+        }
         const entity = {
-            TenNYP: productUpdated.TenNYP,
-            HinhAnh1: req.files[0] ? req.files[0].filename : uploadedFile[3],
-            HinhAnh2: req.files[1] ? req.files[1].filename : uploadedFile[2],
-            HinhAnh3: req.files[2] ? req.files[2].filename : uploadedFile[1],
-            HinhAnh4: req.files[3] ? req.files[3].filename : uploadedFile[0],
-            DonGia: parseInt(productUpdated.DonGia),
-            DonViDinhLuong: productUpdated.DonViDinhLuong,
+            TenNYP: req.body.TenNYP,
+            ...images,
+            DonGia: parseInt(req.body.DonGia),
+            DonViDinhLuong: req.body.DonViDinhLuong,
         };
-        console.log("----------------------")
-            // console.log(entity)
-        const result = await productModel.update(entity, productUpdated.id);
-        return res.redirect(`/manager/product/detail?id=${productUpdated.id}`);
+        const result = await productModel.update(entity, req.body.id);
+        //return res.redirect(`/manager/product/detail?id=${req.body.id}`);
+        return res.send(result);
     } catch (error) {
         console.log(error)
-        return res.redirect(`/manager/product/detail?id=${productUpdated.id}`);
+        //return res.redirect(`/manager/product/detail?id=${req.body.id}`);
     }
 });
 product.get("/create", async(req, res) => {
     let message = "";
-    // if (req.cookies("createProduct")) {
-    //     //message = req.cookies("create");
-    // }
+
     return res.render("manager/productCreate", {
         msg: message,
     });
 });
-product.post("/create", upload.array("files", 4), async(req, res) => {
-    const uploader = async (path) => await cloudinary.uploads(path, 'Images');
-    let fileUpload = [];
-    for (const file of req.files) {
-        const imageRes = await uploader(file.path);
-        fileUpload.push(imageRes.url);
-        console.log(imageRes)
-    }
+product.post("/create", upload.array("image"), async(req, res) => {
     try {
-        const entity = {
+        const uploader = async (path) => await cloudinary.uploads(path, 'Images');
+        let fileUpload = [];
+        for (const file of req.files) {
+            const imageRes = await uploader(file.path);
+            fileUpload.push(imageRes.url);
+        }
+        const entity = {  
             TenNYP: req.body.ten,
             HinhAnh1: fileUpload[0],
             HinhAnh2: fileUpload[1],
             HinhAnh3: fileUpload[2],
             HinhAnh4: fileUpload[3],
-            DonGia: req.body.dongia,
-            DonViDinhLuong: req.body.donvi,
-        };
-        const result = await productModel.create(entity);
-        return res.redirect("/manager/product/create");
-    } catch (e) {
-        console.log(e)
-        return res.redirect("/manager/product/create");
-    }
-});
-// product.post("/update", async(req, res) => {
-//     const productUpdated = req.body;
-//     try {
-//         const entity = {
-//             TenNYP: productUpdated.ten,
-//             HinhAnh1: req.files[0].filename,
-//             HinhAnh2: req.files[1].filename,
-//             HinhAnh3: req.files[2].filename,
-//             HinhAnh4: req.files[3].filename,
-//             DonGia: productUpdated.dongia,
-//             DonViDinhLuong: productUpdated.donvi,
-//         };
-//         const result = await productModel.update(entity, productUpdated.id);
-//         return res.redirect(`/manager/product/detail?id=${productUpdated.id}`);
-//     } catch (error) {
-//         return res.redirect(`/manager/product/detail?id=${productUpdated.id}`);
-//     }
-// });
-product.get("/create", async(req, res) => {
-    let message = "";
-
-    return res.render("manager/productCreate", {
-        msg: message,
-    });
-});
-product.post("/create", upload.array("files", 4), async(req, res) => {
-    try {
-        console.log(req.files[0])
-        const entity = {
-            TenNYP: req.body.ten,
-            HinhAnh1: req.files[0].filename + req.files[0].originalname.split(".")[1],
-            HinhAnh2: req.files[1].filename + req.files[1].originalname.split(".")[1],
-            HinhAnh3: req.files[2].filename + req.files[2].originalname.split(".")[1],
-            HinhAnh4: req.files[3].filename + req.files[3].originalname.split(".")[1],
             DonGia: req.body.dongia,
             DonViDinhLuong: req.body.donvi,
         };

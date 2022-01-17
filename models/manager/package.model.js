@@ -18,7 +18,7 @@ module.exports = {
         return res;
     },
     create: async (package, details) => {
-        const res = await db.createProduct(package, details);
+        const res = await db.createPackage(package, details);
         return res;
     }
 }
