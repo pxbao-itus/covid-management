@@ -50,84 +50,79 @@ packageRouter.get("/list", async(req, res) => {
             }
         }
         if (req.query.start || req.query.end) {
-            if (req.query.type === 'total') {
-                result = result.filter(item => {
-                    let status1 = true;
-                    let status2 = true;
-                    if (req.query.start) {
-                        status1 = item.Total >= req.query.start;
-                    }
-                    if (req.query.end) {
-                        status2 = item.Total <= req.query.end;
-                    }
-                    return status1 && status2;
-                })
-            }
-            if (req.query.type === 'amount') {
-                result = result.filter(item => {
-                    let status1 = true;
-                    let status2 = true;
-                    if (req.query.start) {
-                        status1 = item.Amount >= req.query.start;
-                    }
-                    if (req.query.end) {
-                        status2 = item.Amount <= req.query.end;
-                    }
-                    return status1 && status2;
-                })
-            }
-            if (req.query.type === 'limit') {
-                result = result.filter(item => {
-                    let status1 = true;
-                    let status2 = true;
-                    if (req.query.start) {
-                        status1 = item.MucGioiHan >= req.query.start;
-                    }
-                    if (req.query.end) {
-                        status2 = item.MucGioiHan <= req.query.end;
-                    }
-                    return status1 && status2;
-                })
-            }
-            if (req.query.type === 'time') {
-                result = result.filter(item => {
-                    let status1 = true;
-                    let status2 = true;
-                    if (req.query.start) {
-                        status1 = item.ThoiGianGioiHan >= req.query.start;
-                    }
-                    if (req.query.end) {
-                        status2 = item.ThoiGianGioiHan <= req.query.end;
-                    }
-                    return status1 && status2;
-                })
-            }
-        }
-
-        let pagnition = [];
-        for (let index = 1; index <= ((result.length - result.length % 8) / 8); index++) {
-            pagnition.push(index);
-        }
-        if (result.length % 8 > 0) {
-            pagnition.push(((result.length - result.length % 8) / 8) + 1);
+          if (req.query.type === "total") {
+            result = result.filter((item) => {
+              let status1 = true;
+              let status2 = true;
+              if (req.query.start) {
+                status1 = item.Total >= req.query.start;
+              }
+              if (req.query.end) {
+                status2 = item.Total <= req.query.end;
+              }
+              return status1 && status2;
+            });
+          }
+          if (req.query.type === "amount") {
+            result = result.filter((item) => {
+              let status1 = true;
+              let status2 = true;
+              if (req.query.start) {
+                status1 = item.Amount >= req.query.start;
+              }
+              if (req.query.end) {
+                status2 = item.Amount <= req.query.end;
+              }
+              return status1 && status2;
+            });
+          }
+          if (req.query.type === "limit") {
+            result = result.filter((item) => {
+              let status1 = true;
+              let status2 = true;
+              if (req.query.start) {
+                status1 = item.MucGioiHan >= req.query.start;
+              }
+              if (req.query.end) {
+                status2 = item.MucGioiHan <= req.query.end;
+              }
+              return status1 && status2;
+            });
+          }
+          if (req.query.type === "time") {
+            result = result.filter((item) => {
+              let status1 = true;
+              let status2 = true;
+              if (req.query.start) {
+                status1 = item.ThoiGianGioiHan >= req.query.start;
+              }
+              if (req.query.end) {
+                status2 = item.ThoiGianGioiHan <= req.query.end;
+              }
+              return status1 && status2;
+            });
+          }
         }
         if (req.query.page) {
-            for (let index = 8 * (req.query.page - 1); index < 8 * req.query.page; index++) {
-                if (result[index]) {
-                    resultPagnition.push(result[index]);
-                } else {
-                    break;
-                }
-
+          for (
+            let index = 8 * (req.query.page - 1);
+            index < 8 * req.query.page;
+            index++
+          ) {
+            if (result[index]) {
+              resultPagnition.push(result[index]);
+            } else {
+              break;
             }
+          }
         } else {
-            for (let index = 0; index < 8; index++) {
-                if (result[index]) {
-                    resultPagnition.push(result[index]);
-                } else {
-                    break;
-                }
+          for (let index = 0; index < 8; index++) {
+            if (result[index]) {
+              resultPagnition.push(result[index]);
+            } else {
+              break;
             }
+          }
         }
 
         return res.render("manager/package/list", {

@@ -1,15 +1,103 @@
 const user = require("express").Router();
+const { result } = require("../../models/db");
 const userModel = require("../../models/manager/user.model");
 
-user.get("/list", async(req, res) => {
-    const users = await userModel.list();
+user.get("/list", async (req, res) => {
+  var users = await userModel.list();
 
-    users.forEach((element) => {
-        element.Tuoi = _calculateAge(element.NgaySinh);
+  const userStatus = {
+    KhoiBenh: 0,
+    BinhThuong: 1,
+    F3: 2,
+    F2: 3,
+    F1: 4,
+    F0: 5,
+    TuVong: 6,
+  };
+  const PAGE_SIZE = 8;
+  const data = [];
+  const resultPagination = {};
+  var currentPage = 1;
+  var totalPage = 1;
+
+  users.forEach((element) => {
+    element.Tuoi = _calculateAge(element.NgaySinh);
+  });
+  if (req.query.search) {
+    users = users.filter((item) => {
+      return (
+        item.HoTen.toLowerCase().indexOf(req.query.search.toLowerCase()) >= 0
+      );
     });
-    // console.log(users);
-    // console.log("-----------------------------------------------");
-    res.render("manager/user/list", { user: users, path: "/manager/user/list" });
+  }
+
+  if (req.query.sort) {
+    const sort = req.query.sort;
+    if (sort === "age") {
+      users = users.sort((item1, item2) => {
+        return req.query.order === "increase"
+          ? item1.Tuoi - item2.Tuoi
+          : item2.Tuoi - item1.Tuoi;
+      });
+    } else if (sort === "status") {
+      users = users.sort((item1, item2) => {
+        return req.query.order === "increase"
+          ? userStatus[item1.TrangThaiHienTai] -
+              userStatus[item2.TrangThaiHienTai]
+          : userStatus[item2.TrangThaiHienTai] -
+              userStatus[item1.TrangThaiHienTai];
+      });
+    } else if (sort === "id") {
+      users = users.sort((item1, item2) => {
+        return req.query.order === "increase"
+          ? item1.MaNguoiLienQuan - item2.MaNguoiLienQuan
+          : item2.MaNguoiLienQuan - item1.MaNguoiLienQuan;
+      });
+    }
+  }
+
+  if (users) {
+    totalPage = Math.ceil(users.length / PAGE_SIZE);
+  } else {
+    msg = "Không tìm thấy dữ liệu";
+    res.render("manager/user/list", {
+      msg: msg,
+    });
+  }
+
+  if (req.query.page) {
+    currentPage = req.query.page;
+    for (
+      let index = 8 * (req.query.page - 1);
+      index < 8 * req.query.page;
+      index++
+    ) {
+      if (users[index]) {
+        data.push(users[index]);
+      } else {
+        break;
+      }
+    }
+  } else {
+    for (let index = 0; index < 8; index++) {
+      if (users[index]) {
+        data.push(users[index]);
+      } else {
+        break;
+      }
+    }
+  }
+
+  resultPagination.totalPage = totalPage;
+  resultPagination.currentPage = currentPage;
+  resultPagination.data = data;
+
+  // console.log(users);
+  // console.log("-----------------------------------------------");
+  res.render("manager/user/list", {
+    user: resultPagination.data,
+    path: "/manager/user/list",
+  });
 });
 
 function _calculateAge(birthday) {

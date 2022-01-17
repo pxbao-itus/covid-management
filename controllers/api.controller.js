@@ -118,4 +118,25 @@ apiRouter.get('/manager/user/change-treatment', async (req, res) => {
         return res.status(400).json({msg: "fail"});
     }
 })
+
+// api get all user list
+apiRouter.get("/user", async (req, res) => {
+  try {
+    const result = await userModel.list();
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(400).json([]);
+  }
+});
+
+// api get detail of user by id
+apiRouter.get("/user/detail", async (req, res) => {
+  try {
+    const result = await userModel.detail(req.query.id);
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(400).json([]);
+  }
+});
+
 module.exports = apiRouter;
