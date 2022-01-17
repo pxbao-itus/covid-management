@@ -96,6 +96,8 @@ user.get("/list", async (req, res) => {
   // console.log("-----------------------------------------------");
   res.render("manager/user/list", {
     user: resultPagination.data,
+    total: totalPage,
+    currentPage: currentPage,
     path: "/manager/user/list",
   });
 });
