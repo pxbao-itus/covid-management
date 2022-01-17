@@ -1,48 +1,32 @@
-<body class="text-center mx-auto w-25 h-100 my-auto" style="background-color: #F5F5F5;;margin-top: 10% !important;
-    top: 100%;">
-    <div class="card">
-<form class="form-signin p-3" method="post" action="/init">
-    <h1 class="h3 mb-3 font-weight-normal">
-      Covid Management
-    </h1>
-    <h1 class="h3 mb-3 font-weight-normal">
-      Tạo tài khoản quản trị
-    </h1>
-    <div class="mb-5"></div>
-    <label for="inputEmail" class="sr-only">
-      Tài khoản
-    </label>
-    <input
-      id="inputEmail"
-name="username"
-      class="form-control"
-      placeholder="Email address"
-      required=""
-      autofocus=""
-    />
-    <div class="mb-3"></div>
-    <label for="inputPassword" class="sr-only ">
-      Mật khẩu
-    </label>
-    <input
-      type="password"
-      name="password"
-      id="inputPassword"
-      class="form-control "
-      placeholder="Password"
-      required=""
-    />
-    
-    <div class="checkbox mb-3"></div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">
-      Tạo
-    </button>
-    {{#if msg}}
-      <p>
-        {{msg}}
-      </p>
-    {{/if}}
-  </form>
+
+<body id="body">
+  <div id="form-container" class="card p-5">
+    <div id="title" class="w-100">
+       <p class="w-100" style="font-size: 30px;">Khởi tạo tài khoản</p> 
     </div>
-  
+    {{#if msg}}
+        <div class="alert alert-warning" role="alert">
+          {{msg}}
+        </div>
+      {{/if}}
+    <form class="form-signin" method="post" action="/init">
+      <div class="input-group">
+        <label for="username" class="sr-only">
+          Tài khoản
+        </label>
+        <input id="username" name="username" class="form-control " placeholder="Tên đăng nhập" required=""
+          autofocus="" />
+      </div>
+      <div class="input-group">
+        <label for="password" class="sr-only">
+        Mật khẩu
+        </label>
+        <input type="password" name="password" id="password" class="form-control" placeholder="Mật khẩu"
+          required="" />
+      </div >
+      <button class="btn btn-lg btn-primary btn-block" type="submit">
+        Tạo tài khoản
+      </button>
+    </form>  
+  </div>
 </body>

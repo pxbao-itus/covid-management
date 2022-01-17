@@ -7,7 +7,10 @@ const adminAccountTable = 'TaiKhoanNguoiQuanTri';
 
 
 init.get('/',(req, res) => {
-    return res.render('init');
+    return res.render('init', {
+        path: '/signin',
+        title: 'Khởi tạo tài khoản admin'
+    });
 })
 init.post('/', async (req, res) => {
     
@@ -22,7 +25,7 @@ init.post('/', async (req, res) => {
         return res.redirect('/auth/signin');
     } catch (error) {
         return res.render('init', {
-            msg: "Khởi tạo không thành công!"
+            msg: "Khởi tạo không thành công!",           
         })
     }
 })
