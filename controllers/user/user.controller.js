@@ -5,7 +5,7 @@ const paymentModel = require('../../models/manager/payment.model');
 
 
 userRouter.get('/profile',async (req,res) => {
-    const userId=req.signedCookies['userId'];
+    const userId=req.user.userId;
     const profileUser=await userModel.get(userId);
     var DOB=profileUser.NgaySinh;
     var dd=String(DOB.getDate()).padStart(2,'0');
@@ -26,7 +26,7 @@ userRouter.get('/profile',async (req,res) => {
 
 userRouter.get('/history-managed', async (req, res) => {
     const remind=req.cookies.remind;
-    const userId = req.signedCookies['userId'];
+    const userId = req.user.userId;
     const historyManaged=await userModel.history(userId);
     for(var i=0;i<historyManaged.length;i++) {
         const time=(historyManaged[i].ThoiGian).toLocaleString('vi');
@@ -49,7 +49,7 @@ userRouter.get('/history-managed', async (req, res) => {
 
 userRouter.get('/history-payment', async (req, res) => {
     const remind=req.cookies.remind;
-    const userId = req.signedCookies['userId'];
+    const userId = req.user.userId;
     const historyPayment=await paymentModel.list(userId);
     for(var i=0;i<historyPayment.length;i++) {
         const time=(historyPayment[i].ThoiGian).toLocaleString('vi');

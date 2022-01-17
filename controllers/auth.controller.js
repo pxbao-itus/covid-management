@@ -13,9 +13,9 @@ authUser.get('/signin',async (req, res) =>{
         if(req.signedCookies.keep === 'true') {
             if(req.user) {
                 switch(req.user.role) {
-                    case 'USER':  return res.redirect('/profile');
-                    case 'MANAGER': return res.redirect('/manager');
-                    case 'ADMIN': return res.redirect('/admin');
+                    case 'USER':  return res.redirect('/user/profile');
+                    case 'MANAGER': return res.redirect('/manager/user/list');
+                    case 'ADMIN': return res.redirect('/admin/manager/list');
                     default: return res.redirect('/auth/signout');
                 }
             }         
@@ -26,9 +26,9 @@ authUser.get('/signin',async (req, res) =>{
     
     if(req.user) {
         switch(req.user.role) {
-            case 'USER':  return res.redirect('/profile');
-            case 'MANAGER': return res.redirect('/manager');
-            case 'ADMIN': return res.redirect('/admin');
+            case 'USER':  return res.redirect('/user/profile');
+            case 'MANAGER': return res.redirect('/manager/user/list');
+            case 'ADMIN': return res.redirect('/admin/manager/list');
             default: return res.redirect('/auth/signout');
         }
     }
@@ -81,7 +81,7 @@ authUser.post('/signin',async (req, res, next) => {
                         if(req.user.TrangThai === 0) {
                             return res.redirect('/change-password');
                         }
-                        return res.redirect("/profile");  ;
+                        return res.redirect("/user/profile");  ;
                     }
                     case 'MANAGER': {
                         if(req.user.TrangThai === 0) {
@@ -92,16 +92,16 @@ authUser.post('/signin',async (req, res, next) => {
                                 path: '/signin'
                             })
                         }
-                        return res.redirect("/manager");  
+                        return res.redirect("/manager/user/list");  
                     }
                     case 'ADMIN': {
-                        return res.redirect("/admin"); 
+                        return res.redirect("/admin/manager/list"); 
                     }
                     default: {
                         if(req.user.TrangThai === 0) {
                             return res.redirect('/change-password');
                         }
-                        return res.redirect("/profile"); 
+                        return res.redirect("/user/profile"); 
                     }
                 }
       

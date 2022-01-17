@@ -94,6 +94,6 @@ module.exports = app => {
         secret: process.env.SECRET_KEY,
         resave: false,
         saveUninitialized: true,
-        cookie: { maxAge:  60 * 60 * 5000 }
+        cookie: { maxAge:  60 * 60 * 1000 }
       }));
 }
