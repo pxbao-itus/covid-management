@@ -1,0 +1,98 @@
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-3 ">
+            {{> user_sidebar where ='profile'}}
+        </div>
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h4>Thông tin cá nhân</h4>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="tab-content ml-1" id="myTabContent">
+                                <div class="tab-pane fade show active" id="basicInfo" role="tabpanel"
+                                    aria-labelledby="basicInfo-tab">
+
+
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-2 col-5">
+                                            <label style="font-weight:bold;">Họ tên: </label>
+                                        </div>
+                                        <div class="col-md-8 col-6">
+                                            {{profile.HoTen}}
+                                        </div>
+                                    </div>
+                                    <hr />
+
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-2 col-5">
+                                            <label style="font-weight:bold;">CCCD: </label>
+                                        </div>
+                                        <div class="col-md-8 col-6">
+                                            {{profile.CCCD}}
+                                        </div>
+                                    </div>
+                                    <hr />
+
+
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-2 col-5">
+                                            <label style="font-weight:bold;">Ngày sinh: </label>
+                                        </div>
+                                        <div class="col-md-8 col-6">
+                                            {{profile.NgaySinh}}
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-2 col-5">
+                                            <label style="font-weight:bold;">Địa chỉ</label>
+                                        </div>
+                                        <div class="col-md-8 col-6">
+                                            {{profile.DiaChi}}
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-2 col-5">
+                                            <label style="font-weight:bold;">Số điện thoại: </label>
+                                        </div>
+                                        <div class="col-md-8 col-6">
+                                            {{profile.SoDienThoai}}
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-2 col-5">
+                                            <label style="font-weight:bold;">Trạng thái hiện tại</label>
+                                        </div>
+                                        <div class="col-md-8 col-6">
+                                            {{profile.TrangThaiHienTai}}
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-2 col-5">
+                                            <label style="font-weight:bold;">Nơi điều trị cách ly: </label>
+                                        </div>
+                                        <div class="col-md-8 col-6">
+                                            {{profile.NoiDieuTri}}
+                                        </div>
+                                    </div>
+                                    <hr />
+                                </div>
+                                <div class="tab-pane fade" id="connectedServices" role="tabpanel"
+                                    aria-labelledby="ConnectedServices-tab">
+                                    Facebook, Google, Twitter Account that are connected to this account
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

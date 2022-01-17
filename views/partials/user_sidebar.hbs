@@ -1,0 +1,36 @@
+<div class="list-group ">
+    <div class="list-group-item list-group-item-action">
+        <div class="col-sm-12 text-center">
+            <h4>Tài khoản</h4>
+        </div>
+        <div class="text-center">
+            <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="width: 150px;"
+                class="avatar img-circle img-thumbnail" alt="avatar">
+            <p>Username: {{username}}</p>
+
+        </div>
+    </div>
+    <a href="/user/profile"
+        class="list-group-item list-group-item-action{{#ifStr where 'profile' }} active {{/ifStr}}">Thông
+        tin cá
+        nhân</a>
+    <a href="/user/history-managed"
+        class="list-group-item list-group-item-action {{#ifStr where 'historyManaged' }} active {{/ifStr}}">Lịch sử
+        được quản
+        lý</a>
+    <a href="/user/history-payment"
+        class="list-group-item list-group-item-action {{#ifStr where 'historyPayment' }} active {{/ifStr}}">Lịch sử
+        thanh toán</a>
+    <a href="/user/announce-payment"
+        class="list-group-item list-group-item-action {{#ifStr where 'announce' }} active {{/ifStr}}">Nhắc thanh
+        toán {{#if data.remind}}<span class="badge badge-danger">1</span>{{/if}}</a>
+    <a href="http://localhost:3005/signin"
+        class="list-group-item list-group-item-action {{#ifStr where 'payment' }} active {{/ifStr}}">Liên kết hệ thống thanh toán </a>
+</div>
+
+<style>
+    a.active {
+        background-color: #0724B2 !important;
+
+    }
+</style>

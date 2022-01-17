@@ -70,8 +70,8 @@ exports.createUser = async(entity) => {
     }
 }
 
-exports.loadProfile = async (value) => {
-    const table = new pgp.helpers.TableName({ table: NLQ, schema: schema });
+exports.loadProfile = async (value,tbName) => {
+    const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
     const qStr = pgp.as.format(`SELECT * FROM $1 WHERE "MaNguoiLienQuan" = $2`, [table, value]);
     try {
         const res = await db.one(qStr);
@@ -81,8 +81,8 @@ exports.loadProfile = async (value) => {
         return null;
     }
 };
-exports.loadHistory = async (value) => {
-    const table = new pgp.helpers.TableName({ table: LichSuDuocQuanLy, schema: schema });
+exports.loadHistory = async (value,tbName) => {
+    const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
     const qStr = pgp.as.format(`SELECT * FROM $1 WHERE "NguoiLienQuan" = $2`, [table, value]);
     try {
         const res = await db.any(qStr);
@@ -93,4 +93,15 @@ exports.loadHistory = async (value) => {
     }
 };
 
+exports.loadIsoPlace=async (value,tbName) => {
+    const table=new pgp.helpers.TableName({table: tbName,schema: schema});
+    const qStr=pgp.as.format(`SELECT * FROM $1 WHERE "MaNoiDTCL" = $2`,[table,value]);
+    try {
+        const res=await db.one(qStr);
+        return res;
+    } catch(error) {
+        console.log(error);
+        return null;
+    }
+};
 

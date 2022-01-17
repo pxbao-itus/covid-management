@@ -50,7 +50,7 @@ exports.updateLimit = async (entity) => {
 // }
 
 exports.loadHistory = async (value) => {
-    const table = new pgp.helpers.TableName({ table: SDN, schema: schema });
+    const table = new pgp.helpers.TableName({ table: LSTT, schema: schema });
     const qStr = pgp.as.format('SELECT * FROM $1 WHERE "NguoiLienQuan" = $2', [table, value]);
 
     try {

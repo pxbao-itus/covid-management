@@ -1,0 +1,27 @@
+<div class="list-group">
+    <div class="list-group-item list-group-item-action">
+        <div class="col-sm-12 text-center">
+            <h4>Tài khoản thanh toán</h4>
+        </div>
+        <div class="text-center">
+            <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="width: 150px;"
+                class="avatar img-circle img-thumbnail" alt="avatar">
+            <p>Username: {{username}}</p>
+            <a href="/payment/signout"><button type="button" class="btn text-white font-weight-bold"
+                    style="background-color:#0724B2;">Đăng
+                    xuất</button></a>
+        </div>
+    </div>
+    <a href="/payment" class="list-group-item list-group-item-action {{#ifStr where 'payment-loan'}} active {{/ifStr}}">Thanh
+        toán</a>
+    <a href="/payment/input-money"
+        class="list-group-item list-group-item-action {{#ifStr where 'input-money'}} active {{/ifStr}}">Nạp
+        tiền</a>
+</div>
+
+<style>
+    a.active {
+        background-color: #0724B2 !important;
+
+    }
+</style>

@@ -123,6 +123,9 @@ app.use('/package', require('./controllers/user/package.controller'));
 // router for order
 app.use('/order', require('./controllers/user/order.controller'))
 
+//router for user
+app.use('/user',require('./controllers/user/user.controller'));
+
 
 
 // ------------------- Router for api

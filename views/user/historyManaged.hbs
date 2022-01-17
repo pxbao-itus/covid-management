@@ -1,0 +1,41 @@
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-3 ">
+            {{> user_sidebar where='historyManaged'}}
+        </div>
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h4>Lịch sử được quản lý</h4>
+                            <hr>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead class="thead">
+                            <tr>
+                                <th scope="col">Thời gian</th>
+                                <th scope="col">Trạng thái trước</th>
+                                <th scope="col">Trạng thái sau</th>
+                                <th scope="col">Nơi ĐTCL trước</th>
+                                <th scope="col">Nơi ĐTCL sau</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#history}}
+                            <tr>
+                                <td>{{ThoiGian}}</td>
+                                <td>{{TrangThaiTruoc}}</td>
+                                <td>{{TrangThaiSau}}</td>
+                                <td>{{NoiDTCLTruoc}}</td>
+                                <td>{{NoiDTCLSau}}</td>
+                            </tr>
+                            {{/history}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
