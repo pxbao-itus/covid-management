@@ -12,13 +12,12 @@
                             <hr>
                         </div>
                     </div>
+                    {{#if profile}}
                     <div class="row">
                         <div class="col-12">
                             <div class="tab-content ml-1" id="myTabContent">
                                 <div class="tab-pane fade show active" id="basicInfo" role="tabpanel"
                                     aria-labelledby="basicInfo-tab">
-
-
                                     <div class="row">
                                         <div class="col-sm-3 col-md-2 col-5">
                                             <label style="font-weight:bold;">Họ tên: </label>
@@ -45,7 +44,7 @@
                                             <label style="font-weight:bold;">Ngày sinh: </label>
                                         </div>
                                         <div class="col-md-8 col-6">
-                                            {{profile.NgaySinh}}
+                                            {{formatDOB profile.NgaySinh}}
                                         </div>
                                     </div>
                                     <hr />
@@ -63,7 +62,7 @@
                                             <label style="font-weight:bold;">Số điện thoại: </label>
                                         </div>
                                         <div class="col-md-8 col-6">
-                                            {{profile.SoDienThoai}}
+                                            {{formatPhoneNumber profile.SoDienThoai}}
                                         </div>
                                     </div>
                                     <hr />
@@ -93,6 +92,13 @@
                             </div>
                         </div>
                     </div>
+                    {{else}}
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h4>Chưa có thông tin cá nhân</h4>
+                        </div>
+                    </div>
+                    {{/if}}
                 </div>
             </div>
         </div>

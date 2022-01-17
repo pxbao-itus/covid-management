@@ -5,7 +5,9 @@ const passport = require("passport");
 paymentRouter.get("/", async (req, res) => {
   if (req.cookies.paymentSignin !== "on") {
     try {
-      res.render("signin.hbs");
+      res.render("signin.hbs", {
+        path: "/signin",
+      });
     } catch (error) {
       console.log(error);
     }

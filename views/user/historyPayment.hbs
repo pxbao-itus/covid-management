@@ -12,7 +12,7 @@
                             <hr>
                         </div>
                         <div class="col-md-8 text-right">
-                            <h4>Số dư nợ hiện tại:<span>{{balance}} VNĐ</span> </h4>
+                            <h4>Số dư nợ hiện tại:<span>{{formatCurrency balance}} VNĐ</span> </h4>
                             <hr>
                         </div>
                     </div>
@@ -27,9 +27,9 @@
                         <tbody>
                             {{#payment}}
                             <tr>
-                                <td>{{ThoiGian}}</td>
-                                <td>{{SoTien}}</td>
-                                <td>{{SoDuNo}}</td>
+                                <td>{{formatTime ThoiGian}}</td>
+                                <td>{{formatCurrency SoTien}} VNĐ</td>
+                                <td>{{formatCurrency SoDuNo}} VNĐ</td>
                             </tr>
                             {{/payment}}
                         </tbody>
