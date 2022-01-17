@@ -1,5 +1,9 @@
 const db = require('../user');
 
+const tbUser='NguoiLienQuan';
+const tbHistoryManager='LichSuDuocQuanLy';
+const tbIsolationPlace='NoiDieuTriCachLy';
+
 
 module.exports = {
     list: async () => {
@@ -21,12 +25,17 @@ module.exports = {
     },
 
     get: async (value) => {
-        const res = await db.loadProfile(value);
+        const res = await db.loadProfile(value,tbUser);
         return res;
     },
 
     history: async (value) => {
-        const res = await db.loadHistory(value);
+        const res = await db.loadHistory(value,tbHistoryManager);
+        return res;
+    },
+    
+    place: async (value) => {
+        const res=await db.loadIsoPlace(value,tbIsolationPlace);
         return res;
     },
 

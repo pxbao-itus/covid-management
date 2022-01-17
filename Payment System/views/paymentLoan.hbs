@@ -1,0 +1,115 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0-10/css/all.css"
+    integrity="sha512-Dj9pt3sZROOuTTs9S89ykGZeu1XQgWKg3DVpu5tZALApsrWdd3tnVjTclUuVONaHM4O8GgCnjSbHlTKXrd2OWg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-3 ">
+            {{> payment_sidebar where='payment-loan'}}
+        </div>
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h4>Thanh toán dư nợ</h4>
+                            <hr>
+                        </div>
+                        <div class="col-md-8 text-right">
+                            <a href="./input-money">
+                                <button type="button" class="btn btn-success font-weight-bold">Nạp tiền</button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="card h-100">
+                                <div class="card-body p-0">
+                                    <h5 style="background-color: #0724B2;" class="card-title p-2 text-white">
+                                        Thông tin tài khoản</h5>
+                                    <div class="row ml-2">
+                                        <div class="col-sm-6">
+                                            <p class="card-text">Số dư nợ hiện tại:</p>
+                                        </div>
+                                        <div id="loan" class="col-sm-6 text-left">
+                                            {{data.loan}} VNĐ
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row ml-2">
+                                        <div class="col-sm-6">
+                                            <p class="card-text">Số dư tài khoản:</p>
+                                        </div>
+                                        <div id="balance" class="col-sm-6 text-left">
+                                            {{data.balance}} VNĐ
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card h-100">
+                                <div class="card-body p-0">
+                                    <h5 style="background-color: #0724B2;" class="card-title p-2 text-white">
+                                        Thanh toán</h5>
+                                    <form action="/payment" method="post">
+                                        <div class="form-check ml-2 mb-2">
+                                            <input class="form-check-input" type="radio" name="payment" value="payAll"
+                                                id="paymentAll">
+                                            <label class="form-check-label" for="paymentAll">
+                                                Thanh toán toàn bộ
+                                            </label>
+                                        </div>
+                                        <div class="form-check ml-2 mb-2">
+                                            <input class="form-check-input" value="payPart" type="radio" name="payment"
+                                                id="paymentPart">
+                                            <label class="form-check-label" for="paymentPart">
+                                                Nhập số tiền thanh toán
+                                            </label>
+                                        </div>
+                                        <input type="text" name="money" class="form-control" id="input-money"
+                                            placeholder="Số tiền cần thanh toán" disabled>
+                                        <div class="text-right mt-3">
+                                            <button id="pay" type="submit"
+                                                class="btn btn-success font-weight-bold">Thanh
+                                                toán</button>
+
+                                        </div>
+                                        <div>
+                                            <p id="announce" class="mt-2 text-danger"></p>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{#if msg}}
+                    <div class="row" id="msg">
+                        <div class="col-md-12">
+                            <div class="card border-success mb-3 p-2" style="max-width: 20rem;">
+                                <h4><i class="fas fa-check text-success"> {{msg}}</i></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+
+
+                {{#if error}}
+                <div class="row" id="error">
+                    <div class="col-md-12">
+                        <div class="card border-danger  mb-3 p-2" style="max-width: 20rem;">
+                            <h4><i class="fas fa-times text-danger"> {{error}}</i></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
+</div>
+
+</div>
+
+<script src="/js/paymentLoan.js"></script>
