@@ -12,7 +12,7 @@ module.exports = {
     },
     detail: async (userid, historyid) => {
         const res = await db.orderDetail(userid, historyid);
-        return res;
+        return res;;
     },
     getLoan: async (userId) => {
         const res  = await pm.getLoan(userId);

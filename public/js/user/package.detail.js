@@ -2,15 +2,10 @@
 let package;
 let total = 0;
 
-async function checkLevel(sum) {
-    const loan = await $.get('/api/get-loan');
-    const level = await $.get('/api/get-level');
-    if((sum + parseInt(loan.SoDuNo)) <= parseInt(level.HanMuc)) {
-        return true;
-    } else {
-        return false;
-    }
-}
+function formatCurrency(value) {
+    value = parseInt(value);
+    return value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+  }
 window.onload = async () => {
 
     package = await (await fetch(`/api/package/detail?id=${window.location.href.slice(window.location.href.indexOf('=')+1)}`)).json();
@@ -21,7 +16,7 @@ window.onload = async () => {
                 $(`#${item.MaNYP}`).text(parseInt($(`#${item.MaNYP}`).text()) - 1);
                 item.SoLuong = parseInt($(`#${item.MaNYP}`).text());
                 total-= item.DonGia;
-                $('#total').text(`Tổng tiền: ${total} đồng`);
+                $('#total').text(`Tổng tiền: ${formatCurrency(total)} đồng`);
             }
         })
         $(`#plus-${item.MaNYP}`).click(() => {
@@ -29,13 +24,13 @@ window.onload = async () => {
                 $(`#${item.MaNYP}`).text(parseInt($(`#${item.MaNYP}`).text()) + 1);
                 item.SoLuong = parseInt($(`#${item.MaNYP}`).text());
                 total += item.DonGia
-                $('#total').text(`Tổng tiền: ${total} đồng`);
+                $('#total').text(`Tổng tiền: ${formatCurrency(total)} đồng`);
             }
         })
     }
-    $('#total').text(`Tổng tiền: ${total} đồng`);
+    $('#total').text(`Tổng tiền: ${formatCurrency(total)} đồng`);
 
-    $('#buy').click((event) => {
+    $('#buy').click( async (event) => {
         const loan = await $.get('/api/get-loan');
         const level = await $.get('/api/get-level');
         if((total + parseInt(loan.SoDuNo)) <= parseInt(level.HanMuc)) {

@@ -1,6 +1,6 @@
 const orderRouter = require('express').Router();
 const orderModel = require('../../models/user/order.model');
-
+const {formatCurrency, formatDOB, formatTime} = require('../../helpers/helper');
 
 orderRouter.post('/buy', async (req, res) => {
     try {
@@ -25,12 +25,14 @@ orderRouter.get('/list', async (req, res) => {
     const userid = req.user.userId;
     try {
         let result = await orderModel.list(userid);
-        for (let index = 0; index < result.length; index++) {
-            result[index].ThoiGian = JSON.stringify(result[index].ThoiGian).slice(1,11);
-        }
         result = result.sort((item1, item2) => {
             return item2.MaLichSuMua - item1.MaLichSuMua;
         })
+        for (let item of result) {
+            item.ThoiGian = formatTime(item.ThoiGian);
+
+            item.SoTien = formatCurrency(item.SoTien);
+        }
         return res.render('user/orders', {
             orders: result,
             layout: 'user',
@@ -56,10 +58,11 @@ orderRouter.get('/detail', async (req, res) => {
         const result = await orderModel.detail(userid, historyId);
         for(let index = 0; index < result.details.length; index++) {
             result.details[index].SoLuong = parseInt(result.details[index].SoLuong);
-            result.details[index].SoLuongToiDa = parseInt(result.details[index].SoLuongToiDa);
-            result.details[index].SoLuongToiThieu = parseInt(result.details[index].SoLuongToiThieu);
         }
-        result.order.SoTien = parseInt(result.order.SoTien);
+        result.order.SoTien = formatCurrency(result.order.SoTien);
+        for (let item of result.details) {
+            item.DonGia = formatCurrency(item.DonGia)
+        }
         return res.render('user/orderDetail', {
             order: result.order,
             details: result.details,
