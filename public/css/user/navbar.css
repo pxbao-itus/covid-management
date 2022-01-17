@@ -19,6 +19,9 @@ body {
     font-weight: bold;
     padding-left: 30px;
 }
+#logo:hover {
+    text-decoration: none;
+}
 #menu {
     display: flex;
     flex-direction: row;
@@ -34,23 +37,8 @@ body {
     color: yellow;
     text-decoration: none;
 }
-#signout {
-    padding-left: 30px;
-}
-#signout:hover {
-    text-decoration: none;
-}
-#btn-signout {
+.btn-primary-nav {
+    background-color: #fff;
     color: #0724B2;
     font-weight: bold;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    border-radius: 20px;
-    background-color: white;
-}
-#btn-signout:hover {
-    color:#0724B2;
-    text-decoration: none;
 }

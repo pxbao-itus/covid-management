@@ -2,8 +2,8 @@
     <a id="btn-back" href="/package/list">
         Quay lại
     </a>
-    <div id="content">
-        <div id="title">Chi tiết gói nhu yếu phẩm</div>
+    <div id="content" class="rounded">
+        <div id="title" class="rounded">Chi tiết gói nhu yếu phẩm</div>
         <div id="package-name">
             <div >{{package.TenGoiNYP}}</div>
         </div>
@@ -12,14 +12,14 @@
             <div>Thời gian giới hạn: {{package.ThoiGianGioiHan}} ngày</div>
             <div id="total">Tổng tiền: đồng</div>
         </div>
-        <div id="detail">
+        <div id="detail" class="rounded">
             {{#each details}}
                 <div class="product">
                     <div class="img-set">
-                        <img src="/img/bread2.jpg" alt="{{package.TenGoiNYP}}">
-                        <img src="/img/bread3.jpg" alt="{{package.TenGoiNYP}}">
-                        <img src="/img/bread4.jpg" alt="{{package.TenGoiNYP}}">
-                        <img src="/img/bread1.jpg" alt="{{package.TenGoiNYP}}">
+                        <img src="{{#if this.HinhAnh1}} {{this.HinhAnh1}} {{else}} https://picsum.photos/150/150 {{/if}}" alt="Hình ảnh sản phẩm">
+                        <img src="{{#if this.HinhAnh2}} {{this.HinhAnh2}} {{else}} https://picsum.photos/151/151 {{/if}}" alt="Hình ảnh sản phẩm">
+                        <img src="{{#if this.HinhAnh3}} {{this.HinhAnh3}} {{else}} https://picsum.photos/152/152 {{/if}}" alt="Hình ảnh sản phẩm">
+                        <img src="{{#if this.HinhAnh4}} {{this.HinhAnh4}} {{else}} https://picsum.photos/153/153 {{/if}}" alt="Hình ảnh sản phẩm">
                     </div>
                     <div class="name-price padding-tb">
                         <div class="name">{{this.TenNYP}}</div>

@@ -1,26 +1,26 @@
-<div id="body">
-    <div id="title">
+<div id="body" class="rounded">
+    <div id="title" class="rounded">
         <div>Lịch sửa mua hàng</div>
     </div>
-    <div>
+    <div class="rounded">
         <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Mã MH</th>
-                    <th class="left" scope="col">Thời gian</th>
-                    <th class="left" scope="col">Tên gói nhu yếu phẩm</th>
-                    <th class="left" scope="col">Số tiền</th>
-                    <th class="left" scope="col">Xem chi tiết</th>
+            <thead >
+                <tr class="row w-100">
+                    <th class ="col-md-1"scope="col">Mã MH</th>
+                    <th class="left col-md-2" scope="col">Thời gian</th>
+                    <th class="left col-md-5" scope="col">Tên gói nhu yếu phẩm</th>
+                    <th class="left col-md-2" scope="col">Số tiền</th>
+                    <th class="left col-md-2" scope="col">Xem chi tiết</th>
                 </tr>
             </thead>
             <tbody>
                 {{#each orders}}
-                    <tr>
-                        <td class="right">{{this.MaLichSuMua}}</td>
-                        <td class="right">{{this.ThoiGian}}</td>
-                        <td class="right">{{this.TenGoiNYP}}</td>
-                        <td class="right">{{this.SoTien}} đồng</td>
-                        <td><a href="/order/detail?id={{this.MaLichSuMua}}">Xem chi tiết</a></td>
+                    <tr class="row w-100">
+                        <td class="right col-md-1">{{this.MaLichSuMua}}</td>
+                        <td class="right col-md-2">{{this.ThoiGian}}</td>
+                        <td class="right col-md-5">{{this.TenGoiNYP}}</td>
+                        <td class="right col-md-2">{{this.SoTien}} đồng</td>
+                        <td  class="col-md-2 btn-detail"><a href="/order/detail?id={{this.MaLichSuMua}}">Xem chi tiết</a></td>
                     </tr>
                 {{/each}}
             </tbody>

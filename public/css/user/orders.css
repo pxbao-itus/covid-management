@@ -16,7 +16,7 @@
     text-align: center;
     border-color: #0724B2;
 }
-thead {
+/* thead {
     background-color: #0724B2;
     color: white;
     font-size: 16px;
@@ -30,6 +30,9 @@ tr {
 }
 .right {
     border-right: 1px solid #DBD6D6;
+} */
+tr {
+    text-align: center;
 }
 td a {
     color: white;
@@ -39,8 +42,38 @@ td a {
     padding-bottom: 5px;
     padding-left: 15px;
     border-radius: 20px;
+    margin-left: 15px;
 }
 td a:hover {
     text-decoration: none;
     color: white;
+}
+thead {
+    background-color: #0724B2;
+    color: white;
+}
+table {
+    display: block;
+    overflow: auto;
+}
+  
+tbody {
+    display: block;
+    max-height: 30vw;
+    overflow: auto;
+}
+thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed; 
+}
+tbody::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+tbody::-webkit-scrollbar-thumb {
+background: var(--gray);
+}
+.row {
+    margin-left: 0;
 }

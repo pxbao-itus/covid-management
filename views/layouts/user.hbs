@@ -13,8 +13,8 @@
         crossorigin="anonymous"></script>
 </head>
 <body>
-    <div id='navbar'>
-        <div id="logo" class="grid-item">CM</div>
+    <div id='navbar' class="text-center">
+        <a id="logo" href="/profile" class="text-light">CM</a>
         <div id="menu" class="grid-item">
             <a href="/profile" class="menu-item">Cá nhân</a>
             <a href="/package/list" class="menu-item">Mua hàng</a>
@@ -22,9 +22,7 @@
             <a href="/payment" class="menu-item">Thanh toán</a>
             <a href="/change-password" class="menu-item">Đổi mật khẩu</a>
         </div>
-        <a id="signout" href="/auth/signout" class="grid-item">
-            <div id="btn-signout">Đăng xuất</div>
-        </a>
+        <a id="signout" href="/auth/signout" class="btn btn-primary-nav my-auto mx-auto">Đăng xuất</a>              
     </div>
     {{{body}}}
     <script src="/js/user/{{script}}.js"></script>

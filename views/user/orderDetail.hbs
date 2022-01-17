@@ -2,8 +2,8 @@
     <a id="btn-back" href="/order/list">
         Quay lại
     </a>
-    <div id="content">
-        <div id="title">Chi tiết gói nhu yếu phẩm</div>
+    <div id="content" class="rounded">
+        <div id="title" class="rounded">Chi tiết gói nhu yếu phẩm đã mua</div>
         <div id="package-name">
             <div >{{order.TenGoiNYP}}</div>
         </div>
@@ -12,21 +12,20 @@
             <div>Thời gian giới hạn: {{order.ThoiGianGioiHan}} ngày</div>
             <div id="total">Tổng tiền: {{order.SoTien}} đồng</div>
         </div>
-        <div id="detail">
+        <div id="detail" class="rounded mx-auto">
             {{#each details}}
-                <div class="product">
-                    <div class="img-set">
-                        <img src="/img/bread2.jpg" alt="{{package.TenGoiNYP}}">
-                        <img src="/img/bread3.jpg" alt="{{package.TenGoiNYP}}">
-                        <img src="/img/bread4.jpg" alt="{{package.TenGoiNYP}}">
-                        <img src="/img/bread1.jpg" alt="{{package.TenGoiNYP}}">
+                <div class="product row my-2 mx-2 ">
+                    <div class="img-set row w-100 mt-2">
+                        <img class="col-md-3 zoom " src="{{#if this.HinhAnh1}} {{this.HinhAnh1}} {{else}} https://picsum.photos/150/150 {{/if}}" alt="Hình ảnh sản phẩm">
+                        <img class="col-md-3 zoom " src="{{#if this.HinhAnh2}} {{this.HinhAnh2}} {{else}} https://picsum.photos/151/151 {{/if}}" alt="Hình ảnh sản phẩm">
+                        <img class="col-md-3 zoom " src="{{#if this.HinhAnh3}} {{this.HinhAnh3}} {{else}} https://picsum.photos/152/152 {{/if}}" alt="Hình ảnh sản phẩm">
+                        <img class="col-md-3 zoom " src="{{#if this.HinhAnh4}} {{this.HinhAnh4}} {{else}} https://picsum.photos/153/153 {{/if}}" alt="Hình ảnh sản phẩm">
                     </div>
-                    <div class="name-price padding-tb">
-                        <div class="name">{{this.TenNYP}}</div>
-                        <div class="price"> Giá: {{this.DonGia}} đồng/{{this.DonViDinhLuong}}</div>
-                    </div>
-                    <div class="amount padding-tb">
-                        <div>Số lượng {{this.SoLuong}} {{this.DonViDinhLuong}}</div>
+                    <div class="row w-100 my-2">
+                        <div class="name col-md-6">{{this.TenNYP}}</div>
+                        <div class="price col-md-3"> Giá: {{this.DonGia}} đồng/{{this.DonViDinhLuong}}</div>
+                        <div class="col-md-3">Số lượng {{this.SoLuong}} {{this.DonViDinhLuong}}</div>
+
                     </div>
                 </div>
             {{/each}}   
