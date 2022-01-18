@@ -60,13 +60,17 @@ body {
   background-color: #494CA2;
   margin-left: 0;
   height:50px;
+  margin-bottom: 0px;
 }
 #search-input {
   width: 70%;
   color:#000
 }
 #sidebar {
-  height: 97vh;
+  height: 100vh;
+}
+.content {
+  padding-top: -30px;
 }
 hr {
   -webkit-box-sizing: content-box;

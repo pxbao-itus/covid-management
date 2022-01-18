@@ -1,0 +1,36 @@
+
+<h3 class="ml-5 mt-2">Danh sách người quản lý</h3>
+
+<table class="table table-striped bg-white ml-1">
+    <thead class="bg-success text-light">
+        <tr>
+            <th scope="col">Mã tài khoản</th>
+            <th scope="col">Tên đăng nhập</th>
+            <th scope="col">Trạng thái</th>
+            <th scope="col">Mở/khóa tài khoản</th>
+            <th scope="col">Xem lịch sử</th>
+        </tr>
+    </thead>
+    <tbody>
+      {{#if managers}}
+        {{#each managers}}
+          <tr>
+            <td>{{this.MaTaiKhoan}}</td>
+            <td>{{this.Username}}</td>
+            {{#if this.TrangThai}}
+              <td id="s-{{this.MaTaiKhoan}}">Mở</td>
+              <td ><div id="{{this.MaTaiKhoan}}" class="btn btn-danger change">Khóa</div> </td>
+            {{else}}
+              <td id="s-{{this.MaTaiKhoan}}">Khóa</td>
+              <td ><div id="{{this.MaTaiKhoan}}" class="btn btn-success change">Mở</div> </td>
+            {{/if}}
+            <td><a href="/admin/manager/history?id={{this.MaTaiKhoan}}" class="btn btn-primary">Lịch sử</a></td>
+          </tr>
+          {{/each}}
+      {{else}}
+        <tr>
+            <td class="text-center py-4 text-gray" colspan="6">Không tìm tài khoản nào</td>
+        </tr>
+      {{/if}}
+    </tbody>
+</table>
