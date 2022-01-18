@@ -46,7 +46,7 @@
 <!-- Insert Modal -->
 <div class="modal fade" id="modal-insert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true" style="z-index: 1060;">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog" role="document" style="position: absolute !important;">
     <div class="modal-content">
 
       <div class="modal-header">
@@ -61,7 +61,7 @@
             <div class="container item-img-container">
               <div class="row">
                 <div class="col-sm">
-                  <input type="file" id="input-id" name="files" accept="image/*" multiple>
+                  <input type="file" id="input-id" name="image" accept="image/*" multiple>
 
                 </div>
               </div>
@@ -169,7 +169,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
-        <button type="button" class="btn btn-primary">Cập nhật</button>
+        <button type="submit" class="btn btn-primary">Cập nhật</button>
       </div>
 
     </div>

@@ -108,6 +108,7 @@ function fetchAPI(url, page, sort, order) {
                 lastpage = Math.floor((resJSON.length - 1) / 6) + 1
             }
             reloadTable(resJSON.resultPagnition);
+            console.log(resJSON.resultPagnition)
 
 
         })
