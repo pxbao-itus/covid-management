@@ -27,7 +27,7 @@ require('./config/passport-local.config')(app);
 require('./config/handlebars.config')(app);
 
 // use middleware
-//app.use(authMiddleware);;
+app.use(authMiddleware);;
 // use router
 app.get("/manager", (req, res) => {
     res.render("manager/user/detail.hbs", {
