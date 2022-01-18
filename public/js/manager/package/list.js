@@ -1,4 +1,5 @@
 var allproduct;
+var productToSend = [];
 var productsToPackage = [];
 var productsToPackageTrue = [];
 $(document).ready(function() {
@@ -81,10 +82,31 @@ $(document).ready(function() {
     });
 
     $("#insert-form").submit(function(e) {
+        for (let id of productsToPackage) {
+            let SoLuong = document.getElementById("X" + id).getElementsByTagName("input")[0].value;
+            let SoLuongToiDa = document.getElementById("X" + id).getElementsByTagName("input")[1].value;
+            let SoLuongToiThieu = document.getElementById("X" + id).getElementsByTagName("input")[2].value;
+            productToSend.push({
+                MaNYP: id,
+                SoLuong: SoLuong,
+                SoLuongToiDa: SoLuongToiDa,
+                SoLuongToiThieu: SoLuongToiThieu
+            });
+            // console.log(SoLuong)
+            // console.log(SoLuongToiDa)
+            // console.log(SoLuongToiThieu)
+            console.log(productToSend)
+        }
+
         e.preventDefault();
-        var form = new FormData(this);
+        let form = new FormData(this);
+        form.append('package', JSON.stringify({
+            TenGoiNYP: form.get('TenGoiNYP'),
+            MucGioiHan: form.get('MucGioiHan'),
+            ThoiGianGioiHan: form.get('ThoiGianGioiHan'),
+        }))
+        form.append('details', JSON.stringify(productToSend))
         var url = "/manager/package/create";
-        alert('má')
         $.ajax({
             type: "POST",
             url: url,
@@ -92,6 +114,10 @@ $(document).ready(function() {
             success: function(data) {
                 alert(data); // show response from the php script.
             },
+
+            cache: false,
+            contentType: false,
+            processData: false,
         });
     });
 });
@@ -176,9 +202,9 @@ function reloadTableProductsOfPackage(items) {
 
         $("#list-2").append(`
         <div class="card-product">
-        <div class="row">
+        <div class="row" id="X${NYPDetail.MaNYP}">
           <div class="col-auto col-1st">
-            <img src="/img/${NYPDetail.HinhAnh1}">
+            <img src="${NYPDetail.HinhAnh1}">
           </div>
           <div class="col col-2nd">
             <h1>${NYPDetail.TenNYP}</h1>

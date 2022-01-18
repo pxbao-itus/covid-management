@@ -355,24 +355,30 @@ packageRouter.post("/update", upload.single('image'), async(req, res) => {
 });
 packageRouter.get("/create", (req, res) => {
     let message = "";
-    if (req.cookies("createPackage")) {
-        message = req.cookies("create");
+    if (req.cookies["createPackage"]) {
+        message = req.cookies["create"];
     }
     return res.render("manager/productCreate", {
         msg: message,
     });
 });
 packageRouter.post("/create", upload.single('image'), async(req, res) => {
-    const { package, details } = req.body;
-    console.log(req.body)
+    let { package, details } = req.body;
+    package = JSON.parse(package);
+    details = JSON.parse(details);
     try {
         const uploader = async(path) => await cloudinary.uploads(path, 'Images');
+
         const imageRes = await uploader(req.file.path);
+        console.log(imageRes.url)
         const packageFull = {
             ...package,
             HinhAnh: imageRes.url
         };
+        console.log(packageFull)
+        console.log(details)
         const result = await packageModel.create(packageFull, details);
+        console.log(result)
         return res.redirect("/manager/package/create");
     } catch (error) {
         return res.redirect("/manager/package/create");
