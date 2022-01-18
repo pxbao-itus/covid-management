@@ -63,7 +63,7 @@ function reloadTable(items) {
         <div class="card-body">
           <h5 class="card-title">${element.TenNYP}</h5>
           <p class="card-text">${element.DonGia}vnđ/${element.DonViDinhLuong}</p>
-          <a href="#" class="btn btn-primary">Chi tiết</a>
+          <a href="/manager/product/detail?id=${element.MaNYP}" class="btn btn-primary">Chi tiết</a>
         </div>
       </div>
       </div>

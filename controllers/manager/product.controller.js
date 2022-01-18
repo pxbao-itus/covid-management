@@ -214,25 +214,30 @@ product.post("/detail", async(req, res) => {
 
 product.post("/update", upload.array("image"), async(req, res) => {
     try {
-        const uploader = async (path) => await cloudinary.uploads(path, 'Images');
+        const uploader = async(path) => await cloudinary.uploads(path, 'Images');
         let fileUpload = [];
         for (const file of req.files) {
             const imageRes = await uploader(file.path);
             fileUpload.push(imageRes.url);
         }
         let images = {};
-        if(fileUpload.length === 1) {
-            images.HinhAnh1 = fileUpload[0];
-        }
-        if(fileUpload.length === 2) {
-            images.HinhAnh2 = fileUpload[1];
-        }
-        if(fileUpload.length === 3) {
-            images.HinhAnh1 = fileUpload[2];
-        }
-        if(fileUpload.length === 4) {
-            images.HinhAnh2 = fileUpload[3];
-        }
+        let uploadedFile = req.body.uploadedFile.split(',');
+
+        // if (fileUpload.length >= 1) {
+        images.HinhAnh1 = fileUpload[0] ? fileUpload[0] : uploadedFile[3];
+        images.HinhAnh2 = fileUpload[1] ? fileUpload[1] : uploadedFile[2];
+        images.HinhAnh3 = fileUpload[2] ? fileUpload[2] : uploadedFile[1];
+        images.HinhAnh4 = fileUpload[3] ? fileUpload[3] : uploadedFile[0];
+        // }
+        // if (fileUpload.length >= 2) {
+        //     images.HinhAnh2 = fileUpload[1];
+        // }
+        // if (fileUpload.length >= 3) {
+        //     images.HinhAnh3 = fileUpload[2];
+        // }
+        // if (fileUpload.length >= 4) {
+        //     images.HinhAnh4 = fileUpload[3];
+        // }
         const entity = {
             TenNYP: req.body.TenNYP,
             ...images,
@@ -244,7 +249,7 @@ product.post("/update", upload.array("image"), async(req, res) => {
         return res.send(result);
     } catch (error) {
         console.log(error)
-        //return res.redirect(`/manager/product/detail?id=${req.body.id}`);
+            //return res.redirect(`/manager/product/detail?id=${req.body.id}`);
     }
 });
 product.get("/create", async(req, res) => {
@@ -256,13 +261,13 @@ product.get("/create", async(req, res) => {
 });
 product.post("/create", upload.array("image"), async(req, res) => {
     try {
-        const uploader = async (path) => await cloudinary.uploads(path, 'Images');
+        const uploader = async(path) => await cloudinary.uploads(path, 'Images');
         let fileUpload = [];
         for (const file of req.files) {
             const imageRes = await uploader(file.path);
             fileUpload.push(imageRes.url);
         }
-        const entity = {  
+        const entity = {
             TenNYP: req.body.ten,
             HinhAnh1: fileUpload[0],
             HinhAnh2: fileUpload[1],

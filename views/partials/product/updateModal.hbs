@@ -46,7 +46,8 @@
 <!-- update Modal -->
 <div class="modal fade" id="modal-update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog" role="document" style="width:90vw;top:265px !important;    margin-left: 0;max-height:500px">
+  <div class="modal-dialog" role="document"
+    style="left: 43rem !important;width:90vw;top:265px !important;    margin-left: 0;max-height:500px">
     <div class="modal-content">
       <form id="update-form" enctype="multipart/form-data" method="post" action="/upload">
         <div class="modal-header">
@@ -61,7 +62,7 @@
               <div class="container item-img-container">
                 <div class="row">
                   <div class="col-sm">
-                    <input type="file" id="input-id" name="files" accept="image/*" multiple>
+                    <input type="file" id="input-id" name="image" accept="image/*" multiple>
                   </div>
                 </div>
               </div>
@@ -124,7 +125,7 @@
               var upfile=(uploadedFile)
   $("#input-id").fileinput({
     uploadUrl: '#',
-    initialPreview: [].concat(uploadedFile).map(x => '/images/'+x),
+    initialPreview: [].concat(uploadedFile),
     initialPreviewConfig: [].concat(upfile).map((x) => {return {key: x}}),
     deleteUrl: '/manager/product/list',
     maxTotalFileCount: 4,
