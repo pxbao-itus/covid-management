@@ -23,13 +23,14 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right">
               <button class="dropdown-item" type="button" value="tt">
-                Tình trạng
+                <a href="/manager/user/list?sort=status&order=increase" style="text-decoration: none;">
+                  Tình trạng
+                </a>
               </button>
               <button class="dropdown-item" type="button" value="dt">
-                Độ tuổi
-              </button>
-              <button class="dropdown-item" type="button" value="gt">
-                Giới tính
+                <a href="/manager/user/list?sort=age&order=increase" style="text-decoration: none;">
+                  Độ tuổi
+                </a>
               </button>
               
             </div>
@@ -55,7 +56,7 @@
             {{#each user}}
             <tr>
               <td class="item-id">{{MaNguoiLienQuan}}</td>
-              <td>{{inc @index}} </td>
+              <td>{{MaNguoiLienQuan}} </td>
               <td>{{HoTen}}</td>
               <td>{{TrangThaiHienTai}}</td>
               <td>{{Tuoi}}</td>

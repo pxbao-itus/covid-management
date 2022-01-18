@@ -43,36 +43,23 @@ $(document).ready(function() {
 
     });
 
-    $('.dropdown-item').on('click', function(e) {
-        var url = "/manager/user/list";
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: e.target.value, // serializes the form's elements.
-            success: function(data) {
-                reloadTable(data)
-            }
-        });
-    })
+    // $('.dropdown-item').on('click', function(e) {
+    //     var url = "/manager/user/list";
+    //     $.ajax({
+    //         type: "POST",
+    //         url: url,
+    //         data: e.target.value, // serializes the form's elements.
+    //         success: function(data) {
+    //             reloadTable(data)
+    //         }
+    //     });
+    // })
 
     $("#search").on('keypress', function(e) {
         let keyword = e.target.value
         var url = "/manager/user/search";
         if (e.which == 13) {
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: keyword, // serializes the form's elements.
-                success: function(data) {
-                    console.log(data)
-                    if (data) {
-                        //setTimeout(function() { $('#modal-insert').modal('hide'); }, 4000);
-                        alert("Tạo người liên quan thành công"); // show response from the php script.
-                    } else {
-                        alert("Tạo người liên quan  thất bại")
-                    }
-                }
-            });
+            window.location.href = `/manager/user/list?search=${keyword}`
         }
     });
 })

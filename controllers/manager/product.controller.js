@@ -43,14 +43,14 @@ product.get("/list", async(req, res) => {
 
 
         let pagnition = [];
-        for (let index = 1; index <= ((result.length - result.length % 8) / 8); index++) {
+        for (let index = 1; index <= ((result.length - result.length % 6) / 6); index++) {
             pagnition.push(index);
         }
-        if (result.length % 8 > 0) {
-            pagnition.push(((result.length - result.length % 8) / 8) + 1);
+        if (result.length % 6 > 0) {
+            pagnition.push(((result.length - result.length % 6) / 6) + 1);
         }
         if (req.query.page) {
-            for (let index = 8 * (req.query.page - 1); index < 8 * req.query.page; index++) {
+            for (let index = 6 * (req.query.page - 1); index < 6 * req.query.page; index++) {
                 if (result[index]) {
                     resultPagnition.push(result[index]);
                 } else {
@@ -59,7 +59,7 @@ product.get("/list", async(req, res) => {
 
             }
         } else {
-            for (let index = 0; index < 8; index++) {
+            for (let index = 0; index < 6; index++) {
                 if (result[index]) {
                     resultPagnition.push(result[index]);
                 } else {
@@ -128,14 +128,14 @@ product.post("/list", async(req, res) => {
 
 
         let pagnition = [];
-        for (let index = 1; index <= ((result.length - result.length % 8) / 8); index++) {
+        for (let index = 1; index <= ((result.length - result.length % 6) / 6); index++) {
             pagnition.push(index);
         }
-        if (result.length % 8 > 0) {
-            pagnition.push(((result.length - result.length % 8) / 8) + 1);
+        if (result.length % 6 > 0) {
+            pagnition.push(((result.length - result.length % 6) / 6) + 1);
         }
         if (req.query.page) {
-            for (let index = 8 * (req.query.page - 1); index < 8 * req.query.page; index++) {
+            for (let index = 6 * (req.query.page - 1); index < 6 * req.query.page; index++) {
                 if (result[index]) {
                     resultPagnition.push(result[index]);
                 } else {
@@ -144,7 +144,7 @@ product.post("/list", async(req, res) => {
 
             }
         } else {
-            for (let index = 0; index < 8; index++) {
+            for (let index = 0; index < 6; index++) {
                 if (result[index]) {
                     resultPagnition.push(result[index]);
                 } else {
