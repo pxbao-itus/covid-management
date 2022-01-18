@@ -51,20 +51,20 @@ $(document).ready(function() {
 function reloadTable(items) {
     console.log(items);
 
-    $("tbody").html("");
+    $(".table-responsive").html("");
 
     items.forEach((element) => {
-        $("tbody").append(`
-  <tr>
-    <td class="item-id">${element.MaNYP}</td>
-    <td>${element.MaNYP}</td>
-    <td>${element.TenNYP}</td>
-    <td>${element.DonGia} VND</td>
-    <td>${element.DonViDinhLuong}</td>
-    <td>
-      <button type="button" class="btn btn-primary btn-info">Chi tiết</button>
-    </td>
-  </tr>
+        $(".table-responsive").append(`
+        <div class="col-sm">
+        <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="${element.HinhAnh1}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Chi tiết</a>
+        </div>
+      </div>
+      </div>
   `);
     });
 }
