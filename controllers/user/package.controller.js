@@ -1,6 +1,6 @@
 const packageRouter = require('express').Router();
 const packageModel = require('../../models/manager/package.model');
-
+const {formatCurrency, formatDOB, formatTime} = require('../../helpers/helper');
 
 packageRouter.get('/list',async (req, res) => {
     let result = await packageModel.list();
@@ -40,7 +40,7 @@ packageRouter.get('/list',async (req, res) => {
             }
         }
     }
-    
+
     return res.render('user/packages', {
         packages: resultPagnition,
         layout: 'user',
@@ -115,11 +115,17 @@ packageRouter.get('/list/more', async (req, res) => {
 packageRouter.get('/detail', async (req, res) => {
     const MaGoiNYP = req.query.id;
     try {
-        const result = await packageModel.detail(MaGoiNYP);
+        let result = await packageModel.detail(MaGoiNYP);
         for (let index = 0; index < result.details.length; index++) {
             result.details[index].SoLuong = parseInt(result.details[index].SoLuong)
             result.details[index].SoLuongToiDa = parseInt(result.details[index].SoLuongToiDa)
             result.details[index].SoLuongToiThieu = parseInt(result.details[index].SoLuongToiThieu)
+        }
+        // result = result.map((item) => {
+        //     item.DonGia = formatCurrency(item.DonGia);
+        // })
+        for (let item of result.details) {
+            item.DonGia = formatCurrency(item.DonGia);
         }
         return res.render('user/packageDetail', {
             layout: 'user',

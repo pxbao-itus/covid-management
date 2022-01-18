@@ -11,7 +11,9 @@ managerRouter.get('/list', async(req, res) => {
         result = [];
     }
     return res.render('admin/managerList', {
-        managers: result
+        managers: result,
+        layout: 'adminSidebar',
+        title: 'QL người quản lý'
     })
 })
 

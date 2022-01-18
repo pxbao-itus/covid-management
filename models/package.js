@@ -64,17 +64,19 @@ exports.updatePackage = async (package, details, value) => {
     const qStr = pgp.helpers.update(package, null, table) + condition + " RETURNING *";
     try {
         const resultPackage = await db.one(qStr);
-        for (const item of details) {
-            const entity = {
-                MaGoiNYP: item.MaGoiNYP,
-                MaNYP: item.MaNYP,
-                SoLuong: item.SoLuong,
-                SoLuongToiDa: item.SoLuongToiDa,
-                SoLuongToiThieu : item.SoLuongToiThieu
+        if(details.length > 0)  {
+            for (const item of details) {
+                const entity = {
+                    MaGoiNYP: item.MaGoiNYP,
+                    MaNYP: item.MaNYP,
+                    SoLuong: item.SoLuong,
+                    SoLuongToiDa: item.SoLuongToiDa,
+                    SoLuongToiThieu : item.SoLuongToiThieu
+                }
+                const conditionDetail = pgp.as.format(' WHERE "MaChiTietGoiNYP" = $1', [item.MaChiTietGoiNYP]);
+                const qStrDetail = pgp.helpers.update(entity, null, detail) + conditionDetail + " RETURNING *";
+                const resultDetail = await db.one(qStrDetail);
             }
-            const conditionDetail = pgp.as.format(' WHERE "MaChiTietGoiNYP" = $1', [item.MaChiTietGoiNYP]);
-            const qStrDetail = pgp.helpers.update(entity, null, detail) + conditionDetail + " RETURNING *";
-            const resultDetail = await db.one(qStrDetail);
         }
         return true;
     } catch (error) {
@@ -92,16 +94,18 @@ exports.createPackage = async (package, details) => {
         const resultPackage = await db.one(qStr);
         const getPackage = pgp.as.format(`SELECT * FROM $1 WHERE "MaGoiNYP" = '${resultPackage.MaGoiNYP}' LIMIT 1`, table);
         const resultGetPackage = await db.any(getPackage);
-        for (const item of details) {
-            const entity = {
-                MaGoiNYP: resultGetPackage.MaGoiNYP,
-                MaNYP: item.MaNYP,
-                SoLuong: item.SoLuong,
-                SoLuongToiDa: item.SoLuongToiDa,
-                SoLuongToiThieu : item.SoLuongToiThieu
+        if(details.length > 0) {
+            for (const item of details) {
+                const entity = {
+                    MaGoiNYP: resultGetPackage.MaGoiNYP,
+                    MaNYP: item.MaNYP,
+                    SoLuong: item.SoLuong,
+                    SoLuongToiDa: item.SoLuongToiDa,
+                    SoLuongToiThieu : item.SoLuongToiThieu
+                }
+                const qStrDetail = pgp.helpers.insert(entity, null, table) + "RETURNING *";
+                const resultDetail = await db.one(qStrDetail);
             }
-            const qStrDetail = pgp.helpers.insert(entity, null, table) + "RETURNING *";
-            const resultDetail = await db.one(qStrDetail);
         }
         return true;
     } catch (error) {
