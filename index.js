@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 
 // import module
-const authMiddleware = require('./middlewares/middleware');
+//const authMiddleware = require('./middlewares/middleware');
 
 // init variable
 const app = express();
@@ -27,7 +27,7 @@ require('./config/passport-local.config')(app);
 require('./config/handlebars.config')(app);
 
 // use middleware
-app.use(authMiddleware);;
+//app.use(authMiddleware);;
 // use router
 app.get("/manager", (req, res) => {
     res.render("manager/user/detail.hbs", {
@@ -91,7 +91,7 @@ app.use('/order', require('./controllers/user/order.controller'))
 //     res.send("upload file thành công")
 // });
 //router for user
-app.use('/user',require('./controllers/user/user.controller'));
+app.use('/user', require('./controllers/user/user.controller'));
 
 
 
