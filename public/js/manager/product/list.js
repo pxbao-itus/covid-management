@@ -29,13 +29,11 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: url,
-            data: form, // serializes the form's elements.
+            data: form,
             success: function(data) {
                 //$('#contact').modal('hide');
                 fetchAPI(link, page, sort);
-
                 alert("Thêm nhu yếu phẩm thành công!"); // show response from the php script.
-
                 $("#modal-insert form :input").val("");
                 $("#input-id").fileinput("reset");
                 $("#close_insert").click();
@@ -57,10 +55,14 @@ function reloadTable(items) {
         $(".table-responsive").append(`
         <div class="col-sm">
         <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="${element.HinhAnh1}" alt="Card image cap">
+        <img class="card-img-top" src="${element.HinhAnh1}" style="
+            width: 286px;
+            height: 200px;
+            object-fit: cover;
+          " alt="Sản phẩm chưa có hình ảnh">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <h5 class="card-title">${element.TenNYP}</h5>
+          <p class="card-text">${element.DonGia}vnđ/${element.DonViDinhLuong}</p>
           <a href="#" class="btn btn-primary">Chi tiết</a>
         </div>
       </div>
