@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $(".btn-info").click(function(e) {
+    $('tbody').on('click', ".btn-info", function(e) {
         var id = $(e.target).parent().siblings(".item-id")[0].innerText;
         window.location.href = `/manager/user/detail?id=${id}`;
     });
@@ -32,8 +32,10 @@ $(document).ready(function() {
             url: url,
             data: form.serialize(), // serializes the form's elements.
             success: function(data) {
-                if (data)
-                    alert("Tạo người liên quan thành công"); // show response from the php script.
+                if (data) {
+                    alert("Tạo người liên quan thành công");
+                    window.location.reload();
+                } // show response from the php script.
                 else {
                     alert("Tạo người liên quan  thất bại")
                 }
@@ -43,42 +45,28 @@ $(document).ready(function() {
 
     });
 
-    $('.dropdown-item').on('click', function(e) {
-        var url = "/manager/user/list";
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: e.target.value, // serializes the form's elements.
-            success: function(data) {
-                reloadTable(data)
-            }
-        });
-    })
+    // $('.dropdown-item').on('click', function(e) {
+    //     var url = "/manager/user/list";
+    //     $.ajax({
+    //         type: "POST",
+    //         url: url,
+    //         data: e.target.value, // serializes the form's elements.
+    //         success: function(data) {
+    //             reloadTable(data)
+    //         }
+    //     });
+    // })
 
     $("#search").on('keypress', function(e) {
         let keyword = e.target.value
         var url = "/manager/user/search";
         if (e.which == 13) {
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: keyword, // serializes the form's elements.
-                success: function(data) {
-                    console.log(data)
-                    if (data) {
-                        //setTimeout(function() { $('#modal-insert').modal('hide'); }, 4000);
-                        alert("Tạo người liên quan thành công"); // show response from the php script.
-                    } else {
-                        alert("Tạo người liên quan  thất bại")
-                    }
-                }
-            });
+            window.location.href = `/manager/user/list?search=${keyword}`
         }
     });
 })
 
 function reloadTable(items) {
-    let index = 1;
 
     $("tbody").html("");
 
@@ -86,7 +74,7 @@ function reloadTable(items) {
         $("tbody").append(`
 <tr>
   <td class="item-id">${element.MaNguoiLienQuan}</td>
-  <td>${index} </td>
+  <td>${element.MaNguoiLienQuan} </td>
   <td>${element.HoTen}</td>
   <td>${element.TrangThaiHienTai}</td>
   <td>${element.Tuoi}</td>
@@ -96,6 +84,5 @@ function reloadTable(items) {
   </td>
 </tr>
   `);
-        index += 1;
     });
 }

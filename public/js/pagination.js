@@ -7,6 +7,12 @@ var order = 'increase';
 var page = 1;
 $(document).ready(function() {
     // var link = window.location.pathname;
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    sort = urlParams.get('sort') || sort;
+    order = urlParams.get('order') || order;
+    page = urlParams.get('page') || page;
+
     link = link.concat("/");
     fetchAPI(link, page, sort);
     changePage(page);
@@ -29,6 +35,7 @@ $(document).ready(function() {
 
 function changePage(page) {
     let pageItems = $(".page-item");
+    console.log(lastpage)
 
     if (page == 1) {
         $(pageItems[0]).addClass("disabled");
@@ -70,6 +77,7 @@ function changePage(page) {
                 .text(page * 1 + 1);
         }
     } else {
+        console.log('why')
         $(pageItems[3]).addClass("disabled");
         if (lastpage < 2) $(pageItems[2]).addClass("disabled");
 
@@ -90,14 +98,19 @@ function fetchAPI(url, page, sort, order) {
     url = `${url}?page=${page}&sort=${sort}&order=${order}`
     console.log(url)
     $.ajax(url, {
+            async: false,
             method: 'POST',
         })
         .done(function(resJSON) {
-
-            lastpage = Math.floor(resJSON.length / 8) + 1
-            console.log(lastpage)
-
+            if (resJSON.totalPage) {
+                lastpage = resJSON.totalPage;
+            } else {
+                lastpage = Math.floor((resJSON.length - 1) / 6) + 1
+            }
             reloadTable(resJSON.resultPagnition);
+            console.log(resJSON.resultPagnition)
+
+
         })
         .fail(function() {
             console.log("error");

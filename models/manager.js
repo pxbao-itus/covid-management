@@ -79,3 +79,15 @@ exports.historyManagerAction = async (value) => {
         return null;
     }
 }
+
+exports.getManager = async (value) => {
+    const table = new pgp.helpers.TableName({table: TaiKhoanNguoiQuanLy, schema: schema});
+    const qStr = pgp.as.format(`SELECT * FROM $1 WHERE "MaTaiKhoan" = $2`, [table, value]);
+    try {
+        const res = await db.any(qStr);
+        return res;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}

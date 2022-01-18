@@ -1,0 +1,43 @@
+
+h3 {
+  color: #494ca2;
+}
+
+.table th, .table td {
+
+  vertical-align: middle;
+
+}
+tr .btn {
+  width: 50%;
+}
+tr {
+  text-align: center;
+
+}
+table {
+  display: block;
+  overflow: auto;
+}
+
+tbody {
+  display: block;
+  max-height: 70vh;
+  overflow: auto;
+}
+thead, tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed; 
+}
+tbody::-webkit-scrollbar {
+  width: 6px;
+}
+
+tbody::-webkit-scrollbar-thumb {
+background: var(--gray);
+}
+
+.info {
+  font-size: 16px;
+}

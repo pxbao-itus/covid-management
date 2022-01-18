@@ -1,4 +1,5 @@
 var allproduct;
+var productToSend = [];
 var productsToPackage = [];
 var productsToPackageTrue = [];
 $(document).ready(function() {
@@ -81,43 +82,68 @@ $(document).ready(function() {
     });
 
     $("#insert-form").submit(function(e) {
-        var form = $(this);
-        var url = "/manager/package/create";
+        for (let id of productsToPackage) {
+            let SoLuong = document.getElementById("X" + id).getElementsByTagName("input")[0].value;
+            let SoLuongToiDa = document.getElementById("X" + id).getElementsByTagName("input")[1].value;
+            let SoLuongToiThieu = document.getElementById("X" + id).getElementsByTagName("input")[2].value;
+            productToSend.push({
+                MaNYP: id,
+                SoLuong: SoLuong,
+                SoLuongToiDa: SoLuongToiDa,
+                SoLuongToiThieu: SoLuongToiThieu
+            });
+            // console.log(SoLuong)
+            // console.log(SoLuongToiDa)
+            // console.log(SoLuongToiThieu)
+            console.log(productToSend)
+        }
 
+        e.preventDefault();
+        let form = new FormData(this);
+        form.append('package', JSON.stringify({
+            TenGoiNYP: form.get('TenGoiNYP'),
+            MucGioiHan: form.get('MucGioiHan'),
+            ThoiGianGioiHan: form.get('ThoiGianGioiHan'),
+        }))
+        form.append('details', JSON.stringify(productToSend))
+        var url = "/manager/package/create";
         $.ajax({
             type: "POST",
             url: url,
-            data: form.serialize(), // serializes the form's elements.
+            data: form, // serializes the form's elements.
             success: function(data) {
                 alert(data); // show response from the php script.
             },
+
+            cache: false,
+            contentType: false,
+            processData: false,
         });
     });
 });
 
 function reloadTable(items) {
-    let index = 1;
-
-    $("tbody").html("");
-
+    $(".row-cols-md-3").html("");
     items.forEach((element) => {
-        $("tbody").append(`
-<tr>
-  <td class="item-id">${element.MaGoiNYP}</td>
-  <td>${index}</td>
-  
-  <td>${element.TenGoiNYP}</td>
-  <td>${element.NgayLapGoi}</td>
-  <td>${element.MucGioiHan}</td>
-  <td>${element.ThoiGianGioiHan}</td>
-  <td>${element.Amount}</td>
-  <td>${element.Total}</td>
-  <td>
-    <button type="button" class="btn btn-primary btn-info">Chi tiết</button>
-  </td>
-</tr>
-  `);
-        index += 1;
+        $(".row-cols-md-3").append(`
+      <div class="col-sm">
+      <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="${element.HinhAnh1}" style="
+          width: 286px;
+          height: 200px;
+          object-fit: cover;
+        " alt="Sản phẩm chưa có hình ảnh">
+      <div class="card-body" >
+        <h5 class="card-title" style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap; ">${element.TenGoiNYP}</h5>
+        <p class="card-text">Tổng tiền: ${element.Total}vnđ</p>
+        <p class="card-text">Số lượng NYP: ${element.Amount}</p>
+        <p class="card-text">Mức giới hạn: ${element.MucGioiHan}</p>
+        <p class="card-text">Thời gian giới hạn: ${element.ThoiGianGioiHan}</p>
+        <a href="/manager/package/detail?id=${element.MaGoiNYP}" class="btn btn-primary">Chi tiết</a>
+      </div>
+    </div>
+    </div>
+`);
     });
 }
 
@@ -133,7 +159,7 @@ function reloadTableProduct(items) {
             <div class="row card-box" style="margin-left: 10px;" value="${element.MaNYP}">
                 <div class="col-5">
                 <img style="height: 127px; width: -webkit-fill-available;" 
-                src="/images/${element.HinhAnh1}" class="card-img-top" alt="...">
+                src="${element.HinhAnh1}" class="card-img-top" alt="...">
                 </div>
                 <div class="col-7">
                     <div class="card-body">
@@ -176,9 +202,9 @@ function reloadTableProductsOfPackage(items) {
 
         $("#list-2").append(`
         <div class="card-product">
-        <div class="row">
+        <div class="row" id="X${NYPDetail.MaNYP}">
           <div class="col-auto col-1st">
-            <img src="/img/${NYPDetail.HinhAnh1}">
+            <img src="${NYPDetail.HinhAnh1}">
           </div>
           <div class="col col-2nd">
             <h1>${NYPDetail.TenNYP}</h1>
@@ -213,14 +239,14 @@ function reloadTableProductsOfPackage(items) {
               </div>
             </div>
 
-            <div class="group-btn-number">
+            <div class="group-btn-number" id="ma">
               <span>Số lượng tối thiểu</span>
               <div style=" display: inline-block; ">
                 <div class="input-group input-group-spinner group-incr-decr">
                   <div class="input-group-prepend">
                     <button class="btn btn-decrement btn-outline-secondary" type="button">-</button>
                   </div>
-                  <input class="input" id="minQ" value="0">
+                  <input class="input minQ" id="" value="0">
                   <div class="input-group-append">
                     <button class="btn btn-increment btn-outline-secondary" type="button">+</button>
                   </div>
@@ -234,12 +260,61 @@ function reloadTableProductsOfPackage(items) {
     };
 }
 
+function check(minQ, Q, maxQ) {
+    return 0 <= minQ && minQ <= Q && Q <= maxQ;
+}
+
 $('#list-2').on('click', '.btn-increment', function(e) {
+    let oldvalue = $(this).parent().siblings("input").val();
     $(this).parent().siblings("input").val(parseInt($(this).parent().siblings("input").val()) + 1);
+
+    let parent = $(this).parent().parent().parent().parent().parent();
+    // console.log($(parent).find("#minQ"))
+    console.log((parent).find("input"))
+    let Q = $(parent).find("input")[0].value;
+    let maxQ = $(parent).find("input")[1].value;
+    let minQ = $(parent).find("input")[2].value;
+    let checkValue = check(minQ, Q, maxQ);
+    console.log(minQ, Q, maxQ)
+    if (!checkValue) {
+        $(this).parent().siblings("input").val(oldvalue);
+    }
 })
 $('#list-2').on('click', '.btn-decrement', function(e) {
-    let val = parseInt($(this).parent().siblings("input").val());
-    if (val > 0) {
-        $(this).parent().siblings("input").val(val - 1);
+    let oldvalue = $(this).parent().siblings("input").val();
+    $(this).parent().siblings("input").val(parseInt($(this).parent().siblings("input").val()) - 1);
+
+    let parent = $(this).parent().parent().parent().parent().parent();
+    // console.log($(parent).find("#minQ"))
+    console.log((parent).find("input"))
+    let Q = $(parent).find("input")[0].value;
+    let maxQ = $(parent).find("input")[1].value;
+    let minQ = $(parent).find("input")[2].value;
+    let checkValue = check(minQ, Q, maxQ);
+    console.log(minQ, Q, maxQ)
+    if (!checkValue) {
+        $(this).parent().siblings("input").val(oldvalue);
     }
+})
+
+preValue = 0;
+
+$('#list-2').on('click', 'input', function() {
+    preValue = $(this).val();
+    // alert('click')
+
+})
+$('#list-2').on('input', 'input', function() {
+    let parent = $(this).parent().parent().parent().parent().parent();
+    // console.log($(parent).find("#minQ"))
+    console.log((parent).find("input"))
+    let Q = $(parent).find("input")[0].value;
+    let maxQ = $(parent).find("input")[1].value;
+    let minQ = $(parent).find("input")[2].value;
+    let checkValue = check(minQ, Q, maxQ);
+    console.log(minQ, Q, maxQ)
+    if (!checkValue) {
+        $(this).val(preValue);
+    }
+
 })

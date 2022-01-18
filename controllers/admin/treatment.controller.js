@@ -1,12 +1,30 @@
 const treatmentRouter = require("express").Router();
 
 const treatmentModel = require("../../models/admin/treatment.model");
+const addressModel = require('../../models/api/address.model');
+const upload = require('../../config/multer.config');
+const fs = require('fs');
+const csv = require('csv-parser');
 
 treatmentRouter.get("/list", async (req, res) => {
-  const result = await treatmentModel.list();
+  let result = [];
+  try {
+   result = await treatmentModel.list();
+    
+  } catch (error) {
+    result = [];
+  }
+  for (let item of result) {
+    item.status = item.SucChua === item.SoLuongHienTai ? 1 : 0;
+  }
+  result = result.sort((item1, item2) => {
+    return item1.MaNoiDTCL - item2.MaNoiDTCL;
+  })
   return res.render("admin/treatment/list", {
+    layout: 'adminSidebar',
+    title: 'Danh sách điểm điều trị, cách ly',
     treatments: result,
-    path: "/admin/treatment/list",
+    path: "treatment",
   });
 });
 
@@ -14,52 +32,143 @@ treatmentRouter.get("/detail", async (req, res) => {
   try {
     const result = await treatmentModel.get(req.query.id);
     if (result) {
-      return res.render("admin/treatment/detail", {
-        treatment: result,
-        path: "/admin/treatment/detail",
+      return res.render('admin/treatment/detail', {
+        treatment: result[0],
+        layout: 'adminSidebar',
+        title: 'Chi tiết điểm ĐTCL',
+        path: 'detailTreatment',
+        
       });
     }
-    return res.render("admin/treatment/detail", {
-      treatment: [],
-      path: "/admin/treatment/detail",
+    return res.render('admin/treatment/detail', {
+      layout: 'adminSidebar',
+      title: 'Chi tiết điểm ĐTCL',
+      path: 'detailTreatment',
+      msg: 'Không tải được dữ liệu'
     });
   } catch (error) {
-    return res.render("admin/treatment/detail", {
-      treatment: [],
+    return res.render('admin/treatment/detail', {
+      layout: 'adminSidebar',
+      title: 'Chi tiết điểm ĐTCL',
+      path: 'detailTreatment',
+      msg: 'Không tải được dữ liệu'
     });
   }
 });
 
-treatmentRouter.post("/update", async (req, res) => {
-  console.log(req.body);
+treatmentRouter.post("/detail", async (req, res) => {
+
   try {
     const entity = {
-      TenNoiDTCL: req.body.TenNoiDTCL,
-      SucChua: req.body.SucChua,
-      SoLuongHienTai: req.body.SoLuongHienTai,
-      DiaChi: req.body.DiaChi,
-      Loai: req.body.Loai,
+      TenNoiDTCL: req.body.name,
+      SucChua: req.body.size,
+      SoLuongHienTai: req.body.current,
+      DiaChi: req.body.address,
+      Loai: req.body.type,
     };
-    const result = await treatmentModel.update(req.body.MaNoiDTCL, entity);
-    return res.redirect(`/detail?id=${req.body.MaNoiDTCL}`);
+    const result = await treatmentModel.update(req.body.id, entity);
+    if(result) {
+      return res.render('admin/treatment/detail', {
+        treatment: result,
+        layout: 'adminSidebar',
+        title: 'Chi tiết điểm ĐTCL',
+        path: 'detailTreatment',
+        msg: 'Cập nhật thông tin thành công!',
+        status: 1
+      });
+    } 
+    return res.render('admin/treatment/detail', {
+      layout: 'adminSidebar',
+      title: 'Chi tiết điểm ĐTCL',
+      path: 'detailTreatment',
+      msg: 'Cập nhật thông tin không thành công!'
+    });
   } catch (error) {
-    return res.redirect(`/detail?id=${req.body.MaNoiDTCL}`);
+    return res.render('admin/treatment/detail', {
+      layout: 'adminSidebar',
+      title: 'Chi tiết điểm ĐTCL',
+      path: 'detailTreatment',
+      msg: 'Cập nhật thông tin không thành công!'
+    });
   }
 });
+treatmentRouter.get('/create', (req, res) => {
+  return res.render('admin/treatment/create', {
+      layout: 'adminSidebar',
+      title: 'Thêm mới điểm điều trị, cách ly',
+      path: 'createTreatment'
+  });
+})
 
-treatmentRouter.post("/create", async (req, res) => {
+treatmentRouter.post("/create", upload.single('file'), async (req, res) => {
   try {
+    if(req.file) {
+      fs.createReadStream(req.file.path)
+        .pipe(csv())
+        .on('data', async function(data){
+          try {
+            const entity = {
+              TenNoiDTCL: data.TenNoiDTCL,
+              SucChua: data.SucChuaw,
+              SoLuongHienTai: data.SoLuongHienTai,
+              DiaChi: data.DiaChi,
+              Loai: data.Loai,
+            };
+            const result = await treatmentModel.add(entity);
+          }
+          catch(err) {
+            return res.render('admin/treatment/create', {
+              layout: 'adminSidebar',
+              title: 'Thêm mới điểm điều trị, cách ly',
+              path: 'createTreatment',
+              msg: 'Thêm mới không thành công!'
+            });
+          }
+        })
+        .on('end',function(){                   
+        });
+      return res.render('admin/treatment/create', {
+        layout: 'adminSidebar',
+        title: 'Thêm mới điểm điều trị, cách ly',
+        path: 'createTreatment',
+        msg: 'Thêm điểm điều trị, cách ly thành công!',
+        status: 1
+      });
+    }
+    const province = await addressModel.getProvince(req.body.province);
+    const district = await addressModel.getDistrict(req.body.district);
+    const ward = await addressModel.getWard(req.body.ward);
     const entity = {
-      TenNoiDTCL: req.body.TenNoiDTCL,
-      SucChua: req.body.SucChua,
-      SoLuongHienTai: req.body.SoLuongHienTai,
-      DiaChi: req.body.DiaChi,
-      Loai: req.body.Loai,
+      TenNoiDTCL: req.body.name,
+      SucChua: req.body.size,
+      SoLuongHienTai: req.body.current,
+      DiaChi: `${req.body.address}, ${ward.TenXa}, ${district.TenHuyen}, ${province.TenTinh}`,
+      Loai: req.body.type,
     };
     const result = await treatmentModel.add(entity);
-    return res.redirect(`/list`);
+    if(result) {
+      return res.render('admin/treatment/create', {
+        layout: 'adminSidebar',
+        title: 'Thêm mới điểm điều trị, cách ly',
+        path: 'createTreatment',
+        msg: 'Thêm điểm điều trị, cách ly thành công!',
+        status: 1
+      });
+    } else {
+      return res.render('admin/treatment/create', {
+        layout: 'adminSidebar',
+        title: 'Thêm mới điểm điều trị, cách ly',
+        path: 'createTreatment',
+        msg: 'Thêm mới không thành công!'
+      });
+    }
   } catch (error) {
-    return res.redirect(`/list`);
+    return res.render('admin/treatment/create', {
+      layout: 'adminSidebar',
+      title: 'Thêm mới điểm điều trị, cách ly',
+      path: 'createTreatment',
+      msg: 'Thêm mới không thành công!'
+   });
   }
 });
 module.exports = treatmentRouter;

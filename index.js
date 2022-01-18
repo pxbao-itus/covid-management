@@ -106,7 +106,8 @@ app.use("/order", require("./controllers/user/order.controller"));
 //     res.send("upload file thành công")
 // });
 //router for user
-app.use("/user", require("./controllers/user/user.controller"));
+app.use('/user', require('./controllers/user/user.controller'));
+
 
 
 // ------------------- Router for api

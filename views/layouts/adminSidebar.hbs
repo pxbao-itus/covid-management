@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/admin/sidebar.css">
+    <link rel="stylesheet" href="/css/admin/{{path}}.css">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <title>{{title}}</title>
+  </head>
+  <body>		
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu mt-5">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+                    <i class="fa fa-bars"></i>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <h1><a href="#" class="logo">CM</a></h1>
+                    <ul class="list-unstyled components mb-5">
+                        <li id="create">
+                            <a href="/admin/manager/create"><span class="fa fa-paper-plane mr-3"></span>Tạo người quản lý</a>
+                        </li>
+                        <li id="manager">
+                            <a href="/admin/manager/list"><span class="fa fa-user mr-3"></span> Người quản lý</a>
+                        </li>
+                        <li id="treatment-create">
+                            <a href="/admin/treatment/create"><span class="fa fa-paper-plane mr-3"></span>Thêm điểm ĐTCL</a>
+                        </li>
+                        <li id="treatment">
+                            <a href="/admin/treatment/list"><span class="fa fa-briefcase mr-3"></span>Điểm điều trị, cách ly</a>
+                        </li>
+                    </ul>
+                    <div class="footer">
+                       
+                    </div>
+                </div>  
+    	    </nav>
+
+            <div class="w-100 pr-2 content">
+                <nav id="navbar" class="navbar navbar-expand-lg navbar-light w-100 row">
+                    <a class="navbar-brand col-md-5 text-light" href="#">Covid Management</a>
+                    <form class="form-inline my-2 my-lg-0 col-md-5">
+                        <input id="search-input" class="form-control mr-sm-2" name="abc" placeholder="Tìm kiếm">
+                        <button class="btn btn-success my-2 my-sm-0" type="submit">🔎</button>
+                    </form>
+                    <div class="col-md-2">
+                        <a id="signout" href="/auth/signout" class="btn btn-success my-2 my-sm-0 ">Đăng xuất</a>
+                    </div>
+                </nav>
+                {{{body}}} 
+            </div>
+               
+        </div>
+    <script src="/js/vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="/js/admin/popper.js"></script>
+    <script src="/js/vendors/jquery.min.js"></script>
+    <script src="/js/admin/sidebar.js"></script>
+    <script src="/js/admin/{{path}}.js"></script>
+  </body>
+</html>

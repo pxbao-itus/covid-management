@@ -1,23 +1,23 @@
-#pagination-nav > ul {
-  width: fit-content;
+#pagination-nav>ul {
+    width: fit-content;
 }
 
 #pagination-nav {
-  position: absolute;
-  bottom: 1rem;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
+    position: absolute;
+    bottom: 0rem;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .page-link2 {
-  position: relative;
-  display: block;
-  padding: 0.5rem 0.75rem;
-  margin-left: -1px;
-  line-height: 1.25;
-  color: #007bff;
-  background-color: #fff;
-  border: 1px solid #dee2e6;
+    position: relative;
+    display: block;
+    padding: 0.2rem 0.55rem;
+    margin-left: -1px;
+    line-height: 1;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
 }

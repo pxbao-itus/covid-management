@@ -1,0 +1,40 @@
+<div class="row ml-5 mt-2 ">
+  <h3 class="col-md-4"> Lịch sử người quản lý</h3>
+</div>
+  
+<div class="row my-2 ml-2">
+  <div class="info col col-md-3">Mã tài khoản: {{manager.MaTaiKhoan}}</div>
+  <div class="info col col-md-3">Username: {{manager.Username}}</div>
+  <div class="info col col-md-3 ">Trạng thái: {{#if manager.TrangThai}} Mở {{else}} Khóa {{/if}}</div>
+</div>
+<table class="table table-striped bg-white ml-1">
+    <thead class="bg-danger text-light">
+        <tr>
+            <th scope="col">Mã lịch sử</th>
+            <th scope="col">Thời gian</th>
+            <th scope="col">Đối tượng</th>
+            <th scope="col">Hành động</th>
+            <th scope="col">Giá trị trước</th>
+            <th scope="col">Giá trị sau</th>
+        </tr>
+    </thead>
+    <tbody>
+      {{#if histories}}
+        {{#each histories}}
+          <tr>
+            <td>{{this.MaLichSu}}</td>
+            <td>{{this.ThoiGian}}</td>
+            <td>{{this.DoiTuong}}</td>
+            <td class="action">{{this.HanhDong}}</td>
+            <td>{{this.GiaTriTruoc}}</td>
+            <td>{{this.GiaTriSau}}</td>
+          </tr>
+          {{/each}}
+      {{else}}
+        <tr>
+            <td class="text-center py-4 text-gray" colspan="6">Không có lịch sử</td>
+        </tr>
+      {{/if}}
+    </tbody>
+</table>
+<a href="/admin/manager/list" class="btn btn-success mx-auto ml-5">Danh sách người quản lý</a>

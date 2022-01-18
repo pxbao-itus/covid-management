@@ -29,13 +29,11 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: url,
-            data: form, // serializes the form's elements.
+            data: form,
             success: function(data) {
                 //$('#contact').modal('hide');
                 fetchAPI(link, page, sort);
-
                 alert("Thêm nhu yếu phẩm thành công!"); // show response from the php script.
-
                 $("#modal-insert form :input").val("");
                 $("#input-id").fileinput("reset");
                 $("#close_insert").click();
@@ -51,20 +49,24 @@ $(document).ready(function() {
 function reloadTable(items) {
     console.log(items);
 
-    $("tbody").html("");
+    $(".row-cols-md-3").html("");
 
     items.forEach((element) => {
-        $("tbody").append(`
-  <tr>
-    <td class="item-id">${element.MaNYP}</td>
-    <td>${element.MaNYP}</td>
-    <td>${element.TenNYP}</td>
-    <td>${element.DonGia} VND</td>
-    <td>${element.DonViDinhLuong}</td>
-    <td>
-      <button type="button" class="btn btn-primary btn-info">Chi tiết</button>
-    </td>
-  </tr>
+        $(".row-cols-md-3").append(`
+        <div class="col-sm">
+        <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="${element.HinhAnh1}" style="
+            width: 286px;
+            height: 200px;
+            object-fit: cover;
+          " alt="Sản phẩm chưa có hình ảnh">
+        <div class="card-body">
+          <h5 class="card-title">${element.TenNYP}</h5>
+          <p class="card-text">${element.DonGia}vnđ/${element.DonViDinhLuong}</p>
+          <a href="/manager/product/detail?id=${element.MaNYP}" class="btn btn-primary">Chi tiết</a>
+        </div>
+      </div>
+      </div>
   `);
     });
 }

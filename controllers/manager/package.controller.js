@@ -1,6 +1,9 @@
 const packageRouter = require("express").Router();
 const axios = require('axios');
 const packageModel = require("../../models/manager/package.model");
+const cloudinary = require('../../config/cloudinary.config');
+const upload = require('../../config/multer.config');
+
 
 packageRouter.get("/list", async(req, res) => {
     try {
@@ -50,79 +53,77 @@ packageRouter.get("/list", async(req, res) => {
             }
         }
         if (req.query.start || req.query.end) {
-          if (req.query.type === "total") {
-            result = result.filter((item) => {
-              let status1 = true;
-              let status2 = true;
-              if (req.query.start) {
-                status1 = item.Total >= req.query.start;
-              }
-              if (req.query.end) {
-                status2 = item.Total <= req.query.end;
-              }
-              return status1 && status2;
-            });
-          }
-          if (req.query.type === "amount") {
-            result = result.filter((item) => {
-              let status1 = true;
-              let status2 = true;
-              if (req.query.start) {
-                status1 = item.Amount >= req.query.start;
-              }
-              if (req.query.end) {
-                status2 = item.Amount <= req.query.end;
-              }
-              return status1 && status2;
-            });
-          }
-          if (req.query.type === "limit") {
-            result = result.filter((item) => {
-              let status1 = true;
-              let status2 = true;
-              if (req.query.start) {
-                status1 = item.MucGioiHan >= req.query.start;
-              }
-              if (req.query.end) {
-                status2 = item.MucGioiHan <= req.query.end;
-              }
-              return status1 && status2;
-            });
-          }
-          if (req.query.type === "time") {
-            result = result.filter((item) => {
-              let status1 = true;
-              let status2 = true;
-              if (req.query.start) {
-                status1 = item.ThoiGianGioiHan >= req.query.start;
-              }
-              if (req.query.end) {
-                status2 = item.ThoiGianGioiHan <= req.query.end;
-              }
-              return status1 && status2;
-            });
-          }
+            if (req.query.type === "total") {
+                result = result.filter((item) => {
+                    let status1 = true;
+                    let status2 = true;
+                    if (req.query.start) {
+                        status1 = item.Total >= req.query.start;
+                    }
+                    if (req.query.end) {
+                        status2 = item.Total <= req.query.end;
+                    }
+                    return status1 && status2;
+                });
+            }
+            if (req.query.type === "amount") {
+                result = result.filter((item) => {
+                    let status1 = true;
+                    let status2 = true;
+                    if (req.query.start) {
+                        status1 = item.Amount >= req.query.start;
+                    }
+                    if (req.query.end) {
+                        status2 = item.Amount <= req.query.end;
+                    }
+                    return status1 && status2;
+                });
+            }
+            if (req.query.type === "limit") {
+                result = result.filter((item) => {
+                    let status1 = true;
+                    let status2 = true;
+                    if (req.query.start) {
+                        status1 = item.MucGioiHan >= req.query.start;
+                    }
+                    if (req.query.end) {
+                        status2 = item.MucGioiHan <= req.query.end;
+                    }
+                    return status1 && status2;
+                });
+            }
+            if (req.query.type === "time") {
+                result = result.filter((item) => {
+                    let status1 = true;
+                    let status2 = true;
+                    if (req.query.start) {
+                        status1 = item.ThoiGianGioiHan >= req.query.start;
+                    }
+                    if (req.query.end) {
+                        status2 = item.ThoiGianGioiHan <= req.query.end;
+                    }
+                    return status1 && status2;
+                });
+            }
         }
         if (req.query.page) {
-          for (
-            let index = 8 * (req.query.page - 1);
-            index < 8 * req.query.page;
-            index++
-          ) {
-            if (result[index]) {
-              resultPagnition.push(result[index]);
-            } else {
-              break;
+            for (
+                let index = 6 * (req.query.page - 1); index < 6 * req.query.page; index++
+            ) {
+                if (result[index]) {
+                    resultPagnition.push(result[index]);
+                } else {
+                    break;
+                }
             }
-          }
         } else {
-          for (let index = 0; index < 8; index++) {
-            if (result[index]) {
-              resultPagnition.push(result[index]);
-            } else {
-              break;
+            for (let index = 0; index < 6; index++) {
+                if (result[index]) {
+                    resultPagnition.push(result[index]);
+                } else {
+                    break;
+                }
             }
-          }
         }
 
         return res.render("manager/package/list", {
@@ -243,14 +244,14 @@ packageRouter.post("/list", async(req, res) => {
         }
 
         let pagnition = [];
-        for (let index = 1; index <= ((result.length - result.length % 8) / 8); index++) {
+        for (let index = 1; index <= ((result.length - result.length % 6) / 6); index++) {
             pagnition.push(index);
         }
-        if (result.length % 8 > 0) {
-            pagnition.push(((result.length - result.length % 8) / 8) + 1);
+        if (result.length % 6 > 0) {
+            pagnition.push(((result.length - result.length % 6) / 6) + 1);
         }
         if (req.query.page) {
-            for (let index = 8 * (req.query.page - 1); index < 8 * req.query.page; index++) {
+            for (let index = 6 * (req.query.page - 1); index < 6 * req.query.page; index++) {
                 if (result[index]) {
                     resultPagnition.push(result[index]);
                 } else {
@@ -259,7 +260,7 @@ packageRouter.post("/list", async(req, res) => {
 
             }
         } else {
-            for (let index = 0; index < 8; index++) {
+            for (let index = 0; index < 6; index++) {
                 if (result[index]) {
                     resultPagnition.push(result[index]);
                 } else {
@@ -330,16 +331,23 @@ packageRouter.get("/detail", async(req, res) => {
     }
 });
 
-packageRouter.post("/update", async(req, res) => {
+packageRouter.post("/update", upload.single('image'), async(req, res) => {
     const { package, details } = req.body;
     try {
-        const entity = {
+        const uploader = async(path) => await cloudinary.uploads(path, 'Images');
+        let image = {};
+        if (req.file) {
+            const imageRes = await uploader(req.file.path);
+            image.HinhAnh = imageRes.url;
+        }
+        const packageFull = {
             TenGoiNYP: package.TenGoiNYP,
             NgayLapGoi: package.NgayLapGoi,
             MucGioiHan: package.MucGioiHan,
             ThoiGianGioiHan: package.ThoiGianGioiHan,
+            ...image
         };
-        const result = packageModel.update(entity, details, package.MaGoiNYP);
+        const result = packageModel.update(packageFull, details, package.MaGoiNYP);
         return res.redirect(`/manager/detail?id=${package.MaGoiNYP}`);
     } catch (error) {
         return res.redirect(`/manager/detail?id=${package.MaGoiNYP}`);
@@ -347,17 +355,30 @@ packageRouter.post("/update", async(req, res) => {
 });
 packageRouter.get("/create", (req, res) => {
     let message = "";
-    if (req.cookies("createPackage")) {
-        message = req.cookies("create");
+    if (req.cookies["createPackage"]) {
+        message = req.cookies["create"];
     }
     return res.render("manager/productCreate", {
         msg: message,
     });
 });
-packageRouter.post("/create", async(req, res) => {
-    const { package, details } = req.body;
+packageRouter.post("/create", upload.single('image'), async(req, res) => {
+    let { package, details } = req.body;
+    package = JSON.parse(package);
+    details = JSON.parse(details);
     try {
-        const result = await packageModel.create(package, details);
+        const uploader = async(path) => await cloudinary.uploads(path, 'Images');
+
+        const imageRes = await uploader(req.file.path);
+        console.log(imageRes.url)
+        const packageFull = {
+            ...package,
+            HinhAnh: imageRes.url
+        };
+        console.log(packageFull)
+        console.log(details)
+        const result = await packageModel.create(packageFull, details);
+        console.log(result)
         return res.redirect("/manager/package/create");
     } catch (error) {
         return res.redirect("/manager/package/create");
