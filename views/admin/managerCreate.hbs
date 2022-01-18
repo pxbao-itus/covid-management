@@ -1,35 +1,22 @@
-{{> adminNavbar text='Tìm kiếm nhu yếu phẩm ... '}}
 
-<div class="mb-6"></div>
-
-<div class="container-fluid">
-    <div class="mb-3"></div>
-    <div class="row">
-        {{> adminSidebar where='create'}}
-
-        <div class="card mx-auto align-middle" style="width:60%">
-            <div class="card-body">
-                <h1>Tạo tài khoản người quản lý</h1>
-                <form>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Tên tài khoản</label>
-                        <input type="text" class="form-control" name="username" placeholder="Tên tài khoản">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Mật khẩu</label>
-                        <input type="password" class="form-control" name="password" placeholder="Mật khẩu">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Tạo</button>
-                </form>
+<div class="card mx-auto align-middle" style="width:60%">
+    <div class="card-body" id="form-card">
+        <h1>Tạo tài khoản người quản lý</h1>
+        {{#if msg}}
+            <div class="alert {{#if status}} alert-success {{else}} alert-danger {{/if}} mx-auto">{{msg}}</div>
+        {{/if}}
+        <form id="form" action="/admin/manager/create" enctype='multipart/form-data' method="POST">
+            <div class="form-group">
+                <label for="username">Tên tài khoản</label>
+                <input id="username" type="text" class="form-control border" name="username" placeholder="Tên tài khoản">
             </div>
-        </div>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-
-
-
-        </main>
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <input id="password" type="password" class="form-control border" name="password" placeholder="Mật khẩu">
+            </div>           
+            <button id="submit" type="submit" class="btn btn-primary mr-5">Tạo tài khoản</button>
+            <div id="import" class="btn btn-primary">Thêm bằng file</div>
+        </form>
     </div>
 </div>
-{{> modal}}
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js">  </script>
+  

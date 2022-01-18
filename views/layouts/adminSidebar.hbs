@@ -6,6 +6,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/admin/sidebar.css">
+    <link rel="stylesheet" href="/css/admin/{{path}}.css">
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <title>{{title}}</title>
   </head>
@@ -20,13 +21,13 @@
                 <div class="p-4">
                     <h1><a href="#" class="logo">CM</a></h1>
                     <ul class="list-unstyled components mb-5">
-                        <li class="active">
+                        <li id="create">
                             <a href="/admin/manager/create"><span class="fa fa-paper-plane mr-3"></span>Tạo người quản lý</a>
                         </li>
-                        <li>
+                        <li id="manager">
                             <a href="/admin/manager/list"><span class="fa fa-user mr-3"></span> Người quản lý</a>
                         </li>
-                        <li>
+                        <li id="treatment">
                             <a href="/admin/manager/treatment"><span class="fa fa-briefcase mr-3"></span>Điểm điều trị, cách ly</a>
                         </li>
                     </ul>
@@ -55,5 +56,6 @@
     <script src="/js/admin/popper.js"></script>
     <script src="/js/vendors/bootstrap/bootstrap.min.js"></script>
     <script language="JavaScript" type="text/javascript" src="/js/admin/sidebar.js"></script>
+    <script src="/js/admin/{{path}}.js"></script>
   </body>
 </html>
