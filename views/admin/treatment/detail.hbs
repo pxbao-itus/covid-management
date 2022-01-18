@@ -1,109 +1,52 @@
-{{> navbar text='Tìm kiếm nhu yếu phẩm ... '}}
 
-<div class="mb-6"></div>
-<div class="container-fluid">
-  <div class="row">
-    {{> sidebar where='user'}}
-
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-
-      <div class="line-1">
-        <div
-          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <button id="btn-back" class="btn btn-primary">Quay lại</button>
-          <div class="btn-toolbar mb-2 mb-md-0">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#modal-update">Chỉnh sửa thông tin nơi điều
-              trị</button>
-              <div class="mr-2"></div>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#modal-delete">Xoá nơi điều trị</button>
-          </div>
-
-        </div>
-        <h2>
-          Chi tiết địa điểm điều trị, cách ly
-        </h2>
-      </div>
-
-      <div class="table-responsive">
-        <div class="card">
-          <div class="card-body">
-            <table class="table">
-              <thead>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row" style="border-top: none">Tên nơi ĐTCL:</th>
-                  <td style="border-top: none">Trà Anh Toàn</td>
-                </tr>
-                <tr>
-                  <th scope="row">Sức chứa:</th>
-                  <td>212846352</td>
-                </tr>
-                <tr>
-                  <th scope="row">Số lượng hiện tại:</th>
-                  <td>2000</td>
-                </tr>
-                <tr>
-                  <th scope="row">Địa chỉ:</th>
-                  <td>Phổ An, Đức Phổ, Quảng Ngãi</td>
-                </tr>
-                <tr>
-                  <th scope="row">Loại:</th>
-                  <td>F10</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <h2 class="mt-3">Danh sách bệnh nhân đang sử dụng địa điểm ĐTCL</h2>
-        <div class="card">
-          <div class="card-body">
-            <table class="table">
-              <thead>
-              </thead>
-              <tbody>
-
-                <tr>
-                  <th style="border-top: none">STT</th>
-                  <th style="border-top: none">Họ và tên</th>
-                  <th style="border-top: none">Tình trạng</th>
-                  <th style="border-top: none">Chi tiết</th>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Đặng Văn Hiển</td>
-                  <td>F0</td>
-                  <td>
-                    <button type="button" class="btn btn-primary btn-info">Chi tiết</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Phan Xuân Bảo</td>
-                  <td>F1</td>
-                  <td>
-                    <button type="button" class="btn btn-primary btn-info">Chi tiết</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Lê Nguyên Tuấn</td>
-                  <td>F3</td>
-                  <td>
-                    <button type="button" class="btn btn-primary btn-info">Chi tiết</button>
-                  </td>
-                </tr>
-
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>
+<div class="card mx-auto align-middle">
+    <div class="card-body" id="form-card">
+        <h2>Chi tiết, cập nhật điểm điều trị/cách ly</h2>
+        {{#if msg}}
+            <div class="alert {{#if status}} alert-success {{else}} alert-danger {{/if}} mx-auto">{{msg}}</div>
+        {{/if}}
+        {{#if treatment}}
+          <form id="form" class="row" action="/admin/treatment/detail?id={{treatment.MaNoiDTCL}}" method="POST">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="name">Tên điểm điều trị/cách ly</label>
+                <input id="name" type="text" class="form-control border" value="{{treatment.TenNoiDTCL}}" name="name" placeholder="Tên điểm điều trị/cách ly">
+              </div>
+              <div class="form-group">
+                <label for="size">Sức chứa</label>
+                <input id="size" type="number" class="form-control border" value="{{treatment.SucChua}}" name="size" placeholder="Sức chứa tối đa">
+              </div>
+              <div class="form-group">
+                <label for="current">Số lượng hiện tại</label>
+                <input id="current" type="number" class="form-control border" value="{{treatment.SoLuongHienTai}}" name="current" placeholder="Số lượng hiện tại">
+              </div>
+            </div>  
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="id">Loại cơ sở</label>
+                <select class="px-2 py-2 w-100 border" name="type" id="type">
+                  {{#if treatment.Loai}}
+                    <option value="0">Điểm cách ly</option>
+                    <option value="1" selected>Điểm điều trị</option>
+                  {{else}} 
+                    <option value="0" selected>Điểm cách ly</option>
+                    <option value="1">Điểm điều trị</option>
+                  {{/if}}
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="address">Địa chỉ</label>
+                <input id="address" type="text" class="form-control border" value="{{treatment.DiaChi}}" name="address" placeholder="Địa chỉ cụ thể">
+              </div>
+              <div class="form-group">
+                <label for="id">Mã nơi điều trị/cách ly</label>
+                <input id="id" type="number" class="form-control border" value="{{treatment.MaNoiDTCL}}" name="id" readonly placeholder="Mã nơi điều trị cách ly">
+              </div>
+            </div>
+            <div class="col-md-8"></div>
+            <button id="submit" type="submit" class="btn btn-primary col-md-3">Cập nhật</button>           
+          </form>
+        {{/if}}
+    </div>
 </div>
-{{> treatment/updateModal}}
-{{> treatment/deleteModal}}
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+  

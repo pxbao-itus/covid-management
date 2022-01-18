@@ -48,6 +48,34 @@ apiRouter.get('/ward', async(req, res) => {
     }
 })
 
+// api get province, district, ward by id
+
+apiRouter.get('/get/province', async (req, res) => {
+    try {
+        const province = await addressModel.getProvince(req.query.provinceId);
+        return res.send(province);
+    } catch (error) {
+        return res.send(null);
+    }
+})
+
+apiRouter.get('/get/district', async (req, res) => {
+    try {
+        const district = await addressModel.getDistrict(req.query.districtId);
+        return res.send(district);
+    } catch (error) {
+        return res.send(null);
+    }
+})
+
+apiRouter.get('/get/ward', async (req, res) => {
+    try {
+        const ward = await addressModel.getWard(req.query.wardId);
+        return res.send(ward);
+    } catch (error) {
+        return res.send(null);
+    }
+})
 // api get all treatment available
 apiRouter.get('/treatment', async(req, res) => {
     try {

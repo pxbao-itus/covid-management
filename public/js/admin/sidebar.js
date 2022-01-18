@@ -23,7 +23,10 @@ $(document).ready(function() {
 	if(window.location.href.indexOf('manager/list') >= 0 || window.location.href.indexOf('manager/history') >= 0) {
 		$('#manager').addClass('active');
 	}
-	if(window.location.href.indexOf('treatment') >= 0) {
+	if(window.location.href.indexOf('treatment/list') >= 0 || window.location.href.indexOf('treatment/detail') >= 0) {
 		$('#treatment').addClass('active');
+	}
+	if(window.location.href.indexOf('treatment/create') >= 0) {
+		$('#treatment-create').addClass('active');
 	}
 })
