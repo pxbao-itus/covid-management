@@ -49,10 +49,10 @@ $(document).ready(function() {
 function reloadTable(items) {
     console.log(items);
 
-    $(".table-responsive").html("");
+    $(".row-cols-md-3").html("");
 
     items.forEach((element) => {
-        $(".table-responsive").append(`
+        $(".row-cols-md-3").append(`
         <div class="col-sm">
         <div class="card" style="width: 18rem;">
         <img class="card-img-top" src="${element.HinhAnh1}" style="

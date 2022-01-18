@@ -23,27 +23,20 @@
           </div>
         </div>
       </div>
-      <div class="product-list">
-      <div class="table-responsive row row-cols-1 row-cols-md-3 g-4">
-        <div class="">
-
-            <!--{{#each products}}
-            <tr>
-              <td class="item-id">{{MaNYP}}</td>
-              <td>{{inc @index}}</td>
-              <td>{{TenNYP}}</td>
-              <td>{{DonGia}} VND</td>
-              <td>{{DonViDinhLuong}}</td>
-              <td>
-                <button type="button" class="btn btn-primary btn-info">
-                  Chi tiết</button>
-              </td>
-            </tr>
-            {{/each}}-->
-
-          </div>
+      <div class="table-responsive">
+        <div class=" row row-cols-1 row-cols-md-3 g-4">
       </div>
+      <div class="mb-3"></div>
         {{> pagination }}
+        <style>
+          #pagination-nav {
+            position: relative;
+          }
+        
+          .table-responsive {
+            overflow-x: hidden !important;
+          }
+        </style>
         </div>
     </main>
   </div>
