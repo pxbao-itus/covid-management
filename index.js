@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 
 // import module
-//const authMiddleware = require('./middlewares/middleware');
+const authMiddleware = require('./middlewares/middleware');
 
 // init variable
 const app = express();

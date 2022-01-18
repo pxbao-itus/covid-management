@@ -8,7 +8,6 @@ async function change(id) {
       $(`#${id}`).addClass('btn-danger');
       $(`#${id}`).text('Khóa');
       $(`#s-${id}`).text('Mở');
-      alert('xyz');
     } else {
       alert('Mở khóa thất bại!');
     }
@@ -20,7 +19,6 @@ async function change(id) {
         $(`#${id}`).addClass('btn-success');
         $(`#${id}`).text('Mở');
         $(`#s-${id}`).text('Khóa');
-        alert('abc');
       } else {
         alert('Khóa không thành công!');
       }
