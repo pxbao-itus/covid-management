@@ -24,7 +24,7 @@
     <a href="/user/announce-payment"
         class="list-group-item list-group-item-action {{#ifStr where 'announce' }} active {{/ifStr}}">Nhắc thanh
         toán {{#if data.remind}}<span class="badge badge-danger">1</span>{{/if}}</a>
-    <a href="http://localhost:3005/signin"
+    <a href="/user/payment-system"
         class="list-group-item list-group-item-action {{#ifStr where 'payment' }} active {{/ifStr}}">Liên kết hệ thống thanh toán </a>
 </div>
 
@@ -34,3 +34,5 @@
 
     }
 </style>
+
+<script src="/js/user_sidebar.js"></script>

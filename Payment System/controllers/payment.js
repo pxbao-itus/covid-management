@@ -5,18 +5,19 @@ const accountPaymentModel = require("../models/account.model");
 paymentRouter.get("/", async (req, res) => {
   if (req.cookies.paymentSignin !== "on") {
     try {
-      res.redirect("/signin");
+      return res.redirect("/signin");
     } catch (error) {
-      console.log(error);
+      console.log("Error : " + error);
     }
   } else {
-    const paymentLoan = await paymentModel.getLoan(req.signedCookies["userId"]);
+    const userInfor = req.session.userInfor;
+    const paymentLoan = await paymentModel.getLoan(userInfor.userId);
     const accountPayment = await accountPaymentModel.getBalance(
-      req.signedCookies["userId"]
+      userInfor.userId
     );
     const balance = parseInt(accountPayment.SoDu);
     const loan = parseInt(paymentLoan.SoDuNo);
-    var username = req.signedCookies["user"];
+    var username = userInfor.username;
     return res.render("paymentLoan", {
       data: { loan: loan, balance: balance },
       username: username,
@@ -69,17 +70,18 @@ paymentRouter.post("/", async (req, res) => {
 
 paymentRouter.get("/signout", async (req, res) => {
   res.clearCookie("paymentSignin");
-  res.redirect("http://localhost:3000/user/profile");
+  res.clearCookie("accessToken");
+  req.session.destroy();
+  return res.redirect("http://localhost:3005");
 });
 
 paymentRouter.get("/input-money", async (req, res) => {
   if (req.cookies.paymentSignin !== "on") {
     return res.redirect("/signin");
   } else {
-    const username = req.signedCookies["user"];
     return res.render("inputMoney", {
       data: { inputMoney: true },
-      username: username,
+      username: req.session.userInfor.username,
     });
   }
 });
@@ -89,21 +91,21 @@ paymentRouter.post("/input-money", async (req, res) => {
     return res.redirect("/payment/signin");
   } else {
     const paymentInserted = req.body;
-    const accountId = req.signedCookies["userId"];
+    const userInfor = req.session.userInfor;
     const entity = {
       SoDu: paymentInserted.money,
     };
     try {
-      const result = await paymentModel.recharge(entity, accountId);
+      const result = await paymentModel.recharge(entity, userInfor.userId);
       if (result) {
         res.render("inputMoney", {
-          username: req.signedCookies["user"],
+          username: userInfor.username,
           data: { inputMoney: true },
           msg: "Nạp tiền thành công",
         });
       } else {
         res.render("inputMoney", {
-          username: req.signedCookies["user"],
+          username: userInfor.username,
           data: { inputMoney: true },
           error: "Nạp tiền không thành công",
         });
