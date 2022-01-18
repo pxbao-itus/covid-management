@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 
 // import module
-//const authMiddleware = require('./middlewares/middleware');
+const authMiddleware = require('./middlewares/middleware');
 
 // init variable
 const app = express();
@@ -27,7 +27,7 @@ require('./config/passport-local.config')(app);
 require('./config/handlebars.config')(app);
 
 // use middleware
-//app.use(authMiddleware);;
+app.use(authMiddleware);;
 // use router
 app.get("/manager", (req, res) => {
     res.render("manager/user/detail.hbs", {

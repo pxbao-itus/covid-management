@@ -43,3 +43,46 @@ exports.getWards = async (districtId) => {
         return [];
     }
 }
+
+exports.getProvince = async (provinceId) => {
+    const table = new pgp.helpers.TableName({table: Tinh, schema: schema});
+    const qStr = pgp.as.format('SELECT * FROM $1 WHERE "MaTinh" = $2', [table, provinceId]);
+    try {
+        const res = await db.any(qStr);
+        if(res.length > 0) {
+            return res[0];
+        } 
+        return null;
+    } catch (error) {
+        console.log(error)
+        return null;
+    }
+}
+
+exports.getDistrict = async (districtId) => {
+    const table = new pgp.helpers.TableName({table: Huyen, schema: schema});
+    const qStr = pgp.as.format('SELECT * FROM $1 WHERE "MaHuyen" = $2', [table, districtId]);
+    try {
+        const res = await db.any(qStr);
+        if(res.length > 0) {
+            return res[0];
+        } 
+        return null;
+    } catch (error) {
+        return null;
+    }
+}
+
+exports.getWard = async (wardId) => {
+    const table = new pgp.helpers.TableName({table: Xa, schema: schema});
+    const qStr = pgp.as.format('SELECT * FROM $1 WHERE "MaXa" = $2', [table, wardId]);
+    try {
+        const res = await db.any(qStr);
+        if(res.length > 0) {
+            return res[0];
+        } 
+        return null;
+    } catch (error) {
+        return null;
+    }
+}

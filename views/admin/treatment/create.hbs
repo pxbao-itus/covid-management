@@ -1,0 +1,56 @@
+
+<div class="card mx-auto align-middle">
+    <div class="card-body" id="form-card">
+        <h2>Thêm mới điểm điều trị, cách ly</h2>
+        {{#if msg}}
+            <div class="alert {{#if status}} alert-success {{else}} alert-danger {{/if}} mx-auto">{{msg}}</div>
+        {{/if}}
+        <form id="form" class="row" action="/admin/treatment/create" enctype='multipart/form-data' method="POST">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="name">Tên điểm điều trị/ cách ly</label>
+              <input id="name" type="text" class="form-control border" name="name" placeholder="Tên điểm điều trị/cách ly">
+            </div>
+            <div class="form-group">
+              <label for="size">Sức chứa</label>
+              <input id="size" type="number" class="form-control border" name="size" placeholder="Sức chứa tối đa">
+            </div>
+            <div class="form-group">
+              <label for="current">Số lượng hiện tại</label>
+              <input id="current" type="number" class="form-control border" name="current" placeholder="Số lượng hiện tại">
+            </div>
+          </div>  
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="id">Loại cơ sở</label>
+              <select class="px-2 py-2 w-100 border" name="type" id="type">
+                <option hidden value="2" disabled selected>Loại cơ sở</option>
+                <option value="0">Điểm cách ly</option>
+                <option value="1">Điểm điều trị</option>
+              </select>
+            </div>
+            <div class="form-group row">
+              <label for="id" class="w-100">Địa chỉ</label>
+              <select class="px-2 py-2 border col-sm-4" name="province" id="province">
+                <option hidden disabled selected>Tỉnh/Thành phố</option>
+              </select>
+              <select class="px-2 py-2 border col-sm-4" name="district" id="district">
+                <option hidden disabled selected>Quận/Huyện</option>
+              </select>
+              <select class="px-2 py-2 border col-sm-4" name="ward" id="ward">
+                <option hidden disabled selected>Phường/Xã</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="address">Số nhà, đường, tổ dân phố ...</label>
+              <input id="address" type="text" class="form-control border" name="address" placeholder="Địa chỉ cụ thể">
+            </div>
+          </div>
+          <div class="col-md-3"></div>
+          <button id="submit" type="submit" class="btn btn-primary col-md-3">Thêm mới</button>
+          <div class="col-md-3"></div>
+          <div id="import" class="btn btn-primary col-md-3">Thêm bằng file</div>
+        </form>
+    </div>
+</div>
+  

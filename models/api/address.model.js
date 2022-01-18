@@ -12,5 +12,17 @@ module.exports = {
     ward: async (districtId) => {
         const res = await db.getWards(districtId);
         return res;
-    }
+    },
+    getProvince: async (provinceId) => {
+        const res = await db.getProvince(provinceId);
+        return res;
+    },
+    getDistrict: async (districtId) => {
+        const res = await db.getDistrict(districtId);
+        return res;
+    },
+    getWard: async (wardId) => {
+        const res = await db.getWard(wardId);
+        return res;
+    },
 }

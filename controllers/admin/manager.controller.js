@@ -5,8 +5,9 @@ const saltRounds = 10;
 const upload = require('../../config/multer.config');
 const fs = require('fs');
 const csv = require('csv-parser');
+const {formatTime} = require('../../helpers/helper')
 
-
+// done
 managerRouter.get('/list', async(req, res) => {
     let result;
     try {
@@ -14,13 +15,18 @@ managerRouter.get('/list', async(req, res) => {
     } catch (error) {
         result = [];
     }
+    result = result.sort((item1, item2) => {
+        return item1.MaTaiKhoan - item2.MaTaiKhoan;
+    })
     return res.render('admin/managerList', {
         managers: result,
         layout: 'adminSidebar',
-        title: 'QL người quản lý'
+        title: 'Danh sách người quản lý',
+        path: 'manager'
     })
 })
 
+// done
 managerRouter.get('/create', (req, res) => {
     return res.render('admin/managerCreate', {
         layout: 'adminSidebar',
@@ -29,7 +35,7 @@ managerRouter.get('/create', (req, res) => {
     });
 })
 
-
+// done
 managerRouter.post('/create',upload.single('file'), async(req, res) => {
     try {
         if(req.file) {
@@ -37,7 +43,6 @@ managerRouter.post('/create',upload.single('file'), async(req, res) => {
                 .pipe(csv())
                 .on('data', async function(data){
                     try {
-                        console.log(data);
                         const Password = await bcrypt.hash(data.password, saltRounds);
                         const entity = {
                             Username: data.username,
@@ -99,17 +104,24 @@ managerRouter.post('/create',upload.single('file'), async(req, res) => {
     }
 })
 
+// done
 managerRouter.get('/update', async (req, res) => {
     try {
         const entity = {
             TrangThai: req.query.status
         }
         const result = managerModel.update(entity, req.query.id);
+        if(result) {
+            return res.send('success');
+        } else {
+            return res.send('fail');
+        }
     } catch (error) {
-
+        return res.send('fail');
     }
-    return res.redirect('/admin/manager/list');
 })
+
+// pending
 managerRouter.get('/delete', async (req, res) => {
     try {
         const result = managerModel.delete(req.query.id);
@@ -119,15 +131,26 @@ managerRouter.get('/delete', async (req, res) => {
     return res.redirect('/admin/manager/list');
     
 })
+
+
 managerRouter.get('/history', async(req, res) => {
     let result;
+    let manager;
     try {
         result = await managerModel.history(req.query.id);
+        manager = await managerModel.get(req.query.id);
     } catch (error) {
         result = [];
     }
+    for (const item of result) {
+        item.ThoiGian = formatTime(item.ThoiGian);
+    }
     return res.render('admin/managerHistory', {
-        history: result
+        histories: result,
+        manager,
+        layout: 'adminSidebar',
+        title: 'Lịch sử người quản lý',
+        path: 'history'
     });
 
 })

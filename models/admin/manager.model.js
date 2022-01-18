@@ -25,5 +25,12 @@ module.exports = {
     update: async (entity, value) => {
         const res = await db.updateManagerAccount(entity, value);
         return res;
+    },
+    get: async (value) => {
+        const res = await db.getManager(value);
+        if(res.length > 0) {
+            return res[0];
+        } 
+        return null;
     }
 }

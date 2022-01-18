@@ -27,4 +27,8 @@ module.exports = {
   formatTime(value) {
     return value.toLocaleString("vi");
   },
+  ifNth(a, b, options) {
+    var isNth = utils.isNumber(a) && utils.isNumber(b) && b % a === 0;
+    return util.value(isNth, this, options);
+  }
 };
