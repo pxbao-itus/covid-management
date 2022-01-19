@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/css/chart.css">
 <link rel="stylesheet" href="/css/stacked_bar_chart.css">
+<link rel="stylesheet" href="/css/manager/statistic/statistic.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
 
 {{> navbar text='Tìm kiếm nhu yếu phẩm ... '}}
@@ -9,178 +10,34 @@
 <div class="container-fluid">
   <div class="row">
     {{> sidebar where='statistic'}}
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div class="covid-count">
-        <h1>Thống kê thông tin</h1>
-        <table id="stacked-example-3"
-        class="charts-css column hide-data show-heading show-labels show-primary-axis show-3-secondary-axes
-        data-spacing-10 multiple stacked">
-        <caption> Thống kê số lượng Covid trong 6 tháng gần nhất </caption>
+    <main role="main" id="content" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="row justify-content-md-center mt-2">
+        <div id="amount" class="type col-md-2 btn border mx-1">Trạng thái</div>   
+        <div id="consum-pack" class="type col-md-2 btn border mx-1">Tiêu thụ gói NYP </div>  
+        <div id="consum-pro" class="type col-md-2 btn border mx-1">Tiêu thụ NYP</div>  
+        <div id="loan-payment" class="type col-md-2 btn border mx-1">Dư nợ, thanh toán</div>     
+      </div>
+      <h4 id="statistic-title" class="mt-2"></h4>
+      <div id="chart" class="mx-auto chart-container">
 
-        <tbody>
-          <tr>
-            <th scope="row"> Tháng 1 </th>
-            <td style="--size:calc(50 / 150);">
-              <span class="data">
-                F0
-              </span>
-            </td>
-            <td style="--size:calc(50 / 150);">
-              <span class="data">
-                F1
-              </span>
-            </td>
-            <td style="--size:calc(30 / 150);">
-              <span class="data">
-                F2
-              </span>
-            </td>
-            <td style="--size:calc(20 / 150);">
-              <span class="data">
-                Khỏi bệnh
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"> Tháng 2 </th>
-            <td style="--size:calc(30 / 150);"><span class="data"> F0 </span></td>
-            <td style="--size:calc(30 / 150);"><span class="data"> F1 </span></td>
-            <td style="--size:calc(30 / 150);"><span class="data"> F2 </span></td>
-            <td style="--size:calc(30 / 150);"><span class="data"> Khỏi bệnh </span></td>
-          </tr>
-          <tr>
-            <th scope="row"> Tháng 3 </th>
-            <td style="--size:calc(40 / 150);"><span class="data"> F0 </span></td>
-            <td style="--size:calc(25 / 150);"><span class="data"> F1 </span></td>
-            <td style="--size:calc(45 / 150);"><span class="data"> F1 </span></td>
-            <td style="--size:calc(30 / 150);"><span class="data"> Khỏi bệnh </span></td>
-          </tr>
-          <tr>
-            <th scope="row"> Tháng 4 </th>
-            <td style="--size:calc(20 / 150);"><span class="data"> F0 </span></td>
-            <td style="--size:calc(20 / 150);"><span class="data"> F1 </span></td>
-            <td style="--size:calc(20 / 150);"><span class="data"> F2 </span></td>
-            <td style="--size:calc(20 / 150);"><span class="data"> Khỏi bệnh </span></td>
-          </tr>
-          <tr>
-            <th scope="row"> Tháng 5 </th>
-            <td style="--size:calc(20 / 150);"><span class="data"> F0 </span></td>
-            <td style="--size:calc(20 / 150);"><span class="data"> F1 </span></td>
-            <td style="--size:calc(20 / 150);"><span class="data"> F2 </span></td>
-            <td style="--size:calc(20 / 150);"><span class="data"> Khỏi bệnh </span></td>
-          </tr>
-          <tr>
-            <th scope="row"> Tháng 6 </th>
-            <td style="--size:calc(20 / 150);"><span class="data"> F0 </span></td>
-            <td style="--size:calc(20 / 150);"><span class="data"> F1 </span></td>
-            <td style="--size:calc(20 / 150);"><span class="data"> F2 </span></td>
-            <td style="--size:calc(20 / 150);"><span class="data"> Khỏi bệnh </span></td>
-          </tr>
-        </tbody>
+      </div>
+      <div id="statistic-table" class="mt-3">      
+        <table class="table table-striped bg-white">
+            <thead id="thead" class="bg-success text-light">
+            </thead>
+            <tbody id="tbody">
+            </tbody>
         </table>
       </div>
-      <div class="status-change">
-        <h1>Thống kê số người chuyển trạng thái trong ngày {{today}}</h1>
-        <div class="chart-wrap vertical">
-          <h2 class="title">Thống kê số lượng Covid trong ngày {{day}} 21/12/2021</h2>
-
-          <div class="grid">
-            <div class="bar" style="--bar-value:85%;" data-name="F0" title="1000"></div>
-            <div class="bar" style="--bar-value:23%;" data-name="F1" title="100"></div>
-            <div class="bar" style="--bar-value:7%;" data-name="F2" title="100"></div>
-            <div class="bar" style="--bar-value:20%;" data-name="Đã khỏi bệnh" title="Đã khỏi bệnh"></div>
-          </div>
-        </div>
+      <div class="row justify-content-md-center">
+        <div id="export" class="btn btn-success col-md-3 mt-3">Xuất file</div>
       </div>
-      <div class="top5-package">
-        <h1>Top 5 gói sản phẩm được tiêu thụ nhiều nhất</h1>
-
-
-      </div>
-      <div class="top5-product">
-          
-        <div class="chart-wrap vertical">
-          <h2 class="title">
-            5 gói sản phẩm được bán nhiều nhất
-          </h2>
-
-          <div class="grid">:
-            <div class="bar" style="--bar-value:85%;" data-name="F0" title="1000"></div>
-            <div class="bar" style="--bar-value:23%;" data-name="F1" title="100"></div>
-            <div class="bar" style="--bar-value:7%;" data-name="F2" title="100"></div>
-            <div class="bar" style="--bar-value:20%;" data-name="Đã khỏi bệnh" title="Đã khỏi bệnh"></div>
-          </div>
-        </div>
-
-        <h1>
-          Thống kê số lượng sản phẩm được tiêu thụ
-        </h1>
-        <div class="chart-wrap vertical">
-          <h2 class="title">
-            5 sản phẩm được bán nhiều nhất
-          </h2>
-
-          <div class="grid">:
-            <div class="bar" style="--bar-value:85%;" data-name="F0" title="1000"></div>
-            <div class="bar" style="--bar-value:23%;" data-name="F1" title="100"></div>
-            <div class="bar" style="--bar-value:7%;" data-name="F2" title="100"></div>
-            <div class="bar" style="--bar-value:20%;" data-name="Đã khỏi bệnh" title="Đã khỏi bệnh"></div>
-          </div>
-        </div>
-      </div>
-      <div class="payment">
-        <h1>
-          Thống kê dư nợ
-        </h1>
-        <table id="stacked-example-3"
-        class="charts-css column hide-data show-heading show-labels show-primary-axis show-3-secondary-axes
-        data-spacing-10 multiple stacked">
-        <caption> Thống kê dư nợ 6 tháng gần nhất </caption>
-
-        <tbody>
-          <tr>
-            <th scope="row"> Tháng 1 </th>
-            <td style="--size:calc(50 / 150);">
-              <span class="data">
-                F0
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"> Tháng 2 </th>
-            <td style="--size:calc(30 / 150);"><span class="data"> F0 </span></td>
-          </tr>
-          <tr>
-            <th scope="row"> Tháng 3 </th>
-            <td style="--size:calc(40 / 150);"><span class="data"> F0 </span></td>
-          </tr>
-          <tr>
-            <th scope="row"> Tháng 4 </th>
-            <td style="--size:calc(20 / 150);"><span class="data"> F0 </span></td>
-          </tr>
-          <tr>
-            <th scope="row"> Tháng 5 </th>
-            <td style="--size:calc(20 / 150);"><span class="data"> F0 </span></td>
-          </tr>
-          <tr>
-            <th scope="row"> Tháng 6 </th>
-            <td style="--size:calc(20 / 150);"><span class="data"> F0 </span></td>
-          </tr>
-        </tbody>
-        </table>
-      </div>
-
     </main>
 
   </div>
 </div>
 {{> modal}}
-<script>
-  $('.value').each(function() {
-    var text=$(this).text();
-    $(this).parent().css('height',text);
-  });
-
-  $('.block').tooltip();
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+<script src="/js/vendors/jquery.min.js"></script>
+<script type="text/javascript" src="/js/manager/statistic.js"></script>

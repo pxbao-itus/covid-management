@@ -1,38 +1,41 @@
 const statistic = require('express').Router();
-
+const {formatDOB} = require('../../helpers/helper');
 const statisticModel = require('../../models/manager/statistic.model');
 
 statistic.get('/', (req, res) => {
-    res.render("manager/statistic/statistic");
+    res.render("manager/statistic/statistic", {
+        title: 'Thống kê'
+    });
 });
 
 statistic.get('/status-user', async(req, res) => {
-    const statusUsers = await statisticModel.listUserStatus();
-    console.log(statusUsers);
+    let statusUsers = await statisticModel.listUserStatus();
+    for (let item of statusUsers) {
+        item.ThoiGian = formatDOB(item.ThoiGian);
+    }
     res.send(statusUsers);
 });
 
 statistic.get('/change-status', async(req, res) => {
     const changeUsers = await statisticModel.listChangeStatus();
-    console.log(changeUsers);
     res.send(changeUsers);
 });
 
 statistic.get('/consum-package', async(req, res) => {
     const consumPackage = await statisticModel.listConsumPackage();
-    console.log(consumPackage);
     res.send(consumPackage);
 });
 
 statistic.get('/product', async(req, res) => {
     const statisticProduct = await statisticModel.listProduct();
-    console.log(statisticProduct);
     res.send(statisticProduct);
 });
 
 statistic.get('/loan-payment', async(req, res) => {
-    const statisticPayment = await statisticModel.Payment();
-    console.log(statisticPayment);
+    let statisticPayment = await statisticModel.Payment();
+    for (let item of statisticPayment) {
+        item.ThoiGian = formatDOB(item.ThoiGian);
+    }
     res.send(statisticPayment);
 });
 module.exports = statistic;

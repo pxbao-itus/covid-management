@@ -1,5 +1,53 @@
 @import url("../../modal.css");
 @import url("../../tableDetail.css");
 
+#content {
+  height: 90vh;
+  overflow: auto;
+}
 
+#content::-webkit-scrollbar {
+  width: 6px;
+}
 
+#content::-webkit-scrollbar-thumb {
+background: var(--gray);
+}
+
+.btn {
+  cursor: pointer;
+}
+
+table {
+  vertical-align: middle;
+  text-align: center;
+}
+.chart-container {
+  width: 80%;
+}
+.scale-in {
+  width: 40%;
+}
+
+table {
+  display: block;
+  overflow: auto;
+}
+
+tbody {
+  display: block;
+  max-height: 50vh;
+  overflow: auto;
+}
+thead, tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed; 
+}
+tbody::-webkit-scrollbar {
+  width: 6px;
+}
+
+tbody::-webkit-scrollbar-thumb {
+background: var(--gray);
+}
