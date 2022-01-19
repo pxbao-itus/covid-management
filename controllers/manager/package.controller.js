@@ -151,6 +151,7 @@ packageRouter.post("/list", async(req, res) => {
                 return item1 + item2.DonGia * item2.SoLuong;
             }, 0);
         }
+
         let resultPagnition = [];
         var options = { day: "2-digit", month: "2-digit", year: "numeric" };
         result.forEach((element) => {
@@ -159,6 +160,7 @@ packageRouter.post("/list", async(req, res) => {
                 options
             );
         });
+
         if (req.query.search) {
             result = result.filter(item => {
                 return (item.TenGoiNYP.toLowerCase().indexOf(req.query.search.toLowerCase()) >= 0);
@@ -188,6 +190,7 @@ packageRouter.post("/list", async(req, res) => {
                 })
             }
         }
+
         if (req.query.start || req.query.end) {
             if (req.query.type === 'total') {
                 result = result.filter(item => {
@@ -242,7 +245,6 @@ packageRouter.post("/list", async(req, res) => {
                 })
             }
         }
-
         let pagnition = [];
         for (let index = 1; index <= ((result.length - result.length % 6) / 6); index++) {
             pagnition.push(index);
@@ -370,15 +372,12 @@ packageRouter.post("/create", upload.single('image'), async(req, res) => {
         const uploader = async(path) => await cloudinary.uploads(path, 'Images');
 
         const imageRes = await uploader(req.file.path);
-        console.log(imageRes.url)
         const packageFull = {
             ...package,
             HinhAnh: imageRes.url
         };
-        console.log(packageFull)
-        console.log(details)
         const result = await packageModel.create(packageFull, details);
-        console.log(result)
+
         return res.redirect("/manager/package/create");
     } catch (error) {
         return res.redirect("/manager/package/create");
