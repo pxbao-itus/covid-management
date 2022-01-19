@@ -1,8 +1,8 @@
 const userRouter = require('express').Router();
 const userModel = require('../../models/manager/user.model');
 const paymentModel = require('../../models/manager/payment.model');
-
-
+const user = require("../manager/user.controller");
+const jwt = require("jsonwebtoken");
 
 userRouter.get("/profile", async (req, res) => {
   const userId = req.session.passport.user.NguoiLienQuan;
@@ -93,15 +93,20 @@ userRouter.get("/announce-payment", async (req, res) => {
       title: "Xem thông báo nhắc thanh toán",
       username: username,
     });
-    
   } catch (error) {
     console.log(error);
   }
 });
 
-userRouter.get('/payment',(req,res)=>{
-
-    res.send(process.env.PORT);
+userRouter.get("/payment-system", (req, res) => {
+  if (req.session) {
+    const data = {
+      _id: req.session.passport.user.NguoiLienQuan,
+      username: req.session.passport.user.Username,
+    };
+    const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET);
+    res.cookie("accessToken", accessToken, { maxAge: 1000 * 60 * 10 });
+    return res.redirect("http://localhost:3005/signin");
+  }
 });
-
 module.exports = userRouter;

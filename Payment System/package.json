@@ -11,11 +11,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.25.0",
     "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "express-handlebars": "^6.0.2",
     "express-session": "^1.17.2",
+    "jsonwebtoken": "^8.5.1",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
