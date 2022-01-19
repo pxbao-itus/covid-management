@@ -56,6 +56,7 @@ userRouter.get("/history-managed", async (req, res) => {
     history: historyManaged,
     layout: "user",
     path: "/historyManaged",
+    title: "Lịch sử được quản lý",
     username: username,
   });
 });

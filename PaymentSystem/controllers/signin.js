@@ -11,12 +11,16 @@ paymentRouter.get("/", async (req, res) => {
       process.env.ACCESS_TOKEN_SECRET,
       async (err, data) => {
         let account = await accountModel.get(data.username);
+        if (account.TrangThai === 0) {
+          return res.redirect("/change-password");
+        }
         if (account) {
-          req.session.userInfor = {
+          req.session.userInfo = {
             userId: account.MaTaiKhoan,
             username: account.Username,
           };
         }
+
         res.cookie("paymentSignin", "on", { maxAge: 1000 * 60 * 5 });
 
         return res.redirect("/payment");
@@ -57,8 +61,15 @@ paymentRouter.post("/", async (req, res, next) => {
         });
       }
       let account = await accountModel.get(user.Username);
+      if (account.TrangThai === 0) {
+        return res.render("signin", {
+          msg: "Tài khoản chưa được kích hoạt",
+          path: "/signin",
+          title: "Liên kết hệ thống thanh toán",
+        });
+      }
       if (account) {
-        req.session.userInfor = {
+        req.session.userInfo = {
           userId: account.MaTaiKhoan,
           username: account.Username,
         };
