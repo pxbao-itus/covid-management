@@ -82,6 +82,9 @@ $(document).ready(function() {
     });
 
     $("#insert-form").submit(function(e) {
+        var today = new Date();
+        var time = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        time = time + "T" + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         for (let id of productsToPackage) {
             let SoLuong = document.getElementById("X" + id).getElementsByTagName("input")[0].value;
             let SoLuongToiDa = document.getElementById("X" + id).getElementsByTagName("input")[1].value;
@@ -101,6 +104,7 @@ $(document).ready(function() {
         e.preventDefault();
         let form = new FormData(this);
         form.append('package', JSON.stringify({
+            NgayLapGoi: time,
             TenGoiNYP: form.get('TenGoiNYP'),
             MucGioiHan: form.get('MucGioiHan'),
             ThoiGianGioiHan: form.get('ThoiGianGioiHan'),
@@ -112,7 +116,8 @@ $(document).ready(function() {
             url: url,
             data: form, // serializes the form's elements.
             success: function(data) {
-                alert(data); // show response from the php script.
+                alert("Thêm gói nhu yếu phẩm thành công!");
+                window.location.reload("/manager/package/list")
             },
 
             cache: false,
@@ -128,7 +133,7 @@ function reloadTable(items) {
         $(".row-cols-md-3").append(`
       <div class="col-sm">
       <div class="card" style="width: 18rem;">
-      <img class="card-img-top" src="${element.HinhAnh1}" style="
+      <img class="card-img-top" src="${element.HinhAnh}" style="
           width: 286px;
           height: 200px;
           object-fit: cover;

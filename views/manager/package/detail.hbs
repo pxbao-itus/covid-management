@@ -30,23 +30,23 @@
                                 <tbody>
                                     <tr>
                                         <th style="border-top: none;" scope="row">Mã gói nhu yếu phẩm :</th>
-                                        <td style="border-top: none;"> 212846352</td>
+                                        <td style="border-top: none;"> {{package.package.MaGoiNYP}}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Tên gói nhu yếu phẩm :</th>
-                                        <td>Trà Anh Toàn</td>
+                                        <td>{{package.package.TenGoiNYP}}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Ngày tạo :</th>
-                                        <td>free</td>
+                                        <td>{{package.package.NgayLapGoi}}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Mức giới hạn :</th>
-                                        <td>chiếc</td>
+                                        <td>{{package.package.MucGioiHan}}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Thời gian giới hạn :</th>
-                                        <td>24-10-1917</td>
+                                        <td>{{package.package.ThoiGianGioiHan}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -72,39 +72,21 @@
                                         <th style="border-top: none;">Số lượng tối đa</th>
                                         <th style="border-top: none;">Chi tiết</th>
                                     </tr>
-                                    <tr>
-                                        <td class="item-id">1234</td>
-                                        <td>1</td>
-                                        <td>Gói bánh 1</td>
-                                        <td>0</td>
-                                        <td>1</td>
-                                        <td>2</td>
+                                    {{#each package.details }}
+                                        <tr>
+                                        <td class="item-id">{{MaNYP}}</td>
+                                        <td>{{TenNYP}}</td>
+                                        <td>{{SoLuongToiThieu}}</td>
+                                        <td>{{SoLuong}}</td>
+                                        <td>{{SoLuongToiDa}}</td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-info btn-detail-product">Chi tiết</button>
+                                            <button type="button" class="btn btn-info btn-detail-product">
+                                                <a style="text-decoration: none;color:white" href="/manager/product/detail?id={{MaNYP}}">Chi tiết</a>
+                                            
+                                            </button>
                                         </td class="text-center">
                                     </tr>
-                                    <tr>
-                                        <td class="item-id">1234</td>
-                                        <td>1</td>
-                                        <td>Gói bánh 1</td>
-                                        <td>0</td>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn btn-info btn-detail-product">Chi tiết</button>
-                                        </td class="text-center">
-                                    </tr>
-                                    <tr>
-                                        <td class="item-id">1234</td>
-                                        <td>1</td>
-                                        <td>Gói bánh 1</td>
-                                        <td>0</td>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn btn-info btn-detail-product">Chi tiết</button>
-                                        </td class="text-center">
-                                    </tr>
+                                    {{/each}}
 
 
                                 </tbody>
@@ -114,7 +96,7 @@
                     <div class="mb-4"></div>
                 </div>
 
-                <div>
+                {{!-- <div>
                     <h2>Lịch sử mua gói</h2>
                     <div class="mb-3"></div>
                     <div class="card">
@@ -170,7 +152,7 @@
                             </table>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
             </div>
         </main>

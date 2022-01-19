@@ -28,9 +28,10 @@ require("./config/handlebars.config")(app);
 
 // use middleware
 
-app.use(authMiddleware);
+//app.use(authMiddleware);
 
 // use router
+
 
 // router for User, Manager, Admin sign in, sign out, change password
 app.use("/auth", require("./controllers/auth.controller"));

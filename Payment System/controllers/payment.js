@@ -72,7 +72,7 @@ paymentRouter.get("/signout", async (req, res) => {
   res.clearCookie("paymentSignin");
   res.clearCookie("accessToken");
   req.session.destroy();
-  return res.redirect("http://localhost:3005");
+  return res.redirect("/");
 });
 
 paymentRouter.get("/input-money", async (req, res) => {
