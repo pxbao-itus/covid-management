@@ -5,3 +5,13 @@ body::-webkit-scrollbar {
 body::-webkit-scrollbar-thumb {
 background: var(--gray);
 }
+
+ #sidebar {
+  background-color: #494CA2;
+}
+
+.nav-item {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: -5px;
+}
