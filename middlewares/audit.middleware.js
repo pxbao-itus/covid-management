@@ -6,10 +6,7 @@ const packageModel = require('../models/manager/package.model');
 const paymentModel = require('../models/manager/payment.model');
 
 const auditMiddleware = async (req, res, next) => {
-  if(!req.user) {
-    return res.redirect('/auth/signout');
-  }
-  if(req.user.role === 'MANAGER') {
+  if(req.user && req.user.role === 'MANAGER') {
     try {
       const date = new Date().toLocaleString();
       const managerId = req.user.userId;
@@ -117,10 +114,10 @@ const auditMiddleware = async (req, res, next) => {
       // }
 
     } catch (error) {
-      console.log(error)
+      return next();
     }
   }
-  next();
+  return next();
 }
 
 function dataSet(NguoiQuanLy, ThoiGian, DoiTuong, HanhDong, GiaTriTruoc = '', GiaTriSau = ''){
