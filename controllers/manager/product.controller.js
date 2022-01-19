@@ -2,7 +2,8 @@ const product = require("express").Router();
 const cloudinary = require('../../config/cloudinary.config');
 const upload = require('../../config/multer.config');
 const productModel = require("../../models/manager/product.model");
-
+const csv = require('csv-parser');
+const fs = require('fs');
 
 product.get("/list", async(req, res) => {
     try {
@@ -288,4 +289,34 @@ product.post("/create", upload.array("image"), async(req, res) => {
         // return res.redirect("/manager/product/create");
     }
 });
+product.post('/upload', upload.single('product'), async (req, res) => {
+    try {
+        if(req.file) {
+            fs.createReadStream(req.file.path)
+                .pipe(csv())
+                .on('data', async function(data){
+                    try {
+                        const entity = {
+                            TenNYP: data.TenNYP,
+                            HinhAnh1: data.HinhAnh1,
+                            HinhAnh2: data.HinhAnh2,
+                            HinhAnh3: data.HinhAnh3,
+                            HinhAnh4: data.HinhAnh4,
+                            DonGia: data.DonGia,
+                            DonViDinhLuong: data.DonViDinhLuong
+                        }
+                        const result = await productModel.create(entity);
+                    }
+                    catch(err) {
+                        return res.send('fail');
+                    }
+                })
+                .on('end',function(){                   
+                });
+            return res.send('success');
+        }
+    } catch (error) {
+        return res.send('fail');
+    }
+})
 module.exports = product;

@@ -1,6 +1,9 @@
 const user = require("express").Router();
 const { result } = require("../../models/db");
 const userModel = require("../../models/manager/user.model");
+const upload = require('../../config/multer.config');
+const fs = require('fs');
+const csv = require('csv-parser');
 
 user.get("/list", async(req, res) => {
     var users = await userModel.list();
@@ -284,5 +287,34 @@ user.post("/create", async(req, res) => {
         return res.redirect("/manager/user/create");
     }
 });
-
+user.post('/upload', upload.single('user'), async (req, res) => {
+    try {
+        if(req.file) {
+            fs.createReadStream(req.file.path)
+                .pipe(csv())
+                .on('data', async function(data){
+                    try {
+                        const entity = {
+                            HoTen: data.HoTen,
+                            CCCD: data.CCCD,
+                            NgaySinh: data.NgaySinh,
+                            DiaChi: data.DiaChi,
+                            SoDienThoai: data.SoDienThoai,
+                            TrangThaiHienTai: data.TrangThaiHienTai,
+                            NoiDieuTri: data.NoiDieuTri
+                        }
+                        const result = await userModel.create(entity);
+                    }
+                    catch(err) {
+                        return res.send('fail');
+                    }
+                })
+                .on('end',function(){                   
+                });
+            return res.send('success');
+        }
+    } catch (error) {
+        return res.send('fail');
+    }
+})
 module.exports = user;

@@ -43,29 +43,29 @@ app.use("/init", require("./controllers/initAdmin.controller"));
 
 // ------------------ Router for manager -------------------
 //router for user
-app.use("/manager/user", auditMiddleware, require("./controllers/manager/user.controller"));
+app.use("/manager/user", require("./controllers/manager/user.controller"));
 
 // router for product
 app.use(
-  "/manager/product", auditMiddleware,
+  "/manager/product", 
   require("./controllers/manager/product.controller")
 );
 
 // router for package
 app.use(
-  "/manager/package", auditMiddleware,
+  "/manager/package", 
   require("./controllers/manager/package.controller")
 );
 
 // router for statistic
 app.use(
-  "/manager/statistic", auditMiddleware,
+  "/manager/statistic",
   require("./controllers/manager/statistic.controller")
 );
 
 // router for payment
 app.use(
-  "/manager/payment", auditMiddleware,
+  "/manager/payment",
   require("./controllers/manager/payment.controller")
 );
 
