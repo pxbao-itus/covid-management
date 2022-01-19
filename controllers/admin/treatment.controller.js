@@ -109,7 +109,7 @@ treatmentRouter.post("/create", upload.single('file'), async (req, res) => {
           try {
             const entity = {
               TenNoiDTCL: data.TenNoiDTCL,
-              SucChua: data.SucChuaw,
+              SucChua: data.SucChua,
               SoLuongHienTai: data.SoLuongHienTai,
               DiaChi: data.DiaChi,
               Loai: data.Loai,

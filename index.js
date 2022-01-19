@@ -5,8 +5,8 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 
 // import module
-const authMiddleware = require("./middlewares/middleware");
-
+const authMiddleware = require('./middlewares/middleware');
+const auditMiddleware = require('./middlewares/audit.middleware');
 // init variable
 const app = express();
 const port = process.env.PORT;
@@ -31,11 +31,6 @@ require("./config/handlebars.config")(app);
 app.use(authMiddleware);
 
 // use router
-app.get("/manager", (req, res) => {
-  res.render("manager/user/detail.hbs", {
-    path: "/manager/user/detail",
-  });
-});
 
 // router for User, Manager, Admin sign in, sign out, change password
 app.use("/auth", require("./controllers/auth.controller"));
@@ -47,29 +42,29 @@ app.use("/init", require("./controllers/initAdmin.controller"));
 
 // ------------------ Router for manager -------------------
 //router for user
-app.use("/manager/user", require("./controllers/manager/user.controller"));
+app.use("/manager/user", auditMiddleware, require("./controllers/manager/user.controller"));
 
 // router for product
 app.use(
-  "/manager/product",
+  "/manager/product", auditMiddleware,
   require("./controllers/manager/product.controller")
 );
 
 // router for package
 app.use(
-  "/manager/package",
+  "/manager/package", auditMiddleware,
   require("./controllers/manager/package.controller")
 );
 
 // router for statistic
 app.use(
-  "/manager/statistic",
+  "/manager/statistic", auditMiddleware,
   require("./controllers/manager/statistic.controller")
 );
 
 // router for payment
 app.use(
-  "/manager/payment",
+  "/manager/payment", auditMiddleware,
   require("./controllers/manager/payment.controller")
 );
 
@@ -79,7 +74,7 @@ app.use("/admin/manager", require("./controllers/admin/manager.controller"));
 
 // router for manage treatment place
 app.use(
-  "/admin/treatment-place",
+  "/admin/treatment",
   require("./controllers/admin/treatment.controller")
 );
 
@@ -90,21 +85,7 @@ app.use("/package", require("./controllers/user/package.controller"));
 // router for order
 app.use("/order", require("./controllers/user/order.controller"));
 
-// router for file upload
-// var multer = require('multer');
-// var storage = multer.diskStorage({
-//     destination: function(req, file, cb) {
-//         cb(null, './public/images/');
-//     },
-//     filename: function(req, file, cb) {
-//         cb(null, file.originalname)
-//     }
-// })
-// var upload = multer({ storage: storage })
-// app.post('/upload', , function(req, res) {
-//     console.log(req.file);
-//     res.send("upload file thành công")
-// });
+
 //router for user
 app.use('/user', require('./controllers/user/user.controller'));
 

@@ -32,5 +32,9 @@ module.exports = {
             return res[0];
         } 
         return null;
+    },
+    addHistory: async (entity) => {
+        const res = await db.addHistory(entity);
+        return res;
     }
 }

@@ -233,11 +233,11 @@ CREATE TABLE "LichSuNguoiQuanLy"(
 	"MaLichSu" SERIAL,
 	"NguoiQuanLy" int4 NOT NULL,
 	"ThoiGian" timestamp,
-	"DoiTuong" varchar(20),
-	"HanhDong" varchar(20),
+	"DoiTuong" varchar(100),
+	"HanhDong" varchar(100),
 	"MaDong" int4,
-	"GiaTriTruoc" varchar(50),
-	"GiaTriSau" varchar(50),
+	"GiaTriTruoc" varchar(100),
+	"GiaTriSau" varchar(100),
 	
 	PRIMARY KEY ("MaLichSu")
 	

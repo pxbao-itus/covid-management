@@ -91,3 +91,15 @@ exports.getManager = async (value) => {
         return null;
     }
 }
+
+exports.addHistory = async (entity) => {
+    const table = new pgp.helpers.TableName({table: LichSuNguoiQuanLy, schema: schema});
+    const qStr = pgp.helpers.insert(entity, null, table) + "RETURNING *";
+    try {
+        const res = await db.one(qStr);
+        return res;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}

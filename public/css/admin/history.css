@@ -22,7 +22,7 @@ table {
 
 tbody {
   display: block;
-  max-height: 70vh;
+  max-height: 57vh;
   overflow: auto;
 }
 thead, tbody tr {
