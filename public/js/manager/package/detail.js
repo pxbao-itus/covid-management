@@ -30,8 +30,13 @@ $(document).ready(function() {
     });
 
     $("#delete-form").submit(function(e) {
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const myParam = urlParams.get('id');
+
+        console.log(myParam)
         var form = $(this);
-        var url = "/manager/package/delete";
+        var url = "/manager/package/delete/?id=" + myParam;
 
         $.ajax({
             type: "POST",

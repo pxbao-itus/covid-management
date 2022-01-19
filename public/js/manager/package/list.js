@@ -116,7 +116,8 @@ $(document).ready(function() {
             url: url,
             data: form, // serializes the form's elements.
             success: function(data) {
-                alert(data); // show response from the php script.
+                alert("Thêm gói nhu yếu phẩm thành công!");
+                window.location.reload("/manager/package/list")
             },
 
             cache: false,

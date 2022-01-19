@@ -308,8 +308,9 @@ packageRouter.get("/list/ajax", async(req, res) => {
         return res.send([]);
     }
 });
-packageRouter.get("/delete", async(req, res) => {
+packageRouter.post("/delete", async(req, res) => {
     const MaGoiNYP = req.query.id;
+    console.log("Ma goi la:" + MaGoiNYP)
     try {
         const result = await packageModel.delete(MaGoiNYP);
         return res.send('success');
@@ -322,14 +323,15 @@ packageRouter.get("/detail", async(req, res) => {
     try {
         const result = await packageModel.detail(MaGoiNYP);
         if (result) {
+            console.log(result)
             return res.render("manager/package/detail", {
                 package: result,
                 path: "/manager/package/detail",
             });
         }
-        return res.render("/manager/packageDetail");
+        return res.redirect("/manager/package/list");
     } catch (error) {
-        return res.render("/manager/packageDetail");
+        return res.render("/manager/package/list");
     }
 });
 
