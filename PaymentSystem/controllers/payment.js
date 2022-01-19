@@ -30,23 +30,32 @@ paymentRouter.post("/", async (req, res) => {
   if (req.cookies.paymentSignin !== "on") {
     return res.redirect("/payment/signin");
   } else {
+    const paymentMethod = req.body.payment;
+    let money = 0;
+    if (paymentMethod === "payAll") {
+      money = parseInt((await paymentModel.getLoan(userInfo.userId)).SoDuNo);
+    } else if (paymentMethod === "payPart") {
+      money = parseInt(req.body.money);
+    } else {
+      return render("/payment", {
+        title: "Thanh toán dư nợ",
+        path: "/payment",
+      });
+    }
     const paymentLoan = await paymentModel.getLoan(userInfo.userId);
     const accountPayment = await accountPaymentModel.getBalance(
       userInfo.userId
     );
     var balance = parseInt(accountPayment.SoDu);
     var loan = parseInt(paymentLoan.SoDuNo);
-    const money = parseInt(req.body.money);
-    const userId = userInfo.userId;
-    const username = userInfo.username;
     var today = new Date();
     const entity = {
-      NguoiLienQuan: userId,
+      NguoiLienQuan: userInfo.userId,
       ThoiGian: today,
       SoTien: money,
     };
     try {
-      const result = await paymentModel.create(entity, username);
+      const result = await paymentModel.create(entity, userInfo.username);
       var msg = "";
       if (result) {
         balance -= result.SoTien;
@@ -54,13 +63,15 @@ paymentRouter.post("/", async (req, res) => {
         msg = "Thanh toán thành công";
         return res.render("paymentLoan", {
           msg: msg,
-          data: { paymentLoan: true, loan: loan, balance: balance },
+          data: { loan: loan, balance: balance },
+          username: userInfo.username,
         });
       } else {
         msg = "Thanh toán thất bại";
         return res.render("paymentLoan", {
           error: msg,
-          data: { paymentLoan: true, loan: loan, balance: balance },
+          data: { loan: loan, balance: balance },
+          username: userInfo.username,
         });
       }
     } catch (error) {
