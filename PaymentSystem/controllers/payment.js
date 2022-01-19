@@ -10,14 +10,14 @@ paymentRouter.get("/", async (req, res) => {
       console.log("Error : " + error);
     }
   } else {
-    const userInfor = req.session.userInfor;
-    const paymentLoan = await paymentModel.getLoan(userInfor.userId);
+    const userInfo = req.session.userInfo;
+    const paymentLoan = await paymentModel.getLoan(userInfo.userId);
     const accountPayment = await accountPaymentModel.getBalance(
-      userInfor.userId
+      userInfo.userId
     );
     const balance = parseInt(accountPayment.SoDu);
     const loan = parseInt(paymentLoan.SoDuNo);
-    var username = userInfor.username;
+    var username = userInfo.username;
     return res.render("paymentLoan", {
       data: { loan: loan, balance: balance },
       username: username,
@@ -26,18 +26,19 @@ paymentRouter.get("/", async (req, res) => {
 });
 
 paymentRouter.post("/", async (req, res) => {
+  const userInfo = req.session.userInfo;
   if (req.cookies.paymentSignin !== "on") {
     return res.redirect("/payment/signin");
   } else {
-    const paymentLoan = await paymentModel.getLoan(req.signedCookies["userId"]);
+    const paymentLoan = await paymentModel.getLoan(userInfo.userId);
     const accountPayment = await accountPaymentModel.getBalance(
-      req.signedCookies["userId"]
+      userInfo.userId
     );
     var balance = parseInt(accountPayment.SoDu);
     var loan = parseInt(paymentLoan.SoDuNo);
     const money = parseInt(req.body.money);
-    const userId = req.signedCookies["userId"];
-    const username = req.signedCookies["user"];
+    const userId = userInfo.userId;
+    const username = userInfo.username;
     var today = new Date();
     const entity = {
       NguoiLienQuan: userId,
@@ -81,7 +82,7 @@ paymentRouter.get("/input-money", async (req, res) => {
   } else {
     return res.render("inputMoney", {
       data: { inputMoney: true },
-      username: req.session.userInfor.username,
+      username: req.session.userInfo.username,
     });
   }
 });
@@ -91,21 +92,21 @@ paymentRouter.post("/input-money", async (req, res) => {
     return res.redirect("/payment/signin");
   } else {
     const paymentInserted = req.body;
-    const userInfor = req.session.userInfor;
+    const userInfo = req.session.userInfo;
     const entity = {
       SoDu: paymentInserted.money,
     };
     try {
-      const result = await paymentModel.recharge(entity, userInfor.userId);
+      const result = await paymentModel.recharge(entity, userInfo.userId);
       if (result) {
         res.render("inputMoney", {
-          username: userInfor.username,
+          username: userInfo.username,
           data: { inputMoney: true },
           msg: "Nạp tiền thành công",
         });
       } else {
         res.render("inputMoney", {
-          username: userInfor.username,
+          username: userInfo.username,
           data: { inputMoney: true },
           error: "Nạp tiền không thành công",
         });

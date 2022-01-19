@@ -26,3 +26,17 @@ exports.getBalance=async (value,tbName) => {
         console.log(error);
     }
 }
+
+
+exports.updatePassword = async (entity, value, tbName) => {
+  const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
+  const condition = pgp.as.format(' WHERE "Username" = $1', [value]);
+  const qStr =
+    pgp.helpers.update(entity, null, table) + condition + " RETURNING *";
+  try {
+    const res = await db.one(qStr);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
