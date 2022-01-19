@@ -106,7 +106,7 @@ userRouter.get("/payment-system", (req, res) => {
     };
     const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET);
     res.cookie("accessToken", accessToken, { maxAge: 1000 * 60 * 10 });
-    return res.redirect("http://localhost:3005/signin");
+    return res.redirect("https://localhost:3005/signin");
   }
 });
 module.exports = userRouter;
