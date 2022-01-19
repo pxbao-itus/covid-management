@@ -2,7 +2,8 @@ const authController = async (req, res, next) => {
   try {
     if (
       req.originalUrl.indexOf("auth") >= 0 ||
-      req.originalUrl.indexOf("init") >= 0
+      req.originalUrl.indexOf("init") >= 0 ||
+      req.originalUrl.indexOf("api") >= 0
     ) {
       return next();
     }

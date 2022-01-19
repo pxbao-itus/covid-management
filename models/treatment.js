@@ -10,7 +10,7 @@ const NoiDieuTriCachLy = 'NoiDieuTriCachLy';
 
 exports.list = async () => {
     const table = new pgp.helpers.TableName({table: NoiDieuTriCachLy, schema: schema});
-    const qStr = pgp.as.format('SELECT * FROM $1', table);
+    const qStr = pgp.as.format('SELECT * FROM $1 WHERE "SucChua" > "SoLuongHienTai"', table);
     try {
         const res = await db.any(qStr);
         return res;

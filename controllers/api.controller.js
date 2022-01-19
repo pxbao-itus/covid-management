@@ -79,8 +79,11 @@ apiRouter.get('/get/ward', async (req, res) => {
 // api get all treatment available
 apiRouter.get('/treatment', async(req, res) => {
     try {
-        const result = await treatmentModel.list();
+        let result = await treatmentModel.list();
         if (result) {
+            result = result.sort((item1, item2) => {
+                return item1.MaNoiDTCL - item2.MaNoiDTCL;
+            })
             return res.status(200).json(result);
         } else {
             throw 'can not connect database';
