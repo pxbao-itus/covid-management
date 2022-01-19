@@ -13,7 +13,7 @@ const { resolveSoa } = require("dns");
 
 // init variable
 const app = express();
-const port = process.env.PORT || 3005;
+const port = process.env.PAYMENT_PORT || 3005;
 // config app
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
