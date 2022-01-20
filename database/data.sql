@@ -132,23 +132,6 @@ VALUES(6,'070200006306','$2a$10$kz57VvFi/wAabpl8cP55ze1FXSpuj6UD1hwtk0I1Ct5qbkQA
 INSERT INTO "TaiKhoanNguoiDung"("NguoiLienQuan","Username","Password","TrangThai")
 VALUES(7,'070200006307','$2a$10$Pli3Ee3c4lNaCr9VJDq2r.s7CeW9XU7dVksAZMfCnnv6SKlsVUqme',0);
 
----Insert table TaiKhoanNguoiDungHTTT
-ALTER SEQUENCE IF EXISTS "TaiKhoanNguoiDungHTTT_MaTaiKhoan_seq" RESTART WITH 1;
-INSERT INTO "TaiKhoanNguoiDungHTTT"("Username","Password","TrangThai")
-VALUES('070200006301','$2a$10$4acDvLi8UMqLWYKvhbOTVu./VRgZVynR4OWNCo0FFPuQ37zPeWNTq',0);
-INSERT INTO "TaiKhoanNguoiDungHTTT"("Username","Password","TrangThai")
-VALUES('070200006302','$2a$10$8ue3kDSamNdzeeHlyMs/qunP1UPiGKc0GLiHDzMO2FUp2dAZSPVwm',0);
-INSERT INTO "TaiKhoanNguoiDungHTTT"("Username","Password","TrangThai")
-VALUES('070200006303','$2a$10$1ew1.MtwXVM3ctzWIOO4f.FH8v/eytP96ste9pWpeiKKSObJ7gg.G',0);
-INSERT INTO "TaiKhoanNguoiDungHTTT"("Username","Password","TrangThai")
-VALUES('070200006304','$2a$10$Uhp4dUKPO4Ir9Va/3ztZZeFg8SdVXvYFitd6fDqSFJeVLyz6aNhDe',0);
-INSERT INTO "TaiKhoanNguoiDungHTTT"("Username","Password","TrangThai")
-VALUES('070200006305','$2a$10$K7Lo3Kc3v1Om0y4BnSIw1.aP7nsZ.haC/Df3wlK9Z.TYnJ2v8QXve',0);
-INSERT INTO "TaiKhoanNguoiDungHTTT"("Username","Password","TrangThai")
-VALUES('070200006306','$2a$10$kz57VvFi/wAabpl8cP55ze1FXSpuj6UD1hwtk0I1Ct5qbkQATs.6u',0);
-INSERT INTO "TaiKhoanNguoiDungHTTT"("Username","Password","TrangThai")
-VALUES('070200006307','$2a$10$Pli3Ee3c4lNaCr9VJDq2r.s7CeW9XU7dVksAZMfCnnv6SKlsVUqme',0);
-
 ---Inset table MoiLienHe
 INSERT INTO "MoiLienHe"("NguoiLienQuan1","NguoiLienQuan2")
 VALUES(1,2);
