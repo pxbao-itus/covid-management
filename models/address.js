@@ -18,6 +18,7 @@ exports.listProvince = async () => {
         const res = await db.any(qStr);
         return res;
     } catch (error) {
+        console.log(error);
         return [];
     }
 }

@@ -354,12 +354,7 @@ packageRouter.post("/update", upload.single('image'), async(req, res) => {
             ThoiGianGioiHan: package.ThoiGianGioiHan,
             ...image
         };
-        // console.log("package")
-        // console.log(package)
-        // console.log("details")
-        // console.log(details)
-        // console.log("oldman")
-        // console.log(oldman)
+
         const result = packageModel.update(packageFull, details, oldman, package.MaGoiNYP);
         return res.send('ok');
     } catch (error) {

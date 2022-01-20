@@ -11,7 +11,7 @@ module.exports = {
     },
     detail: async(value) => {
         const res = await db.detailProduct(value);
-        if (res.length > 0) {
+        if (res && res.length > 0) {
             return res[0];
         } else {
             return null;

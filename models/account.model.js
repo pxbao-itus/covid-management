@@ -3,14 +3,14 @@ const fieldName = 'Username';
 module.exports = {
     all: async (tableName) => {
         const res = await db.loadAccount(tableName);
-        if(res.length > 0) {
+        if(res && res.length > 0) {
             return res;
         }
         return null;
     },
     get: async (tableName, value) => {
         const res = await db.getAccount(tableName, fieldName, value);
-        if(res.length > 0) {
+        if(res && res.length > 0) {
             return res[0];
         } else {
             return null;
