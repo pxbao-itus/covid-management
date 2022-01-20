@@ -31,7 +31,6 @@ $(document).ready(function() {
             url: url,
             data: form,
             success: function(data) {
-                //$('#contact').modal('hide');
                 fetchAPI(link, page, sort);
                 alert("Thêm nhu yếu phẩm thành công!"); // show response from the php script.
                 $("#modal-insert form :input").val("");

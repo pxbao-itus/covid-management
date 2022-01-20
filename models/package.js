@@ -62,10 +62,7 @@ exports.updatePackage = async(package, details, oldman, value) => {
     const condition = pgp.as.format(' WHERE "MaGoiNYP" = $1', [value]);
     const qStr = pgp.helpers.update(package, null, table) + condition + " RETURNING *";
     // oldman = Object.entries(oldman);
-    console.log("-------OLD--------")
-    console.log(oldman)
     oldman = Object.values(oldman)
-    console.log("-------OLD--------")
 
     try {
         const resultPackage = await db.one(qStr);
@@ -88,7 +85,6 @@ exports.updatePackage = async(package, details, oldman, value) => {
                 } else {
                     qStrDetail = pgp.helpers.insert(entity, null, detail) + " RETURNING *";
                 }
-                console.log(qStrDetail)
                 const resultDetail = await db.one(qStrDetail);
             }
 
@@ -98,25 +94,6 @@ exports.updatePackage = async(package, details, oldman, value) => {
 
             }
         }
-
-        // if (oldman.length > 0) {
-        //     for (let item of oldman) {
-        //         //item = item[0]
-        //         console.log("-------------------")
-        //         console.log(item.MaChiTietGoiNYP)
-
-        //         const entity = {
-        //             MaGoiNYP: resultPackage.MaGoiNYP,
-        //             MaNYP: item.MaNYP,
-        //             SoLuong: item.SoLuong,
-        //             SoLuongToiDa: item.SoLuongToiDa,
-        //             SoLuongToiThieu: item.SoLuongToiThieu
-        //         }
-
-
-        //     }
-        // }
-
         return true;
     } catch (error) {
         console.log(error);
@@ -142,7 +119,6 @@ exports.createPackage = async(package, details) => {
                     SoLuongToiDa: item.SoLuongToiDa,
                     SoLuongToiThieu: item.SoLuongToiThieu
                 }
-                console.log(entity)
                 const qStrDetail = pgp.helpers.insert(entity, null, detail) + "RETURNING *";
                 const resultDetail = await db.one(qStrDetail);
             }
