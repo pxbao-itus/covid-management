@@ -5,8 +5,8 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 
 // import module
-const authMiddleware = require('./middlewares/middleware');
-// const auditMiddleware = require('./middlewares/audit.middleware');
+const authMiddleware = require("./middlewares/middleware");
+const auditMiddleware = require("./middlewares/audit.middleware");
 // init variable
 const app = express();
 const port = process.env.PORT;
@@ -28,8 +28,8 @@ require("./config/handlebars.config")(app);
 
 // use middleware
 
-//app.use(authMiddleware);
-// app.use(auditMiddleware);
+app.use(authMiddleware);
+app.use(auditMiddleware);
 // use router
 
 
