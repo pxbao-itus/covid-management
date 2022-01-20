@@ -95,9 +95,6 @@ $(document).ready(function() {
                 SoLuongToiDa: SoLuongToiDa,
                 SoLuongToiThieu: SoLuongToiThieu
             });
-            // console.log(SoLuong)
-            // console.log(SoLuongToiDa)
-            // console.log(SoLuongToiThieu)
             console.log(productToSend)
         }
 
@@ -199,8 +196,6 @@ function reloadTableProductsOfPackage(items) {
 
     $("#list-2").html("");
 
-
-    // console.log(items)
     for (const element of items) {
         let NYPDetail = GetNYP(element);
         console.log(NYPDetail)

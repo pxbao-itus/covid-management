@@ -323,6 +323,7 @@ packageRouter.get("/detail", async(req, res) => {
     try {
         const result = await packageModel.detail(MaGoiNYP);
         if (result) {
+            result.details2 = JSON.stringify(result.details)
             return res.render("manager/package/detail", {
                 package: result,
                 path: "/manager/package/detail",
@@ -335,7 +336,10 @@ packageRouter.get("/detail", async(req, res) => {
 });
 
 packageRouter.post("/update", upload.single('image'), async(req, res) => {
-    const { package, details } = req.body;
+    let { package, details, oldman } = req.body;
+    package = JSON.parse(package);
+    details = JSON.parse(details);
+    oldman = JSON.parse(oldman);
     try {
         const uploader = async(path) => await cloudinary.uploads(path, 'Images');
         let image = {};
@@ -350,10 +354,11 @@ packageRouter.post("/update", upload.single('image'), async(req, res) => {
             ThoiGianGioiHan: package.ThoiGianGioiHan,
             ...image
         };
-        const result = packageModel.update(packageFull, details, package.MaGoiNYP);
-        return res.redirect(`/manager/detail?id=${package.MaGoiNYP}`);
+
+        const result = packageModel.update(packageFull, details, oldman, package.MaGoiNYP);
+        return res.send('ok');
     } catch (error) {
-        return res.redirect(`/manager/detail?id=${package.MaGoiNYP}`);
+        // return res.redirect(`/manager/detail?id=${package.MaGoiNYP}`);
     }
 });
 packageRouter.get("/create", (req, res) => {
@@ -377,6 +382,8 @@ packageRouter.post("/create", upload.single('image'), async(req, res) => {
             ...package,
             HinhAnh: imageRes.url
         };
+        // console.log(packageFull)
+        // console.log(details)
         const result = await packageModel.create(packageFull, details);
 
         return res.redirect("/manager/package/create");

@@ -93,8 +93,8 @@ CREATE TABLE "MoiLienHe"(
 CREATE TABLE "LichSuThanhToan"(
 	"NguoiLienQuan" int4 NOT NULL,
 	"ThoiGian" timestamp,
-	"SoTien" numeric(19,2),
-	"SoDuNo" numeric(19,2),
+	"SoTien" int4,
+	"SoDuNo" int4,
 	
 	PRIMARY KEY ("NguoiLienQuan","ThoiGian")
 	
@@ -133,7 +133,7 @@ CREATE TABLE "LichSuMuaGoiNYP"(
 	"MaLichSuMua" SERIAL,
 	"NguoiLienQuan" int4 NOT NULL,
 	"GoiNYP" int4,
-	"SoTien" numeric(19,2),
+	"SoTien" int4,
 	"ThoiGian" timestamp,
 	
 	PRIMARY KEY ("MaLichSuMua")
@@ -161,9 +161,9 @@ CREATE TABLE "ChiTietGoiNYP"(
 	"MaChiTietGoiNYP" SERIAL,
 	"MaGoiNYP" int4 NOT NULL,
 	"MaNYP" int4 NOT NULL,
-	"SoLuong" numeric(19,2),
-	"SoLuongToiDa" numeric(19,2),
-	"SoLuongToiThieu" numeric(19,2),
+	"SoLuong" int4,
+	"SoLuongToiDa" int4,
+	"SoLuongToiThieu" int4,
 	
 	PRIMARY KEY ("MaChiTietGoiNYP")
 	
@@ -279,7 +279,7 @@ CREATE TABLE "TaiKhoanNguoiDungHTTT"(
 
 CREATE TABLE "TaiKhoanThanhToan"(
 	"MaTaiKhoan" int4 NOT NULL,
-	"SoDu" numeric(19,2),
+	"SoDu" int4,
 	
 	PRIMARY KEY("MaTaiKhoan")
 );
@@ -290,7 +290,7 @@ CREATE TABLE "TaiKhoanThanhToan"(
 
 
 CREATE TABLE "TaiKhoanHTTT"(
-	"SoDu" numeric(19,2)
+	"SoDu" int4
 );
 
 -- ----------------------------

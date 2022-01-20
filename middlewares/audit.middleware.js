@@ -21,18 +21,28 @@ const auditMiddleware = async (req, res, next) => {
             return next();
           }
           if(req.originalUrl.indexOf('delete') > 0) {
-            const result = await managerModel(managerId, date, 'Chi tiết người liên quan', 'Xóa', '', `id = ${req.query.id}`);
+            const result = await managerModel(dataSet(managerId, date, 'Chi tiết người liên quan', 'Xóa', '', `id = ${req.query.id}`));
+            return next();
+          }
+          if(req.originalUrl.indexOf('change-status') > 0) {
+            const user = await userModel.get(req.query.userid);
+            const result = await managerModel.addHistory(dataSet(managerId, date, `Chi tiết người liên quan - id = ${req.body.id}`, 'Cập nhật', 'Trạng thái: ' +user.TrangThaiHienTai, `Trạng thái: ${req.query.status}`));
+            return next();
+          }
+          if(req.originalUrl.indexOf('change-treatment') > 0) {
+            const user = await userModel.get(req.query.userid);
+            const result = await managerModel.addHistory(dataSet(managerId, date, `Chi tiết người liên quan - id = ${req.body.id}`, 'Cập nhật', 'Mã nơi ĐTCL: ' +user.NoiDieuTri, `Mã nơi ĐTCL: ${req.query.treatmentid}`));
             return next();
           }
         }
         if(req.method === 'POST') {
-          if(req.originalUrl.indexOf('update') > 0) {
-            const user = await userModel.get(req.query.id);
-            const result = await managerModel.addHistory(managerId, date, `Chi tiết người liên quan - id = ${req.body.id}`, 'Cập nhật', JSON.stringify(user), JSON.stringify(req.body));
+          
+          if(req.originalUrl.indexOf('create') > 0) {
+            const result = await managerModel.addHistory(dataSet(managerId, date, 'Chi tiết người liên quan', 'Thêm mới', '', `CCCD/CMND: ${req.body.cccd}`));
             return next();
           }
-          if(req.originalUrl.indexOf('create') > 0) {
-            const result = await managerModel.addHistory(managerId, date, 'Chi tiết người liên quan', 'Thêm mới', '', `CCCD/CMND: ${req.body.cccd}`);
+          if(req.originalUrl.indexOf('upload') > 0) {
+            const result = await managerModel.addHistory(dataSet(managerId, date, 'Chi tiết người liên quan', 'Thêm mới', '', `File`));
             return next();
           }
           
@@ -48,19 +58,19 @@ const auditMiddleware = async (req, res, next) => {
             const result = await managerModel.addHistory(dataSet(managerId, date, `Chi tiết nhu yếu phẩm`, 'Xem', `id = ${req.query.id}`, `id = ${req.query.id}`));
             return next();
           }
-          if(req.originalUrl.indexOf('delete') > 0) {
-            const result = await managerModel.addHistory(managerId, date, 'Chi tiết nhu yếu phẩm', 'Xóa', '', `id = ${req.query.id}`);
-            return next();
-          }
+          // if(req.originalUrl.indexOf('delete') > 0) {
+          //   const result = await managerModel.addHistory(dataSet(managerId, date, 'Chi tiết nhu yếu phẩm', 'Xóa', '', `id = ${req.query.id}`));
+          //   return next();
+          // }
         }
         if(req.method === 'POST') {
           if(req.originalUrl.indexOf('update') > 0) {
             const product = await productModel.detail(req.query.id);
-            const result = await managerModel.addHistory(managerId, date, `Chi tiết nhu yếu phẩm - id = ${req.body.id}`, 'Cập nhật', JSON.stringify(product), JSON.stringify(req.body));
+            const result = await managerModel.addHistory(dataSet(managerId, date, `Chi tiết nhu yếu phẩm - id = ${req.body.id}`, 'Cập nhật', '', ''));
             return next();
           }
           if(req.originalUrl.indexOf('create') > 0) {
-            const result = await managerModel.addHistory(managerId, date, 'Chi tiết nhu yếu phẩm', 'Thêm mới', '', `Tên NYP: ${req.body.ten}`);
+            const result = await managerModel.addHistory(dataSet(managerId, date, 'Chi tiết nhu yếu phẩm', 'Thêm mới', '', ``));
             return next();
           }
         }
@@ -76,18 +86,18 @@ const auditMiddleware = async (req, res, next) => {
             return next();
           }
           if(req.originalUrl.indexOf('delete') > 0) {
-            const result = await managerModel.addHistory(managerId, date, 'Chi tiết gói nhu yếu phẩm', 'Xóa', '', `id = ${req.query.id}`);
+            const result = await managerModel.addHistory(dataSet(managerId, date, 'Chi tiết gói nhu yếu phẩm', 'Xóa', '', `id = ${req.query.id}`));
             return next();
           }
         }
         if(req.method === 'POST') {
           if(req.originalUrl.indexOf('update') > 0) {
-            const package = await packageModel.detail(req.query.id);
-            const result = await managerModel.addHistory(managerId, date, `Chi tiết gói nhu yếu phẩm - id = ${req.body.id}`, 'Cập nhật', JSON.stringify(package), JSON.stringify(req.body));
+            const package = await packageModel.detail(req.body.id);
+            const result = await managerModel.addHistory(dataSet(managerId, date, `Chi tiết gói nhu yếu phẩm - id = ${req.body.id}`, 'Cập nhật', '', ''));
             return next();
           }
           if(req.originalUrl.indexOf('create') > 0) {
-            const result = await managerModel.addHistory(managerId, date, 'Chi tiết gói nhu yếu phẩm', 'Thêm mới', '', `Tên gói NYP: ${req.body.TenGoiNYP}`);
+            const result = await managerModel.addHistory(dataSet(managerId, date, 'Chi tiết gói nhu yếu phẩm', 'Thêm mới', '', ``));
             return next();
           }
         }
@@ -107,13 +117,14 @@ const auditMiddleware = async (req, res, next) => {
       //   }
       //   if(req.method === 'POST') {
       //     if(req.originalUrl.indexOf('limit') > 0) {
-      //       const result = await managerModel.addHistory(managerId, date, `Chi tiết gói nhu yếu phẩm - id = ${req.body.id}`, 'Cập nhật', '', req.body.limit);
+      //       const result = await managerModel.addHistory(dataSet(managerId, date, `Chi tiết gói nhu yếu phẩm - id = ${req.body.id}`, 'Cập nhật', '', req.body.limit));
       //       return next();
       //     }
       //   }
       // }
 
     } catch (error) {
+      console.log(error);
       return next();
     }
   }
