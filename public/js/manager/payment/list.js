@@ -26,19 +26,18 @@ function reloadTable(items) {
     $("tbody").html("");
 
     items.forEach((element) => {
-        $("tbody").append(`
+      $("tbody").append(`
 <tr>
-  <td class="item-id">${element.MaGoiNYP}</td>
-  <td>${index}</td>
-  <td>${element.TenGoiNYP}</td>
-  <td>${element.NgayLapGoi}</td>
-  <td>${element.MucGioiHan}</td>
-  <td>${element.ThoiGianGioiHan}</td>
+  <td class="item-id">${element.MaNguoiLienQuan}</td>
+  <td>${element.MaNguoiLienQuan} </td>
+  <td>${element.HoTen}</td>
+  <td>${element.SoDuNo}</td>
+  <td>${element.TinhTrang}</td>
   <td>
-    <button type="button" class="btn btn-primary btn-info">Chi tiết</button>
+    <button type="button" class="btn btn-primary btn-info">Gửi Thông báo</button>
   </td>
 </tr>
   `);
-        index += 1;
+      index += 1;
     });
 }

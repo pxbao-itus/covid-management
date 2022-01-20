@@ -56,27 +56,67 @@ exports.detailPackage = async(value) => {
         return null;
     }
 }
-exports.updatePackage = async(package, details, value) => {
+exports.updatePackage = async(package, details, oldman, value) => {
     const table = new pgp.helpers.TableName({ table: GoiNYP, schema: schema });
     const detail = new pgp.helpers.TableName({ table: ChiTietGoiNYP, schema: schema });
     const condition = pgp.as.format(' WHERE "MaGoiNYP" = $1', [value]);
     const qStr = pgp.helpers.update(package, null, table) + condition + " RETURNING *";
+    // oldman = Object.entries(oldman);
+    console.log("-------OLD--------")
+    console.log(oldman)
+    oldman = Object.values(oldman)
+    console.log("-------OLD--------")
+
     try {
         const resultPackage = await db.one(qStr);
         if (details.length > 0) {
             for (const item of details) {
                 const entity = {
-                    MaGoiNYP: item.MaGoiNYP,
+                    MaGoiNYP: resultPackage.MaGoiNYP,
                     MaNYP: item.MaNYP,
                     SoLuong: item.SoLuong,
                     SoLuongToiDa: item.SoLuongToiDa,
                     SoLuongToiThieu: item.SoLuongToiThieu
                 }
-                const conditionDetail = pgp.as.format(' WHERE "MaChiTietGoiNYP" = $1', [item.MaChiTietGoiNYP]);
-                const qStrDetail = pgp.helpers.update(entity, null, detail) + conditionDetail + " RETURNING *";
+                let qStrDetail;
+
+                if (item.MaChiTietGoiNYP) {
+                    let IsFind = oldman.find(x => x.MaNYP == item.MaNYP);
+                    oldman.splice(oldman.indexOf(IsFind), 1);
+                    let conditionDetail = pgp.as.format(' WHERE "MaChiTietGoiNYP" = $1 ', [item.MaChiTietGoiNYP]);
+                    qStrDetail = pgp.helpers.update(entity, null, detail) + conditionDetail + " RETURNING *";
+                } else {
+                    qStrDetail = pgp.helpers.insert(entity, null, detail) + " RETURNING *";
+                }
+                console.log(qStrDetail)
                 const resultDetail = await db.one(qStrDetail);
             }
+
+            for (const item of oldman) {
+                const qStr = pgp.as.format('DELETE FROM $1 WHERE "MaChiTietGoiNYP" = $2', [detail, item.MaChiTietGoiNYP]);
+                const resultDetail = await db.none(qStr);
+
+            }
         }
+
+        // if (oldman.length > 0) {
+        //     for (let item of oldman) {
+        //         //item = item[0]
+        //         console.log("-------------------")
+        //         console.log(item.MaChiTietGoiNYP)
+
+        //         const entity = {
+        //             MaGoiNYP: resultPackage.MaGoiNYP,
+        //             MaNYP: item.MaNYP,
+        //             SoLuong: item.SoLuong,
+        //             SoLuongToiDa: item.SoLuongToiDa,
+        //             SoLuongToiThieu: item.SoLuongToiThieu
+        //         }
+
+
+        //     }
+        // }
+
         return true;
     } catch (error) {
         console.log(error);
@@ -102,6 +142,7 @@ exports.createPackage = async(package, details) => {
                     SoLuongToiDa: item.SoLuongToiDa,
                     SoLuongToiThieu: item.SoLuongToiThieu
                 }
+                console.log(entity)
                 const qStrDetail = pgp.helpers.insert(entity, null, detail) + "RETURNING *";
                 const resultDetail = await db.one(qStrDetail);
             }

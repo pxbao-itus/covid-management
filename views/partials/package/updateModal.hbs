@@ -48,34 +48,36 @@
   aria-hidden="true" style="z-index: 1060;">
   <div class="modal-dialog" role="document" style="position: absolute !important;">
     <div class="modal-content">
-            <form id="insert-form">
+      <form id="update-form">
 
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Thêm gói nhu yếu phẩm</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-sm-auto col-img">
-            <div class="container item-img-container">
-              <div class="row">
-                <div class="col-sm">
-                  <input type="file" id="input-id" name="image" accept="image/*">
-
-                </div>
-              </div>
-
-            </div>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Cập nhật gói nhu yếu phẩm</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
           </div>
-          <div class="col-sm col-info">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-auto col-img">
+                <div class="container item-img-container">
+                  <div class="row">
+                    <div class="col-sm">
+                      <input type="file" id="input-id" name="image" accept="image/*">
+
+                  </div>
+                  </div>
+
+              </div>
+              </div>
+              <div class="col-sm col-info">
               <div class="row">
                 <div class="col-sm">
                   <p class="font-weight-bold">Tên gói nhu yếu phẩm</p>
                 </div>
                 <div class="col-sm">
-                  <input type="text" class="form-control" required placeholder="Gói đồ dùng trẻ em" name="TenGoiNYP">
+                  <input type="text" class="form-control" required placeholder="Gói đồ dùng trẻ em" name="TenGoiNYP"
+                    value="{{package.package.TenGoiNYP}}">
+                  <input type="text" name="MaGoiNYP" value="{{package.package.MaGoiNYP}}">
                 </div>
               </div>
               <div class="mb-3"></div>
@@ -85,7 +87,8 @@
                   <p class="font-weight-bold">Mức giới hạn</p>
                 </div>
                 <div class="col-sm">
-                  <input type="number" class="form-control" required placeholder="1" name="MucGioiHan">
+                  <input type="number" value="{{package.package.MucGioiHan}}" class="form-control" required placeholder="1"
+                    name="MucGioiHan">
                 </div>
               </div>
               <div class="mb-3"></div>
@@ -94,33 +97,37 @@
                   <p class="font-weight-bold">Thời gian giới hạn </p>
                 </div>
                 <div class="col-sm">
-                  <input type="number" class="form-control" required placeholder="Ngày" name="ThoiGianGioiHan">
+                  <input type="number" value="{{package.package.ThoiGianGioiHan}}" class="form-control" required placeholder="Ngày"
+                    name="ThoiGianGioiHan">
                 </div>
               </div>
-          </div>
-          <div class="col-sm">
-            <div id="list-prod" data-spy="scroll" data-target="#navbar-example2" data-offset="10">
-              <div id="list-2">
-
-              </div>
-              <div class="card-product card-add-product" data-toggle="modal" data-target="#modal-insertProduct">
-                <img src="/img/plus.png">
-                Thêm sản phẩm mới
-              </div>
-
             </div>
+            <div class="col-sm">
+              <div id="list-prod" data-spy="scroll" data-target="#navbar-example2" data-offset="10">
+                <div id="list-2">
+
+                </div>
+                <div class="card-product card-add-product" data-toggle="modal" data-target="#modal-insertProduct">
+                  <img src="/img/plus.png">
+                  Thêm sản phẩm mới
+                </div>
+
+              </div>
+              </div>
           </div>
-          </div>
-          </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
-        <button type="submit" class="btn btn-primary">Cập nhật</button>
-      </div>
-            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+          <button type="submit" class="btn btn-primary">Cập nhật</button>
+        </div>
+        </form>
+      <p id="img1" style="display: none;">{{package.package.HinhAnh}}</p>
+      <p id="details" style="display: none;">{{package.details2}}</p>
 
     </div>
   </div>
-  </div>
+</div>
+
 <script>
   $('.card-add-product').on('click',function() {
     setInterval(() => {
@@ -128,25 +135,59 @@
     },40)
   })
 
-      $(function() {
+                                $(document).ready(function() {
+
+                                  $(".file-preview-thumbnails").css("overflow-x","scroll")
+                                  $(".file-preview-thumbnails").css("display","flex")
+                                  $(".file-input").css("width","25.5vw")
+                                  $(".fileinput-upload-button").css("display","none")
+                                })
+                              </script>
+                            
+                            {{> package/insertProductModal}}
+                            <script>
+
+                              var uploadedFile=[];
+                              var deletedFile=[];
+
+                              if(document.getElementById("img1").innerHTML)
+                                uploadedFile.push(document.getElementById("img1").innerHTML)
+                              var upfile=(uploadedFile)
         $("#input-id").fileinput({
-          enableResumableUpload: true,
-          maxFileCount: 1,
+          uploadUrl: '#',
+          initialPreview: [].concat(uploadedFile),
+          initialPreviewConfig: [].concat(upfile).map((x) => {return {key: x}}),
+          deleteUrl: '/manager/product/list',
+          maxTotalFileCount: 1,
           allowedFileTypes: ['image'],    // allow only images
           showCancel: true,
           initialPreviewAsData: true,
           overwriteInitial: false,
           theme: 'fas',
-        });
       });
 
       $(document).ready(function() {
 
-      $(".file-preview-thumbnails").css("overflow-x","scroll")
-      $(".file-preview-thumbnails").css("display","flex")
-      $(".file-input").css("width","25.5vw")
-      $(".fileinput-upload-button").css("display","none")
+        $('#input-id').on('filepredelete',function(event,key,jqXHR,data) {
+          uploadedFile.splice(uploadedFile.indexOf(key),1);
+          deletedFile.push(key)
+          console.log('filepredelete '+key)
+        });
     })
-    </script>
 
-{{> package/insertProductModal}}
+
+</script>
+{{!--
+$("#searchProduct").click(function() {
+let keyword=$("#form1").val();
+allproduct1=allproduct.filter(item => {
+return (item.TenNYP.toLowerCase().indexOf(keyword.toLowerCase())>=0);
+});
+reloadTableProduct(allproduct1)
+})
+
+      $('#update').on('click',function() {
+      productsToPackageTrue=productsToPackage;
+      reloadTableProductsOfPackage(productsToPackageTrue)
+      $("#close_insert").click();
+      }) --}}

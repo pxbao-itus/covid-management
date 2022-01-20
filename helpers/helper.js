@@ -22,7 +22,7 @@ module.exports = {
     var dd = String(value.getDate()).padStart(2, "0");
     var mm = String(value.getMonth() + 1).padStart(2, "0"); //January is 0!
     var yyyy = value.getFullYear();
-    return mm + "/" + dd + "/" + yyyy;
+    return dd + "/" + mm + "/" + yyyy;
   },
   formatTime(value) {
     return value.toLocaleString("vi");

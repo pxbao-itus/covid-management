@@ -37,7 +37,29 @@
   margin-top: 0.3rem;
 
 }
+
 /* === end - modal === */
+
+#content {
+  height: 90vh;
+  overflow: auto;
+}
+
+#content::-webkit-scrollbar {
+  width: 6px;
+}
+
+#content::-webkit-scrollbar-thumb {
+background: var(--gray);
+}
+
+tbody::-webkit-scrollbar {
+  width: 6px;
+}
+
+tbody::-webkit-scrollbar-thumb {
+background: var(--gray);
+}
 
 
 
