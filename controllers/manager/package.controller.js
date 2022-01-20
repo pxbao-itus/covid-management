@@ -11,7 +11,7 @@ packageRouter.get("/list", async(req, res) => {
     try {
         let result = await packageModel.list();
         for (let index = 0; index < result.length; index++) {
-            const response = await axios.get(`http://localhost:3000/api/package/detail?id=${result[index].MaGoiNYP}`);
+            const response = await axios.get(`/api/package/detail?id=${result[index].MaGoiNYP}`);
             result[index].Amount = response.data.details.length;
             result[index].Total = response.data.details.reduce((item1, item2) => {
                 return item1 + item2.DonGia * item2.SoLuong;
@@ -147,7 +147,7 @@ packageRouter.post("/list", async(req, res) => {
     try {
         let result = await packageModel.list();
         for (let index = 0; index < result.length; index++) {
-            const response = await axios.get(`http://localhost:3000/api/package/detail?id=${result[index].MaGoiNYP}`);
+            const response = await axios.get(`/api/package/detail?id=${result[index].MaGoiNYP}`);
             result[index].Amount = response.data.details.length;
             result[index].Total = response.data.details.reduce((item1, item2) => {
                 return item1 + item2.DonGia * item2.SoLuong;
