@@ -31,8 +31,8 @@ window.onload = async () => {
     $('#total').text(`Tổng tiền: ${formatCurrency(total)} đồng`);
 
     $('#buy').click( async (event) => {
-        const loan = await $.get('https://covid-management-21-22.herokuapp.com//api/get-loan');
-        const level = await $.get('https://covid-management-21-22.herokuapp.com//api/get-level');
+        const loan = await $.get('https://covid-management-21-22.herokuapp.com/api/get-loan');
+        const level = await $.get('https://covid-management-21-22.herokuapp.com/api/get-level');
         if((total + parseInt(loan.SoDuNo)) <= parseInt(level.HanMuc)) {
             const today = new Date();
             const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
