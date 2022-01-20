@@ -44,7 +44,6 @@ exports.updateManagerAccount = async (entity, value) => {
     const table = new pgp.helpers.TableName({table: TaiKhoanNguoiQuanLy, schema: schema});
     const condition = pgp.as.format(' WHERE "MaTaiKhoan" = $1', [value]);
     const qStr = pgp.helpers.update(entity, null, table) + condition + " RETURNING *";
-    console.log(qStr)
     try {
         const res = await db.one(qStr);
         return res;

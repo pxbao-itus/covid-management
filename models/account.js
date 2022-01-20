@@ -37,11 +37,12 @@ exports.getAccount = async (tbName, filedName, value) => {
 }
 exports.addAccount = async (tbName, entity) => {
     const table = new pgp.helpers.TableName({table: tbName, schema: schema});
-    const qStr = pgp.helpers.insert(entity, null, table) + "RETURNING *";
+    const qStr = pgp.helpers.insert(entity, null, table) + " RETURNING *";
     try {
         const res = await db.one(qStr);
         return res;
     } catch (error) {
+        console.log(error);
         return null;
     }
 }
