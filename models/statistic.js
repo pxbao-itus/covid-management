@@ -77,7 +77,8 @@ exports.loadPayment = async () => {
     const qStr = pgp.as.format(
         `SELECT CAST("ThoiGian" AS DATE),SUM("SoTien") AS "ThanhToan", SUM("SoDuNo") AS "DuNo"
             FROM $1
-            GROUP BY CAST("ThoiGian" AS DATE) `, [table_LSTT]);
+            GROUP BY CAST("ThoiGian" AS DATE)
+            ORDER BY CAST("ThoiGian" AS DATE) `, [table_LSTT]);
     try {
         const res = await db.any(qStr);
         return res;
