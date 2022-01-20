@@ -93,9 +93,6 @@ user.get("/list", async(req, res) => {
     resultPagination.totalPage = totalPage;
     resultPagination.currentPage = currentPage;
     resultPagination.data = data;
-
-    // console.log(users);
-    // console.log("-----------------------------------------------");
     return res.render("manager/user/list", {
         user: resultPagination.data,
         total: totalPage,
@@ -190,21 +187,11 @@ user.post("/list", async(req, res) => {
     resultPagination.totalPage = totalPage;
     resultPagination.currentPage = currentPage;
     resultPagination.data = data;
-
-    // console.log(users);
-    // console.log("-----------------------------------------------");
     res.send({
         totalPage: resultPagination.totalPage,
         resultPagnition: resultPagination.data,
         currentPage: currentPage,
     });
-
-    // res.render("manager/user/list", {
-    //     user: resultPagination.data,
-    //     total: totalPage,
-    //     currentPage: currentPage,
-    //     path: "/manager/user/list",
-    // });
 });
 
 function _calculateAge(birthday) {
@@ -298,8 +285,6 @@ user.post("/create", async(req, res) => {
 });
 user.post("/relation", async(req, res) => {
     res.clearCookie("createUser");
-    console.log(req.body)
-
     try {
         var dob = "";
         if (req.body.ngaysinh) {
@@ -315,7 +300,6 @@ user.post("/relation", async(req, res) => {
             TrangThaiHienTai: req.body.trangthaihientai,
             NoiDieuTri: req.body.noidieutri,
         };
-        console.log(entity)
 
         const result = await userModel.create(entity);
         const result1 = await userModel.addRelation({ NguoiLienQuan1: result.MaNguoiLienQuan, NguoiLienQuan2: req.body.MaNguoiLienQuan });
@@ -324,11 +308,10 @@ user.post("/relation", async(req, res) => {
         } else {
             res.cookie("createUser", "Thêm người liên quan covid không thành công.");
         }
-
-        console.log(result);
+        return res.send('success');
 
     } catch (error) {
-        return res.send('fuck');
+        return res.send('error');
 
     }
 });
@@ -346,10 +329,10 @@ user.post("/upload", upload.single('file'), async(req, res) => {
                 SoDienThoai: itemSplit.shift(),
                 TrangThaiHienTai: itemSplit.shift(),
                 NoiDieuTri: itemSplit.shift(),
-                DiaChi: itemSplit.join(', ').replace(/"/g,''),
+                DiaChi: itemSplit.join(', ').replace(/"/g, ''),
             };
             const result = await userModel.create(entity);
-        }           
+        }
         return res.render('admin/treatment/create', {
             layout: 'adminSidebar',
             title: 'Thêm mới người liên quan',

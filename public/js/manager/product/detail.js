@@ -24,8 +24,6 @@ $(document).ready(function() {
         let HinhAnh3 = document.getElementById("img3").innerHTML;
         let HinhAnh4 = document.getElementById("img4").innerHTML;
         var url = "/manager/product/update";
-        // console.log(uploadedFile)
-        // console.log(deletedFile)
         form.set('uploadedFile', uploadedFile)
         form.set('deletedFile', deletedFile)
         $.ajax({
@@ -33,7 +31,6 @@ $(document).ready(function() {
             url: url,
             data: form, // serializes the form's elements.
             success: function(data) {
-                //$('#contact').modal('hide');
                 window.location.reload()
 
                 alert("Thay đổi yếu phẩm thành công!"); // show response from the php script.

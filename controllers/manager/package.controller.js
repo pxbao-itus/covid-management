@@ -312,7 +312,6 @@ packageRouter.get("/list/ajax", async(req, res) => {
 });
 packageRouter.post("/delete", async(req, res) => {
     const MaGoiNYP = req.query.id;
-    console.log("Ma goi la:" + MaGoiNYP)
     try {
         const result = await packageModel.delete(MaGoiNYP);
         return res.send('success');
@@ -344,9 +343,9 @@ packageRouter.post("/update", upload.single('image'), async(req, res) => {
     oldman = JSON.parse(oldman);
     try {
         const uploader = async(path) => await cloudinary.uploads(path, 'Images');
-        const formatBufferTo64 = file => 
-            parser.format(path.extname(file.originalname).toString(), file.buffer);   
- 
+        const formatBufferTo64 = file =>
+            parser.format(path.extname(file.originalname).toString(), file.buffer);
+
         let image = {};
         if (req.file) {
             const file64 = formatBufferTo64(req.file);
@@ -382,7 +381,7 @@ packageRouter.post("/create", upload.single('image'), async(req, res) => {
     details = JSON.parse(details);
     try {
         const uploader = async(path) => await cloudinary.uploads(path, 'Images');
-        const formatBufferTo64 = file => 
+        const formatBufferTo64 = file =>
             parser.format(path.extname(file.originalname).toString(), file.buffer);
         const file64 = formatBufferTo64(req.file);
         const imageRes = await uploader(file64.content);
