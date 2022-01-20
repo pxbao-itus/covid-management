@@ -28,8 +28,8 @@ require("./config/handlebars.config")(app);
 
 // use middleware
 
-app.use(authMiddleware);
-app.use(auditMiddleware);
+//app.use(authMiddleware);
+//app.use(auditMiddleware);
 // use router
 
 

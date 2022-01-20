@@ -224,6 +224,7 @@ user.get("/list/ajax", async(req, res) => {
 });
 
 user.get("/detail", async(req, res) => {
+
     const MaNLQ = req.query.id;
     const detailInfo = await userModel.detail(MaNLQ);
 
@@ -293,6 +294,42 @@ user.post("/create", async(req, res) => {
     } catch (error) {
         console.log("Error: " + error);
         return res.redirect("/manager/user/list");
+    }
+});
+user.post("/relation", async(req, res) => {
+    res.clearCookie("createUser");
+    console.log(req.body)
+
+    try {
+        var dob = "";
+        if (req.body.ngaysinh) {
+            dob = req.body.ngaysinh.split("-").reverse().join("-");
+        }
+
+        const entity = {
+            HoTen: req.body.ten,
+            CCCD: req.body.cccd, // eh m
+            SoDienThoai: req.body.sdt,
+            NgaySinh: dob,
+            DiaChi: req.body.diachi,
+            TrangThaiHienTai: req.body.trangthaihientai,
+            NoiDieuTri: req.body.noidieutri,
+        };
+        console.log(entity)
+
+        const result = await userModel.create(entity);
+        const result1 = await userModel.addRelation({ NguoiLienQuan1: result.MaNguoiLienQuan, NguoiLienQuan2: req.body.MaNguoiLienQuan });
+        if (result) {
+            res.cookie("createUser", "Thêm người liên quan covid thành công.");
+        } else {
+            res.cookie("createUser", "Thêm người liên quan covid không thành công.");
+        }
+
+        console.log(result);
+
+    } catch (error) {
+        return res.send('fuck');
+
     }
 });
 

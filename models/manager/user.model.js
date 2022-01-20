@@ -1,43 +1,47 @@
 const db = require('../user');
 
-const tbUser='NguoiLienQuan';
-const tbHistoryManager='LichSuDuocQuanLy';
-const tbIsolationPlace='NoiDieuTriCachLy';
+const tbUser = 'NguoiLienQuan';
+const tbHistoryManager = 'LichSuDuocQuanLy';
+const tbIsolationPlace = 'NoiDieuTriCachLy';
+const moiLienHe = 'MoiLienHe';
 
 
 module.exports = {
-    list: async () => {
+    list: async() => {
         const res = await db.loadListUser();
         return res;
     },
-    detail: async (value) => {
+    addRelation: async(entity) => {
+        const res = await db.addRelation(entity);
+        return res;
+    },
+    detail: async(value) => {
         const res = await db.viewDetailUser(value);
         return res;
     },
-    update: async (entity, value) => {
+    update: async(entity, value) => {
         const res = await db.updateUser(entity, value);
         return res;
     },
 
-    create: async (entity) => {
+    create: async(entity) => {
         const res = await db.createUser(entity);
         return res;
     },
 
-    get: async (value) => {
-        const res = await db.loadProfile(value,tbUser);
+    get: async(value) => {
+        const res = await db.loadProfile(value, tbUser);
         return res;
     },
 
-    history: async (value) => {
-        const res = await db.loadHistory(value,tbHistoryManager);
+    history: async(value) => {
+        const res = await db.loadHistory(value, tbHistoryManager);
         return res;
     },
-    
-    place: async (value) => {
-        const res=await db.loadIsoPlace(value,tbIsolationPlace);
+
+    place: async(value) => {
+        const res = await db.loadIsoPlace(value, tbIsolationPlace);
         return res;
     },
 
 };
-

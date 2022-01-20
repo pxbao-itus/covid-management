@@ -13,6 +13,7 @@ $(document).ready(function() {
                         $("#noiDieuTriModal").html(iterator.TenNoiDTCL)
                     }
                     $("#noiDieuTri").append(`<option value="${iterator.MaNoiDTCL}">${iterator.TenNoiDTCL}</option>`);
+                    $("#noiDieuTri2").append(`<option value="${iterator.MaNoiDTCL}">${iterator.TenNoiDTCL}</option>`);
                 }
             }
         }
@@ -22,7 +23,29 @@ $(document).ready(function() {
         history.back();
     });
 
+
+
+    $("#idForm1").submit(function(e) {
+        e.preventDefault()
+        console.log('idForm1')
+
+        var form = $(this);
+        var url = "/manager/user/relation";
+        console.log(form.get('ten'))
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(), // serializes the form's elements.
+            success: function(data) {
+                alert(data); // show response from the php script.
+            }
+
+        });
+    });
+
     $("#statusIdForm").submit(function(e) {
+        console.log('statusIdForm')
 
         e.preventDefault(); // avoid to execute the actual submit of the form.
 
@@ -52,6 +75,7 @@ $(document).ready(function() {
 
 
     $("#placeIdForm").submit(function(e) {
+        console.log('placeIdForm')
 
         e.preventDefault(); // avoid to execute the actual submit of the form.
 
@@ -76,6 +100,7 @@ $(document).ready(function() {
     });
 
     $("#update-form").submit(function(e) {
+        console.log('update-form')
         var form = $(this);
         var url = "/manager/user/update";
 
@@ -90,6 +115,7 @@ $(document).ready(function() {
     });
 
     $("#delete-form").submit(function(e) {
+        console.log('delete-form')
         var form = $(this);
         var url = "/manager/user/delete";
 
