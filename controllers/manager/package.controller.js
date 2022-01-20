@@ -323,7 +323,6 @@ packageRouter.get("/detail", async(req, res) => {
     try {
         const result = await packageModel.detail(MaGoiNYP);
         if (result) {
-            console.log(result)
             return res.render("manager/package/detail", {
                 package: result,
                 path: "/manager/package/detail",

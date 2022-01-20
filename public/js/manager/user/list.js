@@ -1,20 +1,42 @@
 $(document).ready(function() {
+    var idNoiDieuTri = $("#noiDieuTriM").text();
+    $.ajax({
+        type: "GET",
+        url: "/api/treatmentAvailable",
+        success: function(data) {
+            if (data) {
+                for (const iterator of data) {
+                    if (iterator.MaNoiDTCL == idNoiDieuTri) {
+                        console.log(iterator.MaNoiDTCL)
+                        $("#noiDieuTriM").html(iterator.TenNoiDTCL)
+                        $("#noiDieuTriModal").html(iterator.TenNoiDTCL)
+                    }
+                    $("#noiDieuTri").append(`<option value="${iterator.MaNoiDTCL}">${iterator.TenNoiDTCL}</option>`);
+                }
+            }
+        }
+    });
     $('tbody').on('click', ".btn-info", function(e) {
         var id = $(e.target).parent().siblings(".item-id")[0].innerText;
         window.location.href = `/manager/user/detail?id=${id}`;
     });
 
     $("#insert-form").submit(function(e) {
-        var form = $(this);
+        var form = new FormData(this);
         var url = "/manager/user/create";
 
+        alert(form.get('trangthaihientai'))
         $.ajax({
             type: "POST",
             url: url,
-            data: form.serialize(), // serializes the form's elements.
+            data: form, // serializes the form's elements.
             success: function(data) {
                 alert(data); // show response from the php script.
             },
+            cache: false,
+            contentType: false,
+            processData: false,
+
         });
     });
 });

@@ -3,7 +3,7 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 <div class="modal fade" id="modal-insert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog" style="width:800px;max-width:800px ;" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">
@@ -28,26 +28,21 @@
                 <input type="text" required pattern="(^\w{3}[0-9]{6}$)|(^\w{1,2}[0-9]{7}$)|(^\d{9}$)|(^\d{12}$)" class="form-control"
                   id="exampleInputPassword1" placeholder="212845432" name="cccd" />
                 </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">
-                    Nơi điều trị
-                    </label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="212845432" name="noidieutri" />
-                    </div>
+                
 
               <div class="form-group">
                 <label for="exampleInputPassword1">
                   Ngày sinh
                 </label>
                 <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
-                  <input class="form-control" name="ngaysinh" readonly="" type="text" />
+                  <input class="form-control" required name="ngaysinh" readonly="" type="text" />
                   <span class="input-group-addon">
                     <i class="glyphicon glyphicon-calendar"></i>
                   </span>
                 </div>
               </div>
               <div class="btn-group">
-                <select name="trangthaihientai" class="custom-select" id="inputGroupSelect01">
+                <select name="trangthaihientai" style="width: 367px; !important" required class="custom-select" id="inputGroupSelect01">
                   <option selected>Trạng Thái</option>
                   <option value="F0">F0</option>
                   <option value="TuVong">Tử vong</option>
@@ -64,25 +59,20 @@
                       <label for="exampleInputPassword1">
                         Số điện thoại
                       </label>
-                      <input type="text" pattern="/(84|0[3|5|7|8|9])+([0-9]{8})\b/g" class="form-control" id="sdt"
+                      <input type="text" pattern="(84|0[3|5|7|8|9])+([0-9]{8})" class="form-control" id="sdt"
                         placeholder="055555-555" name="sdt" />
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">
-                        CCCD/CMND
+                        Địa chỉ
                       </label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" placeholder="212845432" name="cccd" />
+                      <input type="text" class="form-control" required placeholder="" name="diachi" />
                     </div>
+                    <label for="exampleInputPassword1">
+                      Nơi điều trị
+                    </label>
                     <div class="btn-group">
-                      <select name="trangthaihientai" class="custom-select" id="inputGroupSelect01">
-                        <option selected>Trạng Thái</option>
-                        <option value="F0">F0</option>
-                        <option value="TuVong">Tử vong</option>
-                        <option value="F1">F1</option>
-                        <option value="F2">F2</option>
-                        <option value="F3">F3</option>
-                        <option value="KhoiBenh">Khỏi bệnh</option>
-                        <option value="BinhThuong">Bình thường</option>
+                      <select name="noidieutri" style="width: 360px; !important" required class="custom-select" id="noiDieuTri">
                       </select>
                     </div>
                   </div>
@@ -110,16 +100,6 @@
 <script type="text/javascript">
               $(function() {
                 $("#datepicker").datepicker()
-              });
-              $("#sdt").blur(function() {
-                var input=$(this).val();
-                var regex=new RegExp("/(84|0[3|5|7|8|9])+([0-9]{8})\b/g");
-                if(regex.test(input)) {
-                  alert("true");
-                } else {
-                  alert("false");
-                  return false;
-                }
               });
 
               (function() {

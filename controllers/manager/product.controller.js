@@ -289,12 +289,12 @@ product.post("/create", upload.array("image"), async(req, res) => {
         // return res.redirect("/manager/product/create");
     }
 });
-product.post('/upload', upload.single('product'), async (req, res) => {
+product.post('/upload', upload.single('product'), async(req, res) => {
     try {
-        if(req.file) {
+        if (req.file) {
             fs.createReadStream(req.file.path)
                 .pipe(csv())
-                .on('data', async function(data){
+                .on('data', async function(data) {
                     try {
                         const entity = {
                             TenNYP: data.TenNYP,
@@ -306,13 +306,11 @@ product.post('/upload', upload.single('product'), async (req, res) => {
                             DonViDinhLuong: data.DonViDinhLuong
                         }
                         const result = await productModel.create(entity);
-                    }
-                    catch(err) {
+                    } catch (err) {
                         return res.send('fail');
                     }
                 })
-                .on('end',function(){                   
-                });
+                .on('end', function() {});
             return res.send('success');
         }
     } catch (error) {

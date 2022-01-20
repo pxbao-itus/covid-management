@@ -3,7 +3,7 @@ const userModel = require('../../models/manager/user.model');
 const paymentModel = require('../../models/manager/payment.model');
 const user = require("../manager/user.controller");
 const jwt = require("jsonwebtoken");
-
+require('dotenv').config();
 userRouter.get("/profile", async (req, res) => {
   const userId = req.session.passport.user.NguoiLienQuan;
   const username = req.session.passport.user.Username;
@@ -107,7 +107,7 @@ userRouter.get("/payment-system", (req, res) => {
     };
     const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET);
     res.cookie("accessToken", accessToken, { maxAge: 1000 * 60 * 10 });
-    return res.redirect("https://localhost:3005/signin");
+    return res.redirect(`${process.env.URL_REDIRECT}${process.env.PAYMENT_PORT}/signin`);
   }
 });
 module.exports = userRouter;
