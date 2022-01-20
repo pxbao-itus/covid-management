@@ -1,6 +1,7 @@
 const db = require('../payment');
 
 const tbName = "QuanLyThanhToan";
+const QLTT = "QuanLyThanhToan";
 
 module.exports = {
   updateLimit: async (entity) => {
@@ -34,6 +35,16 @@ module.exports = {
 
   recharge: async (entity, value) => {
     const res = await db.rechargeMoney(entity, value);
+    return res;
+  },
+
+  listPayment: async () => {
+    const res = await db.listPayment();
+    return res;
+  },
+
+  getLimit: async () => {
+    const res = await db.getLimit(QLTT);
     return res;
   },
 };

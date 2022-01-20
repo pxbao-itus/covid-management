@@ -3,7 +3,6 @@
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-
       <div class="modal-header" style="background-color: #494CA2;">
         <h5 class="modal-title text-white" id="exampleModalLabel">Tuỳ chỉnh</h5>
         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
@@ -16,7 +15,8 @@
             <form id="change-limit-form" action="/manager/payment/change-limit" method="post">
                 <div class="form-group">
                   <label for="minimum-limit" class="font-weight-bold">Hạn mức thanh toán tối thiểu</label>
-                  <input id="minimum-limit" name="minimumLimit" type="number" class="form-control"  placeholder="Nhập hạn mức muốn thay đổi" required="" autofocus="" />
+                  <small id="msg" class="form-text text-danger"></small>
+                  <input id="minimum-limit" min="0" max="100000000" name="minimumLimit" type="number" class="form-control mt-2"  placeholder="Nhập hạn mức muốn thay đổi" required="" autofocus="" />
                   <small class="form-text text-muted mt-2">Thông tin hạn mức thay đổi sẽ áp dụng cho tất cả tài khoản.</small>
                 </div>
             </form>
