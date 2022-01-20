@@ -39,29 +39,18 @@ managerRouter.get('/create', (req, res) => {
 managerRouter.post('/create',upload.single('file'), async(req, res) => {
     try {
         if(req.file) {
-            fs.createReadStream(req.file.path)
-                .pipe(csv())
-                .on('data', async function(data){
-                    try {
-                        const Password = await bcrypt.hash(data.password, saltRounds);
-                        const entity = {
-                            Username: data.username,
-                            Password: Password,
-                            TrangThai: 1
-                        }
-                        const result = await managerModel.create(entity);
-                    }
-                    catch(err) {
-                        return res.render('admin/managerCreate', {
-                            layout: 'adminSidebar',
-                            title: 'Tạo tài khoản người quản lý',
-                            path: 'create',
-                            msg: 'Tạo tài khoản không thành công',
-                        })
-                    }
-                })
-                .on('end',function(){                   
-                });
+             const accounts = req.file.buffer.toLocaleString().split(`\r\n`);
+             accounts.pop();
+             for (const item of accounts) {
+                const itemSplit = item.split(',');
+                const Password = await bcrypt.hash(itemSplit[1], saltRounds);
+                const entity = {
+                    Username: itemSplit[0],
+                    Password: Password,
+                    TrangThai: 1
+                }
+                const result = await managerModel.create(entity);
+             }          
             return res.render('admin/managerCreate', {
                 layout: 'adminSidebar',
                 title: 'Tạo tài khoản người quản lý',

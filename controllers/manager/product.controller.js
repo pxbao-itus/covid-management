@@ -2,8 +2,10 @@ const product = require("express").Router();
 const cloudinary = require('../../config/cloudinary.config');
 const upload = require('../../config/multer.config');
 const productModel = require("../../models/manager/product.model");
-const csv = require('csv-parser');
-const fs = require('fs');
+const DatauriParser = require('datauri/parser');
+const path = require('path');
+const parser = new DatauriParser();
+
 
 product.get("/list", async(req, res) => {
     try {
@@ -216,29 +218,22 @@ product.post("/detail", async(req, res) => {
 product.post("/update", upload.array("image"), async(req, res) => {
     try {
         const uploader = async(path) => await cloudinary.uploads(path, 'Images');
-        let fileUpload = [];
+        const formatBufferTo64 = file => 
+            parser.format(path.extname(file.originalname).toString(), file.buffer);
+        let fileUpload = [];     
         for (const file of req.files) {
-            const imageRes = await uploader(file.path);
+            const file64 = formatBufferTo64(file);
+            const imageRes = await uploader(file64.content);
             fileUpload.push(imageRes.url);
         }
         let images = {};
         let uploadedFile = req.body.uploadedFile.split(',');
 
-        // if (fileUpload.length >= 1) {
         images.HinhAnh1 = fileUpload[0] ? fileUpload[0] : uploadedFile[3];
         images.HinhAnh2 = fileUpload[1] ? fileUpload[1] : uploadedFile[2];
         images.HinhAnh3 = fileUpload[2] ? fileUpload[2] : uploadedFile[1];
         images.HinhAnh4 = fileUpload[3] ? fileUpload[3] : uploadedFile[0];
-        // }
-        // if (fileUpload.length >= 2) {
-        //     images.HinhAnh2 = fileUpload[1];
-        // }
-        // if (fileUpload.length >= 3) {
-        //     images.HinhAnh3 = fileUpload[2];
-        // }
-        // if (fileUpload.length >= 4) {
-        //     images.HinhAnh4 = fileUpload[3];
-        // }
+
         const entity = {
             TenNYP: req.body.TenNYP,
             ...images,
@@ -246,11 +241,10 @@ product.post("/update", upload.array("image"), async(req, res) => {
             DonViDinhLuong: req.body.DonViDinhLuong,
         };
         const result = await productModel.update(entity, req.body.id);
-        //return res.redirect(`/manager/product/detail?id=${req.body.id}`);
         return res.send(result);
     } catch (error) {
         console.log(error)
-            //return res.redirect(`/manager/product/detail?id=${req.body.id}`);
+        return res.send(null);
     }
 });
 product.get("/create", async(req, res) => {
@@ -263,9 +257,12 @@ product.get("/create", async(req, res) => {
 product.post("/create", upload.array("image"), async(req, res) => {
     try {
         const uploader = async(path) => await cloudinary.uploads(path, 'Images');
-        let fileUpload = [];
+        const formatBufferTo64 = file => 
+            parser.format(path.extname(file.originalname).toString(), file.buffer);
+        let fileUpload = [];     
         for (const file of req.files) {
-            const imageRes = await uploader(file.path);
+            const file64 = formatBufferTo64(file);
+            const imageRes = await uploader(file64.content);
             fileUpload.push(imageRes.url);
         }
         const entity = {
@@ -283,34 +280,31 @@ product.post("/create", upload.array("image"), async(req, res) => {
         } else {
             res.cookie("createProduct", "Thêm nhu yếu phẩm không thành công.");
         }
-        res.send(result)
+        return res.send(result)
             // return res.redirect("/manager/product/create");
     } catch (error) {
+        return res.send(null);
         // return res.redirect("/manager/product/create");
     }
 });
 product.post('/upload', upload.single('product'), async(req, res) => {
     try {
         if (req.file) {
-            fs.createReadStream(req.file.path)
-                .pipe(csv())
-                .on('data', async function(data) {
-                    try {
-                        const entity = {
-                            TenNYP: data.TenNYP,
-                            HinhAnh1: data.HinhAnh1,
-                            HinhAnh2: data.HinhAnh2,
-                            HinhAnh3: data.HinhAnh3,
-                            HinhAnh4: data.HinhAnh4,
-                            DonGia: data.DonGia,
-                            DonViDinhLuong: data.DonViDinhLuong
-                        }
-                        const result = await productModel.create(entity);
-                    } catch (err) {
-                        return res.send('fail');
-                    }
-                })
-                .on('end', function() {});
+            const products = req.file.buffer.toLocaleString().split(`\r\n`);
+            products.pop();
+             for (const item of products) {
+                const itemSplit = item.split(',');
+                const entity = {
+                    TenNYP: itemSplit.shift(),
+                    HinhAnh1: itemSplit.shift(),
+                    HinhAnh2: itemSplit.shift(),
+                    HinhAnh3: itemSplit.shift(),
+                    HinhAnh4: itemSplit.shift(),
+                    DonGia: itemSplit.shift(),
+                    DonViDinhLuong: itemSplit.shift(),
+                }
+                const result = await productModel.create(entity);
+             }             
             return res.send('success');
         }
     } catch (error) {

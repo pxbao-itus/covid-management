@@ -103,30 +103,19 @@ treatmentRouter.get('/create', (req, res) => {
 treatmentRouter.post("/create", upload.single('file'), async (req, res) => {
   try {
     if(req.file) {
-      fs.createReadStream(req.file.path)
-        .pipe(csv())
-        .on('data', async function(data){
-          try {
-            const entity = {
-              TenNoiDTCL: data.TenNoiDTCL,
-              SucChua: data.SucChua,
-              SoLuongHienTai: data.SoLuongHienTai,
-              DiaChi: data.DiaChi,
-              Loai: data.Loai,
-            };
-            const result = await treatmentModel.add(entity);
-          }
-          catch(err) {
-            return res.render('admin/treatment/create', {
-              layout: 'adminSidebar',
-              title: 'Thêm mới điểm điều trị, cách ly',
-              path: 'createTreatment',
-              msg: 'Thêm mới không thành công!'
-            });
-          }
-        })
-        .on('end',function(){                   
-        });
+      const treatments = req.file.buffer.toLocaleString().split(`\r\n`);
+      treatments.pop();
+        for (const item of treatments) {
+          const itemSplit = item.split(',');
+          const entity = {
+            TenNoiDTCL: itemSplit.shift(),
+            SucChua: itemSplit.shift(),
+            SoLuongHienTai: itemSplit.shift(),
+            Loai: itemSplit.shift(),
+            DiaChi: itemSplit.join(', ').replace(/"/g,''),
+          };
+          const result = await treatmentModel.add(entity);
+        }    
       return res.render('admin/treatment/create', {
         layout: 'adminSidebar',
         title: 'Thêm mới điểm điều trị, cách ly',
