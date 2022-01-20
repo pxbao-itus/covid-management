@@ -12,22 +12,16 @@ const SDN = 'SoDuNo';
 const TKND = 'TaiKhoanNguoiDungHTTT';
 const TKTT = 'TaiKhoanThanhToan';
 
-exports.updateLimit = async (entity) => {
-    const table_TKQL = new pgp.helpers.TableName({ table: TKQL, schema: schema });
-    const qStr_Id = pgp.as.format('SELECT "MaTaiKhoan" FROM $1 WHERE "Username" = CURRENT_USER', table_TKQL);
-    var today = new Date();
-    entity.ThoiGianCapNhat = today;
-
-    try {
-        const id = await db.one(qStr_Id);
-        entity.NguoiCapNhat = id.MaTaiKhoan;
-        const qStr_update = pgp.helpers.update(entity, null, QuanLyThanhToan) + " RETURNING *";
-        const res = await db.one(qStr_update)
-        return res;
-    } catch (error) {
-        console.log(error);
-    }
-}
+exports.updateLimit = async (entity, tbName) => {
+  const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
+  const qStr = pgp.helpers.insert(entity, null, table) + "RETURNING *";
+  try {
+    const res = await db.one(qStr);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // exports.acceptPayment = async (arrayId) => {
 //     const table_LSTT = new pgp.helpers.TableName({ table: LSTT, schema: schema });

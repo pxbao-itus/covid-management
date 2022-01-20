@@ -7,23 +7,25 @@ payment.get("/list", (req, res) => {
   });
 });
 
-payment.get("/change-limit", (req, res) => {
-  res.send("Man Hinh Thay Doi Dinh Muc");
-});
-
 payment.post("/change-limit", async (req, res) => {
-  // const limitUpdated = req.body.limit;
-  try {
-    const entity = {
-      HanMuc: limitUpdated.hanmuc,
-    };
-    const result = await paymentModel.update(entity);
-    res.send(result);
-    // return res.redirect(`/manager/user/detail?id=${userUpdated.id}`);
-  } catch (error) {
-    // return res.redirect(`/manager/user/detail?id=${userUpdated.id}`);
-    res.send(error);
+  if (req.body.minimumLimit) {
+    try {
+      const entity = {
+        ThoiGianCapNhat: new Date(),
+        HanMuc: req.body.minimumLimit,
+        NguoiCapNhat: req.session.passport.user.MaTaiKhoan,
+      };
+      const result = await paymentModel.updateLimit(entity);
+
+      return res.redirect("/manager/payment/list");
+
+      // return res.redirect(`/manager/user/detail?id=${userUpdated.id}`);
+    } catch (error) {
+      console.log("Error: " + error);
+      return res.redirect(`/manager/payment/list`);
+    }
   }
+  // const limitUpdated = req.body.limit;
 });
 
 payment.post("/accept-payment", async (req, res) => {

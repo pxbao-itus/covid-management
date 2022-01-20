@@ -4,65 +4,31 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
 
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tuỳ chỉnh</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <div class="modal-header" style="background-color: #494CA2;">
+        <h5 class="modal-title text-white" id="exampleModalLabel">Tuỳ chỉnh</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-sm col-form">
-            <form action="#">
-              <div class="row mb-4">
-                <div class="col-8">
-                  <p class="font-weight-bold">Số ngày miễn lãi tín dụng</p>
+            <form id="change-limit-form" action="/manager/payment/change-limit" method="post">
+                <div class="form-group">
+                  <label for="minimum-limit" class="font-weight-bold">Hạn mức thanh toán tối thiểu</label>
+                  <input id="minimum-limit" name="minimumLimit" type="number" class="form-control"  placeholder="Nhập hạn mức muốn thay đổi" required="" autofocus="" />
+                  <small class="form-text text-muted mt-2">Thông tin hạn mức thay đổi sẽ áp dụng cho tất cả tài khoản.</small>
                 </div>
-                <div class="col-4">
-                  <div class="group-btn-number">
-                    <div style=" display: inline-block; ">
-                      <div class="input-group input-group-spinner group-incr-decr">
-                        <div class="input-group-prepend">
-                          <button class="btn btn-decrement btn-outline-secondary" type="button">-</button>
-                        </div>
-                        <input class="input" value="45">
-                        <div class="input-group-append">
-                          <button class="btn btn-increment btn-outline-secondary" type="button">+</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-8">
-                  <p class="font-weight-bold">Hạn mức thanh toán tối thiểu</p>
-                </div>
-                <div class="col-4">
-                  <div class="group-btn-number">
-                    <div style=" display: inline-block; ">
-                      <div class="input-group input-group-spinner group-incr-decr">
-                        <div class="input-group-prepend">
-                          <button class="btn btn-decrement btn-outline-secondary" type="button">-</button>
-                        </div>
-                        <input class="input" value="3%">
-                        <div class="input-group-append">
-                          <button class="btn btn-increment btn-outline-secondary" type="button">+</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </form>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
-        <button type="button" class="btn btn-primary">Cập nhật</button>
+        <button type="button" class="btn btn-secondary px-4" data-dismiss="modal">Đóng</button>
+        <button type="button" id="change-limit-btn" style="background-color: #494CA2;" class="btn text-white">Cập nhật</button>
       </div>
-
     </div>
   </div>
 </div>
+
+<script src="/js/manager/payment/change-limit.js"></script>
