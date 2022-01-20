@@ -76,8 +76,7 @@
                 </div>
                 <div class="col-sm">
                   <input type="text" class="form-control" required placeholder="Gói đồ dùng trẻ em" name="TenGoiNYP"
-                    value="{{package.package.TenGoiNYP}}">
-                  <input type="text" name="MaGoiNYP" value="{{package.package.MaGoiNYP}}">
+                    value="{{package.package.TenGoiNYP}}">                 
                 </div>
               </div>
               <div class="mb-3"></div>
@@ -135,24 +134,24 @@
     },40)
   })
 
-                                $(document).ready(function() {
+        $(document).ready(function() {
 
-                                  $(".file-preview-thumbnails").css("overflow-x","scroll")
-                                  $(".file-preview-thumbnails").css("display","flex")
-                                  $(".file-input").css("width","25.5vw")
-                                  $(".fileinput-upload-button").css("display","none")
-                                })
-                              </script>
-                            
-                            {{> package/insertProductModal}}
-                            <script>
+          $(".file-preview-thumbnails").css("overflow-x","scroll")
+          $(".file-preview-thumbnails").css("display","flex")
+          $(".file-input").css("width","25.5vw")
+          $(".fileinput-upload-button").css("display","none")
+        })
+      </script>
+    
+    {{> package/insertProductModal}}
+    <script>
 
-                              var uploadedFile=[];
-                              var deletedFile=[];
+      var uploadedFile=[];
+      var deletedFile=[];
 
-                              if(document.getElementById("img1").innerHTML)
-                                uploadedFile.push(document.getElementById("img1").innerHTML)
-                              var upfile=(uploadedFile)
+      if(document.getElementById("img1").innerHTML)
+        uploadedFile.push(document.getElementById("img1").innerHTML)
+      var upfile=(uploadedFile)
         $("#input-id").fileinput({
           uploadUrl: '#',
           initialPreview: [].concat(uploadedFile),

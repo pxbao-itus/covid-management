@@ -53,9 +53,6 @@
 </style>
 <script>
     $("#cards ").on("click",".card-box",function(e) {
-
-        console.log('ngu')
-
         if($(this).hasClass("selected")) {
             $(this).removeClass("selected")
             productsToPackage.splice(productsToPackage.indexOf($(this).attr('value')),1);

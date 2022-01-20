@@ -47,7 +47,7 @@ managerRouter.post('/create',upload.single('file'), async(req, res) => {
                 const entity = {
                     Username: itemSplit[0],
                     Password: Password,
-                    TrangThai: 1
+                    TrangThai: 0
                 }
                 const result = await managerModel.create(entity);
              }          
@@ -63,7 +63,7 @@ managerRouter.post('/create',upload.single('file'), async(req, res) => {
         const entity = {
             Username: req.body.username,
             Password: Password,
-            TrangThai: 1
+            TrangThai: 0
         }
         const result = await managerModel.create(entity);
         if(result) {
