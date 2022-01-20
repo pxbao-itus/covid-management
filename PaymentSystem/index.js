@@ -36,6 +36,8 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.use("/change-password", require("./controllers/change-password"));
+
 app.use("/signin", require("./controllers/signin"));
 
 app.use("/payment", require("./controllers/payment"));

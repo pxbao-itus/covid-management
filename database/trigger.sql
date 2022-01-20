@@ -551,3 +551,36 @@ CREATE TRIGGER trigger_SoDuMacDinhHTTT_insert
   FOR EACH ROW
 
   EXECUTE PROCEDURE f_SoDuMacDinhTKHTTTNguoiDung_insert();
+  
+  
+            -------------------------------
+  --- Trigger tu dong them tai khoan nguoi dung HTTT khi them nguoi lien quan
+  --------------------------------
+CREATE OR REPLACE FUNCTION f_ThemTaiKhoanNguoiDungHTTT_insert()
+
+  RETURNS trigger AS
+
+$$
+BEGIN
+	
+	INSERT INTO "TaiKhoanNguoiDungHTTT"("MaTaiKhoan","Username","Password","TrangThai")
+	VALUES(NEW."MaNguoiLienQuan",NEW."CCCD",'$2a$10$9aNN.bAk8JV2cN0iMgl2dOA6M7FN8VAJHIpdzZaHa8uQUBBD4GExK',0);
+RETURN NEW;
+
+END;
+
+$$
+LANGUAGE 'plpgsql';
+
+
+
+DROP TRIGGER IF EXISTS trigger_ThemTaiKhoanNguoiDungHTTT_insert ON "NguoiLienQuan";
+CREATE TRIGGER trigger_ThemTaiKhoanNguoiDungHTTT_insert
+
+  AFTER INSERT
+
+  ON "NguoiLienQuan"
+
+  FOR EACH ROW
+
+  EXECUTE PROCEDURE f_ThemTaiKhoanNguoiDungHTTT_insert();

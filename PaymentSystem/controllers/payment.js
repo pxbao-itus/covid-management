@@ -10,14 +10,14 @@ paymentRouter.get("/", async (req, res) => {
       console.log("Error : " + error);
     }
   } else {
-    const userInfor = req.session.userInfor;
-    const paymentLoan = await paymentModel.getLoan(userInfor.userId);
+    const userInfo = req.session.userInfo;
+    const paymentLoan = await paymentModel.getLoan(userInfo.userId);
     const accountPayment = await accountPaymentModel.getBalance(
-      userInfor.userId
+      userInfo.userId
     );
     const balance = parseInt(accountPayment.SoDu);
     const loan = parseInt(paymentLoan.SoDuNo);
-    var username = userInfor.username;
+    var username = userInfo.username;
     return res.render("paymentLoan", {
       data: { loan: loan, balance: balance },
       username: username,
@@ -26,26 +26,36 @@ paymentRouter.get("/", async (req, res) => {
 });
 
 paymentRouter.post("/", async (req, res) => {
+  const userInfo = req.session.userInfo;
   if (req.cookies.paymentSignin !== "on") {
     return res.redirect("/payment/signin");
   } else {
-    const paymentLoan = await paymentModel.getLoan(req.signedCookies["userId"]);
+    const paymentMethod = req.body.payment;
+    let money = 0;
+    if (paymentMethod === "payAll") {
+      money = parseInt((await paymentModel.getLoan(userInfo.userId)).SoDuNo);
+    } else if (paymentMethod === "payPart") {
+      money = parseInt(req.body.money);
+    } else {
+      return render("/payment", {
+        title: "Thanh toán dư nợ",
+        path: "/payment",
+      });
+    }
+    const paymentLoan = await paymentModel.getLoan(userInfo.userId);
     const accountPayment = await accountPaymentModel.getBalance(
-      req.signedCookies["userId"]
+      userInfo.userId
     );
     var balance = parseInt(accountPayment.SoDu);
     var loan = parseInt(paymentLoan.SoDuNo);
-    const money = parseInt(req.body.money);
-    const userId = req.signedCookies["userId"];
-    const username = req.signedCookies["user"];
     var today = new Date();
     const entity = {
-      NguoiLienQuan: userId,
+      NguoiLienQuan: userInfo.userId,
       ThoiGian: today,
       SoTien: money,
     };
     try {
-      const result = await paymentModel.create(entity, username);
+      const result = await paymentModel.create(entity, userInfo.username);
       var msg = "";
       if (result) {
         balance -= result.SoTien;
@@ -53,13 +63,15 @@ paymentRouter.post("/", async (req, res) => {
         msg = "Thanh toán thành công";
         return res.render("paymentLoan", {
           msg: msg,
-          data: { paymentLoan: true, loan: loan, balance: balance },
+          data: { loan: loan, balance: balance },
+          username: userInfo.username,
         });
       } else {
         msg = "Thanh toán thất bại";
         return res.render("paymentLoan", {
           error: msg,
-          data: { paymentLoan: true, loan: loan, balance: balance },
+          data: { loan: loan, balance: balance },
+          username: userInfo.username,
         });
       }
     } catch (error) {
@@ -81,7 +93,7 @@ paymentRouter.get("/input-money", async (req, res) => {
   } else {
     return res.render("inputMoney", {
       data: { inputMoney: true },
-      username: req.session.userInfor.username,
+      username: req.session.userInfo.username,
     });
   }
 });
@@ -91,21 +103,21 @@ paymentRouter.post("/input-money", async (req, res) => {
     return res.redirect("/payment/signin");
   } else {
     const paymentInserted = req.body;
-    const userInfor = req.session.userInfor;
+    const userInfo = req.session.userInfo;
     const entity = {
       SoDu: paymentInserted.money,
     };
     try {
-      const result = await paymentModel.recharge(entity, userInfor.userId);
+      const result = await paymentModel.recharge(entity, userInfo.userId);
       if (result) {
         res.render("inputMoney", {
-          username: userInfor.username,
+          username: userInfo.username,
           data: { inputMoney: true },
           msg: "Nạp tiền thành công",
         });
       } else {
         res.render("inputMoney", {
-          username: userInfor.username,
+          username: userInfo.username,
           data: { inputMoney: true },
           error: "Nạp tiền không thành công",
         });
