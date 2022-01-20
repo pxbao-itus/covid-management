@@ -13,46 +13,82 @@
       </div>
       <div class="modal-body">
         <form id="idForm">
-          <div class="form-group">
-            <label for="exampleInputEmail1">
-              Họ và tên
-            </label>
-            <input type="text" class="form-control" id="exampleInputEmail1" name="ten" placeholder="Nguyễn Văn A" />
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">
-              CCCD/CMND
-            </label>
-            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="212845432" name="cccd" />
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">
-              nơi điều trị
-            </label>
-            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="212845432" name="noidieutri" />
-          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="exampleInputEmail1">
+                  Họ và tên
+                </label>
+                <input type="text" required class="form-control" id="exampleInputEmail1" name="ten" placeholder="Nguyễn Văn A" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">
+                    CCCD/CMND
+                  </label>
+                <input type="text" required pattern="(^\w{3}[0-9]{6}$)|(^\w{1,2}[0-9]{7}$)|(^\d{9}$)|(^\d{12}$)" class="form-control"
+                  id="exampleInputPassword1" placeholder="212845432" name="cccd" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">
+                    Nơi điều trị
+                    </label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="212845432" name="noidieutri" />
+                    </div>
 
-          <div class="form-group">
-            <label for="exampleInputPassword1">
-              Ngày sinh
-            </label>
-            <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
-              <input class="form-control" name="ngaysinh" readonly="" type="text" />
-              <span class="input-group-addon">
-                <i class="glyphicon glyphicon-calendar"></i>
-              </span>
-            </div>
-          </div>
-          <div class="btn-group">
-            <select name="trangthaihientai" class="custom-select" id="inputGroupSelect01">
-              <option selected>Trạng Thái</option>
-              <option value="F0">F0</option>
-              <option value="F1">F1</option>
-              <option value="F2">F2</option>
-              <option value="F3">F3</option>
-            </select>
-          </div>
-          </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">
+                  Ngày sinh
+                </label>
+                <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
+                  <input class="form-control" name="ngaysinh" readonly="" type="text" />
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="btn-group">
+                <select name="trangthaihientai" class="custom-select" id="inputGroupSelect01">
+                  <option selected>Trạng Thái</option>
+                  <option value="F0">F0</option>
+                  <option value="TuVong">Tử vong</option>
+                  <option value="F1">F1</option>
+                  <option value="F2">F2</option>
+                  <option value="F3">F3</option>
+                  <option value="KhoiBenh">Khỏi bệnh</option>
+                  <option value="BinhThuong">Bình thường</option>
+                  </select>
+                  </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">
+                        Số điện thoại
+                      </label>
+                      <input type="text" pattern="/(84|0[3|5|7|8|9])+([0-9]{8})\b/g" class="form-control" id="sdt"
+                        placeholder="055555-555" name="sdt" />
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">
+                        CCCD/CMND
+                      </label>
+                      <input type="text" class="form-control" id="exampleInputPassword1" placeholder="212845432" name="cccd" />
+                    </div>
+                    <div class="btn-group">
+                      <select name="trangthaihientai" class="custom-select" id="inputGroupSelect01">
+                        <option selected>Trạng Thái</option>
+                        <option value="F0">F0</option>
+                        <option value="TuVong">Tử vong</option>
+                        <option value="F1">F1</option>
+                        <option value="F2">F2</option>
+                        <option value="F3">F3</option>
+                        <option value="KhoiBenh">Khỏi bệnh</option>
+                        <option value="BinhThuong">Bình thường</option>
+                      </select>
+                    </div>
+                  </div>
+                  </div>
+
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">
           Hủy
@@ -62,17 +98,42 @@
         </button>
       </div>
       </form>
-      </div>
-      </div>
-      </div>
+    </div>
+    </div>
+    </div>
 </div>
 <script>
-                    $('#myModal').on('shown.bs.modal',function() {
+              $('#myModal').on('shown.bs.modal',function() {
       $('#myInput').trigger('focus')
   });
 </script>
 <script type="text/javascript">
-                    $(function() {
-                      $("#datepicker").datepicker()
-                    });
+              $(function() {
+                $("#datepicker").datepicker()
+              });
+              $("#sdt").blur(function() {
+                var input=$(this).val();
+                var regex=new RegExp("/(84|0[3|5|7|8|9])+([0-9]{8})\b/g");
+                if(regex.test(input)) {
+                  alert("true");
+                } else {
+                  alert("false");
+                  return false;
+                }
+              });
+
+              (function() {
+                var forms=document.querySelectorAll('#idForm')
+                Array.prototype.slice.call(forms)
+                  .forEach(function(form) {
+                    form.addEventListener('submit',function(event) {
+                      if(!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                      }
+
+                      form.classList.add('was-validated')
+                    },false)
+                  })
+              })()
 </script>

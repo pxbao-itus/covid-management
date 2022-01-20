@@ -28,8 +28,8 @@ require("./config/handlebars.config")(app);
 
 // use middleware
 
-app.use(authMiddleware);
-app.use(auditMiddleware);
+//app.use(authMiddleware);
+//app.use(auditMiddleware);
 // use router
 
 
@@ -47,26 +47,26 @@ app.use("/manager/user", require("./controllers/manager/user.controller"));
 
 // router for product
 app.use(
-  "/manager/product", 
-  require("./controllers/manager/product.controller")
+    "/manager/product",
+    require("./controllers/manager/product.controller")
 );
 
 // router for package
 app.use(
-  "/manager/package", 
-  require("./controllers/manager/package.controller")
+    "/manager/package",
+    require("./controllers/manager/package.controller")
 );
 
 // router for statistic
 app.use(
-  "/manager/statistic",
-  require("./controllers/manager/statistic.controller")
+    "/manager/statistic",
+    require("./controllers/manager/statistic.controller")
 );
 
 // router for payment
 app.use(
-  "/manager/payment",
-  require("./controllers/manager/payment.controller")
+    "/manager/payment",
+    require("./controllers/manager/payment.controller")
 );
 
 //------------------- Router for admin
@@ -75,8 +75,8 @@ app.use("/admin/manager", require("./controllers/admin/manager.controller"));
 
 // router for manage treatment place
 app.use(
-  "/admin/treatment",
-  require("./controllers/admin/treatment.controller")
+    "/admin/treatment",
+    require("./controllers/admin/treatment.controller")
 );
 
 // ------------------ Router for user
