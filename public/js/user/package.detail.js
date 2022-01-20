@@ -63,7 +63,7 @@ window.onload = async () => {
         } catch (error) {
             console.log(error);
             alert('Mua gói nhu yếu phẩm không thành công!');
-            e.preventDefault();
+            event.preventDefault();
         }
         
         
