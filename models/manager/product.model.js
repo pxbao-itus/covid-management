@@ -1,7 +1,7 @@
 const db = require('../product');
 
 module.exports = {
-    list: async () => {
+    list: async() => {
         const res = await db.listProduct();
         return res;
     },
@@ -9,19 +9,19 @@ module.exports = {
         const res = await db.deleteProduct(value);
         return res;
     },
-    detail: async (value) => {
+    detail: async(value) => {
         const res = await db.detailProduct(value);
-        if(res.length > 0) {
+        if (res.length > 0) {
             return res[0];
         } else {
             return null;
         }
     },
-    update: async (entity, value) => {
+    update: async(entity, value) => {
         const res = await db.updateProduct(entity, value);
         return res;
     },
-    create: async (entity) => {
+    create: async(entity) => {
         const res = await db.createProduct(entity);
         return res;
     }

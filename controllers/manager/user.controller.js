@@ -32,6 +32,7 @@ user.get("/list", async(req, res) => {
                 item.HoTen.toLowerCase().indexOf(req.query.search.toLowerCase()) >= 0
             );
         });
+        return users;
     }
 
     if (req.query.sort) {
@@ -95,7 +96,7 @@ user.get("/list", async(req, res) => {
 
     // console.log(users);
     // console.log("-----------------------------------------------");
-    res.render("manager/user/list", {
+    return res.render("manager/user/list", {
         user: resultPagination.data,
         total: totalPage,
         currentPage: currentPage,
@@ -196,7 +197,7 @@ user.post("/list", async(req, res) => {
         totalPage: resultPagination.totalPage,
         resultPagnition: resultPagination.data,
         currentPage: currentPage,
-    })
+    });
 
     // res.render("manager/user/list", {
     //     user: resultPagination.data,
@@ -265,15 +266,21 @@ user.get("/create", async(req, res) => {
 user.post("/create", async(req, res) => {
     res.clearCookie("createUser");
     try {
+        var dob = "";
+        if (req.body.ngaysinh) {
+            dob = req.body.ngaysinh.split("-").reverse().join("-");
+        }
+
         const entity = {
             HoTen: req.body.ten,
             CCCD: req.body.cccd,
             SoDienThoai: req.body.sdt,
-            NgaySinh: req.body.ngaysinh,
+            NgaySinh: dob,
             DiaChi: req.body.diachi,
             TrangThaiHienTai: req.body.trangthaihientai,
             NoiDieuTri: req.body.noidieutri,
         };
+
         const result = await userModel.create(entity);
         if (result) {
             res.cookie("createUser", "Thêm người liên quan covid thành công.");
@@ -281,40 +288,46 @@ user.post("/create", async(req, res) => {
             res.cookie("createUser", "Thêm người liên quan covid không thành công.");
         }
 
-
         res.send(result);
+
     } catch (error) {
-        return res.redirect("/manager/user/create");
+        console.log("Error: " + error);
+        return res.redirect("/manager/user/list");
     }
 });
-user.post('/upload', upload.single('user'), async (req, res) => {
-    try {
-        if(req.file) {
-            fs.createReadStream(req.file.path)
-                .pipe(csv())
-                .on('data', async function(data){
-                    try {
-                        const entity = {
-                            HoTen: data.HoTen,
-                            CCCD: data.CCCD,
-                            NgaySinh: data.NgaySinh,
-                            DiaChi: data.DiaChi,
-                            SoDienThoai: data.SoDienThoai,
-                            TrangThaiHienTai: data.TrangThaiHienTai,
-                            NoiDieuTri: data.NoiDieuTri
-                        }
-                        const result = await userModel.create(entity);
-                    }
-                    catch(err) {
-                        return res.send('fail');
-                    }
-                })
-                .on('end',function(){                   
-                });
-            return res.send('success');
-        }
-    } catch (error) {
-        return res.send('fail');
+
+user.post("/upload", upload.single('file'), async(req, res) => {
+    if (req.file) {
+        fs.createReadStream(req.file.path)
+            .pipe(csv())
+            .on('data', async function(data) {
+                try {
+                    const entity = {
+                        HoTen: data.HoTen,
+                        CCCD: data.CCCD,
+                        NgaySinh: data.NgaySinh,
+                        DiaChi: data.DiaChi,
+                        SoDienThoai: data.SoDienThoai,
+                        TrangThaiHienTai: data.TrangThaiHienTai,
+                        NoiDieuTri: data.NoiDieuTri,
+                    };
+                    const result = await userModel.create(entity);
+                } catch (err) {
+                    console.log(err)
+                        //return res.render('admin/treatment/create');
+                }
+            })
+            .on('end', function() {});
+        return res.render('admin/treatment/create', {
+            layout: 'adminSidebar',
+            title: 'Thêm mới người liên quan',
+            path: 'createTreatment',
+            msg: 'Thêm người liên quan thành công!',
+            status: 1
+        });
     }
-})
+
+});
+
+
 module.exports = user;

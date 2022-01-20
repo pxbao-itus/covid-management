@@ -3,7 +3,7 @@ $(document).ready(function() {
     var idNoiDieuTri = $("#noiDieuTriM").text();
     $.ajax({
         type: "GET",
-        url: "/api/treatment",
+        url: "/api/treatmentAvailable",
         success: function(data) {
             if (data) {
                 for (const iterator of data) {
