@@ -9,9 +9,9 @@ const cn = {
   password: process.env.PASSWORD,
   port: process.env.PORT_DATABASE,
   max: 20,
-  // ssl: {
-  //     rejectUnauthorized : false,
-  // }
+  ssl: {
+      rejectUnauthorized : false,
+  }
 };
 const db =  pgp(cn);
 
