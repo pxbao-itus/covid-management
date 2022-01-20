@@ -335,26 +335,21 @@ user.post("/relation", async(req, res) => {
 
 user.post("/upload", upload.single('file'), async(req, res) => {
     if (req.file) {
-        fs.createReadStream(req.file.path)
-            .pipe(csv())
-            .on('data', async function(data) {
-                try {
-                    const entity = {
-                        HoTen: data.HoTen,
-                        CCCD: data.CCCD,
-                        NgaySinh: data.NgaySinh,
-                        DiaChi: data.DiaChi,
-                        SoDienThoai: data.SoDienThoai,
-                        TrangThaiHienTai: data.TrangThaiHienTai,
-                        NoiDieuTri: data.NoiDieuTri,
-                    };
-                    const result = await userModel.create(entity);
-                } catch (err) {
-                    console.log(err)
-                        //return res.render('admin/treatment/create');
-                }
-            })
-            .on('end', function() {});
+        const users = req.file.buffer.toLocaleString().split(`\r\n`);
+        users.pop();
+        for (const item of users) {
+            const itemSplit = item.split(',');
+            const entity = {
+                HoTen: itemSplit.shift(),
+                CCCD: itemSplit.shift(),
+                NgaySinh: itemSplit.shift(),
+                SoDienThoai: itemSplit.shift(),
+                TrangThaiHienTai: itemSplit.shift(),
+                NoiDieuTri: itemSplit.shift(),
+                DiaChi: itemSplit.join(', ').replace(/"/g,''),
+            };
+            const result = await userModel.create(entity);
+        }           
         return res.render('admin/treatment/create', {
             layout: 'adminSidebar',
             title: 'Thêm mới người liên quan',

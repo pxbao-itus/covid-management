@@ -3,7 +3,9 @@ const axios = require('axios');
 const packageModel = require("../../models/manager/package.model");
 const cloudinary = require('../../config/cloudinary.config');
 const upload = require('../../config/multer.config');
-
+const DatauriParser = require('datauri/parser');
+const path = require('path');
+const parser = new DatauriParser();
 
 packageRouter.get("/list", async(req, res) => {
     try {
@@ -342,9 +344,13 @@ packageRouter.post("/update", upload.single('image'), async(req, res) => {
     oldman = JSON.parse(oldman);
     try {
         const uploader = async(path) => await cloudinary.uploads(path, 'Images');
+        const formatBufferTo64 = file => 
+            parser.format(path.extname(file.originalname).toString(), file.buffer);   
+ 
         let image = {};
         if (req.file) {
-            const imageRes = await uploader(req.file.path);
+            const file64 = formatBufferTo64(req.file);
+            const imageRes = await uploader(file64.content);
             image.HinhAnh = imageRes.url;
         }
         const packageFull = {
@@ -376,8 +382,10 @@ packageRouter.post("/create", upload.single('image'), async(req, res) => {
     details = JSON.parse(details);
     try {
         const uploader = async(path) => await cloudinary.uploads(path, 'Images');
-
-        const imageRes = await uploader(req.file.path);
+        const formatBufferTo64 = file => 
+            parser.format(path.extname(file.originalname).toString(), file.buffer);
+        const file64 = formatBufferTo64(req.file);
+        const imageRes = await uploader(file64.content);
         const packageFull = {
             ...package,
             HinhAnh: imageRes.url
