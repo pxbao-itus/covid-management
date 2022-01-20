@@ -4,7 +4,7 @@ const addressModel = require('../models/api/address.model');
 const productModel = require('../models/api/product.model');
 const treatmentModel = require('../models/api/treatment.model');
 const packageModel = require('../models/manager/package.model');
-const userModel=require('../models/manager/user.model');
+const userModel = require('../models/manager/user.model');
 const orderModel = require('../models/user/order.model');
 // api get all province
 apiRouter.get('/province', async(req, res) => {
@@ -50,7 +50,7 @@ apiRouter.get('/ward', async(req, res) => {
 
 // api get province, district, ward by id
 
-apiRouter.get('/get/province', async (req, res) => {
+apiRouter.get('/get/province', async(req, res) => {
     try {
         const province = await addressModel.getProvince(req.query.provinceId);
         return res.send(province);
@@ -59,7 +59,7 @@ apiRouter.get('/get/province', async (req, res) => {
     }
 })
 
-apiRouter.get('/get/district', async (req, res) => {
+apiRouter.get('/get/district', async(req, res) => {
     try {
         const district = await addressModel.getDistrict(req.query.districtId);
         return res.send(district);
@@ -68,19 +68,41 @@ apiRouter.get('/get/district', async (req, res) => {
     }
 })
 
-apiRouter.get('/get/ward', async (req, res) => {
-    try {
-        const ward = await addressModel.getWard(req.query.wardId);
-        return res.send(ward);
-    } catch (error) {
-        return res.send(null);
-    }
-})
-// api get all treatment available
-apiRouter.get('/treatment', async(req, res) => {
+apiRouter.get('/get/ward', async(req, res) => {
+        try {
+            const ward = await addressModel.getWard(req.query.wardId);
+            return res.send(ward);
+        } catch (error) {
+            return res.send(null);
+        }
+    })
+    //api get all treatment available
+apiRouter.get('/treatmentAvailable', async(req, res) => {
     try {
         let result = await treatmentModel.list();
         if (result) {
+            result = result.sort((item1, item2) => {
+                return item1.MaNoiDTCL - item2.MaNoiDTCL;
+            })
+            return res.status(200).json(result);
+        } else {
+            throw 'can not connect database';
+        }
+    } catch (error) {
+        return res.status(400).json([]);
+    }
+})
+apiRouter.get('/treatment', async(req, res) => {
+    try {
+        rs = []
+        let result = await treatmentModel.list();
+        if (result) {
+            for (const iterator of result) {
+                if (iterator.SucChua != iterator.SoLuongHienTai) {
+                    rs.push(iterator)
+                }
+            }
+            result = rs
             result = result.sort((item1, item2) => {
                 return item1.MaNoiDTCL - item2.MaNoiDTCL;
             })
@@ -134,69 +156,69 @@ apiRouter.get('/manager/user/change-status', async(req, res) => {
             TrangThaiHienTai: req.query.status
         }
         const result = await userModel.update(entity, req.query.userid);
-        return res.status(200).json({msg: "success"});
+        return res.status(200).json({ msg: "success" });
     } catch (error) {
-        return res.status(400).json({msg: "fail"});
+        return res.status(400).json({ msg: "fail" });
     }
 })
-apiRouter.get('/manager/user/change-treatment', async (req, res) => {
+apiRouter.get('/manager/user/change-treatment', async(req, res) => {
     try {
         const entity = {
             NoiDieuTri: req.query.treatmentid
         }
         const result = await userModel.update(entity, req.query.userid);
-        return res.status(200).json({msg: "success"});
+        return res.status(200).json({ msg: "success" });
     } catch (error) {
-        return res.status(400).json({msg: "fail"});
+        return res.status(400).json({ msg: "fail" });
     }
 })
 
 // api get all user list
-apiRouter.get("/user", async (req, res) => {
-  try {
-    const result = await userModel.list();
-    return res.status(200).json(result);
-  } catch (error) {
-    return res.status(400).json([]);
-  }
+apiRouter.get("/user", async(req, res) => {
+    try {
+        const result = await userModel.list();
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(400).json([]);
+    }
 });
 
 // api get detail of user by id
-apiRouter.get("/user/detail", async (req, res) => {
-  try {
-    const result = await userModel.detail(req.query.id);
-    return res.status(200).json(result);
-  } catch (error) {
-    return res.status(400).json([]);
-  }
+apiRouter.get("/user/detail", async(req, res) => {
+    try {
+        const result = await userModel.detail(req.query.id);
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(400).json([]);
+    }
 });
 
 
-apiRouter.get('/get-loan', async (req, res) => {
+apiRouter.get('/get-loan', async(req, res) => {
     try {
         const userId = req.user.userId;
         const loan = await orderModel.getLoan(userId);
-        if(loan) {
-            return res.status(200).send({SoDuNo: loan.SoDuNo});
+        if (loan) {
+            return res.status(200).send({ SoDuNo: loan.SoDuNo });
         } else {
-            return res.status(200).send({SoDuNo: 0});
+            return res.status(200).send({ SoDuNo: 0 });
         }
     } catch (error) {
         console.log(error)
-        return res.status(200).send({SoDuNo: 0});
+        return res.status(200).send({ SoDuNo: 0 });
     }
 })
-apiRouter.get('/get-level', async (req, res) => {
+apiRouter.get('/get-level', async(req, res) => {
     try {
         const level = await orderModel.getLevel();
-        if(level) {
-            return res.status(200).send({HanMuc: level.HanMuc});
+        if (level) {
+            return res.status(200).send({ HanMuc: level.HanMuc });
         } else {
-            return res.status(200).send({HanMuc: 0});
+            return res.status(200).send({ HanMuc: 0 });
         }
     } catch (error) {
         console.log(error)
-        return res.status(200).send({HanMuc: 0});
+        return res.status(200).send({ HanMuc: 0 });
     }
 })
 

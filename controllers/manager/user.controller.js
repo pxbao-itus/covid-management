@@ -287,12 +287,12 @@ user.post("/create", async(req, res) => {
         return res.redirect("/manager/user/create");
     }
 });
-user.post('/upload', upload.single('user'), async (req, res) => {
+user.post('/upload', upload.single('user'), async(req, res) => {
     try {
-        if(req.file) {
+        if (req.file) {
             fs.createReadStream(req.file.path)
                 .pipe(csv())
-                .on('data', async function(data){
+                .on('data', async function(data) {
                     try {
                         const entity = {
                             HoTen: data.HoTen,
@@ -304,13 +304,11 @@ user.post('/upload', upload.single('user'), async (req, res) => {
                             NoiDieuTri: data.NoiDieuTri
                         }
                         const result = await userModel.create(entity);
-                    }
-                    catch(err) {
+                    } catch (err) {
                         return res.send('fail');
                     }
                 })
-                .on('end',function(){                   
-                });
+                .on('end', function() {});
             return res.send('success');
         }
     } catch (error) {
