@@ -1,4 +1,3 @@
-
 require('dotenv').config();
 const pgp = require('pg-promise')()
 
@@ -13,6 +12,6 @@ const cn = {
       rejectUnauthorized : false,
   }
 };
-const db =  pgp(cn);
+const db = pgp(cn);
 
 module.exports = db;

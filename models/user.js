@@ -8,8 +8,19 @@ const schema = 'public';
 const NLQ = 'NguoiLienQuan';
 const MLH = 'MoiLienHe';
 const LichSuDuocQuanLy = 'LichSuDuocQuanLy';
-
-exports.loadListUser = async () => {
+const moiLienHe = 'MoiLienHe';
+exports.addRelation = async(entity) => {
+    const table = new pgp.helpers.TableName({ table: moiLienHe, schema: schema });
+    const qStr1 = pgp.helpers.insert(entity, null, table) + "RETURNING *";
+    try {
+        const res = await db.any(qStr1);
+        return res;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+exports.loadListUser = async() => {
     const table = new pgp.helpers.TableName({ table: NLQ, schema: schema });
     const qStr = pgp.as.format('SELECT * FROM $1', table);
     try {
@@ -20,17 +31,24 @@ exports.loadListUser = async () => {
         return null;
     }
 }
-
 exports.viewDetailUser = async id => {
     var userDetail = {};
     const table_NLQ = new pgp.helpers.TableName({ table: NLQ, schema: schema });
     const table_MLH = new pgp.helpers.TableName({ table: MLH, schema: schema });
     const table_LichSuDuocQuanLy = new pgp.helpers.TableName({ table: LichSuDuocQuanLy, schema: schema });
     const qrs_NguoiLienQuan = pgp.as.format(`SELECT * FROM $1 WHERE "MaNguoiLienQuan" = ${id}`, table_NLQ);
-    const qrs_NguoiLienDoi = pgp.as.format(`SELECT "NguoiLienQuan2" "MaNguoiLienQuan" ,NLQ."HoTen",NLQ."CCCD",NLQ
+    //     const qrs_NguoiLienDoi = pgp.as.format(`
+    //     SELECT "NguoiLienQuan2" "MaNguoiLienQuan" ,NLQ."HoTen",NLQ."CCCD",NLQ
+    //    ."SoDienThoai",NLQ."NgaySinh",NLQ."DiaChi",NLQ."TrangThaiHienTai",NLQ."NoiDieuTri" 
+    //    FROM $1 MLH INNER JOIN $2 NLQ 
+    //    ON NLQ."MaNguoiLienQuan" = MLH."NguoiLienQuan2" WHERE MLH."NguoiLienQuan1" =  ${id} ;
+    const qrs_NguoiLienDoi = pgp.as.format(`
+    SELECT "NguoiLienQuan2" "MaNguoiLienQuan" ,NLQ."HoTen",NLQ."CCCD",NLQ
    ."SoDienThoai",NLQ."NgaySinh",NLQ."DiaChi",NLQ."TrangThaiHienTai",NLQ."NoiDieuTri" 
-   FROM $1 MLH INNER JOIN $2 NLQ 
-   ON NLQ."MaNguoiLienQuan" = MLH."NguoiLienQuan2" WHERE MLH."NguoiLienQuan1" =  ${id};
+   FROM $1 MLH , $2 NLQ 
+    WHERE (MLH."NguoiLienQuan1" =  ${id} and NLQ."MaNguoiLienQuan" = MLH."NguoiLienQuan2")
+    or (MLH."NguoiLienQuan2" =  ${id} and NLQ."MaNguoiLienQuan" = MLH."NguoiLienQuan1") ;
+   
     `, [table_MLH, table_NLQ]);
     const qrs_LichSuDuocQuanLy = pgp.as.format(`SELECT * FROM $1 WHERE "NguoiLienQuan" = ${id}`, table_LichSuDuocQuanLy);
     try {
@@ -70,7 +88,7 @@ exports.createUser = async(entity) => {
     }
 }
 
-exports.loadProfile = async (value,tbName) => {
+exports.loadProfile = async(value, tbName) => {
     const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
     const qStr = pgp.as.format(`SELECT * FROM $1 WHERE "MaNguoiLienQuan" = $2`, [table, value]);
     try {
@@ -81,7 +99,7 @@ exports.loadProfile = async (value,tbName) => {
         return null;
     }
 };
-exports.loadHistory = async (value,tbName) => {
+exports.loadHistory = async(value, tbName) => {
     const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
     const qStr = pgp.as.format(`SELECT * FROM $1 WHERE "NguoiLienQuan" = $2`, [table, value]);
     try {
@@ -93,15 +111,14 @@ exports.loadHistory = async (value,tbName) => {
     }
 };
 
-exports.loadIsoPlace=async (value,tbName) => {
-    const table=new pgp.helpers.TableName({table: tbName,schema: schema});
-    const qStr=pgp.as.format(`SELECT * FROM $1 WHERE "MaNoiDTCL" = $2`,[table,value]);
+exports.loadIsoPlace = async(value, tbName) => {
+    const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
+    const qStr = pgp.as.format(`SELECT * FROM $1 WHERE "MaNoiDTCL" = $2`, [table, value]);
     try {
-        const res=await db.one(qStr);
+        const res = await db.one(qStr);
         return res;
-    } catch(error) {
+    } catch (error) {
         console.log(error);
         return null;
     }
 };
-
