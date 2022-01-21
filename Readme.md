@@ -4,10 +4,6 @@
 - Manage people related to covid, support users to buy food during covid treatment and isolation. Manage treatment and isolation sites.
 2. Hosting
 - Project is deployed on Heroku: [https://covid-management-21-22.herokuapp.com]
-- Account for testing: 
-    - Admin: admin - 123123
-    - Manager: tkql_01 - 123456
-    - User: 070200006301 - 01012000 
 
 ## Clone and start project
 - `npm install`
